@@ -42,11 +42,8 @@ for (let i = 0; i < 100; i++) {
 
 
 /* =========================
-   COUNTDOWN
+   COUNTDOWN + AUDIO
 ========================= */
-
-const countdownSound =
-    new Audio("countdown.mp3");
 
 let number = 10;
 
@@ -56,16 +53,34 @@ const countdown =
 const countNumber =
     document.getElementById("number");
 
+const birthdayMusic =
+    document.getElementById("birthdayMusic");
+
+const countdownMusic =
+    document.getElementById("countdownMusic");
+
+/* Piano mulai saat halaman dibuka */
+birthdayMusic.volume = 0.7;
+
+birthdayMusic.play().catch(() => {
+    /* Chrome bisa menahan autoplay sampai ada interaksi */
+});
+
+
+/* Countdown mulai */
 const timer = setInterval(() => {
 
-    countdownSound.currentTime = 0;
-    countdownSound.play().catch(() => {});
-
     number--;
+
+    /* Putar suara countdown setiap angka */
+    countdownMusic.currentTime = 0;
+    countdownMusic.play().catch(() => {});
 
     if (number <= 0) {
 
         clearInterval(timer);
+
+        countdownMusic.pause();
 
         countdown.style.display = "none";
 
@@ -78,7 +93,6 @@ const timer = setInterval(() => {
     }
 
 }, 1000);
-
 /* =========================
    HAPPY BIRTHDAY REVEAL
 ========================= */

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
@@ -22,7 +22,7 @@ body {
     font-family: Arial, sans-serif;
     overflow-x: hidden;
 }
-    
+
 /* =========================
    COUNTDOWN
 ========================= */
@@ -181,7 +181,9 @@ body {
     color: #ffd0a3;
 }
 
-/* FIREWORKS */
+/* =========================
+   FIREWORKS
+========================= */
 
 .firework {
     position: absolute;
@@ -214,20 +216,40 @@ body {
     transform: rotate(90deg);
 }
 
-.f1 { left: 15%; top: 25%; }
-.f2 { right: 15%; top: 20%; animation-delay: .5s; }
-.f3 { left: 25%; bottom: 20%; animation-delay: 1s; }
-.f4 { right: 25%; bottom: 25%; animation-delay: 1.4s; }
+.f1 {
+    left: 15%;
+    top: 25%;
+}
+
+.f2 {
+    right: 15%;
+    top: 20%;
+    animation-delay: .5s;
+}
+
+.f3 {
+    left: 25%;
+    bottom: 20%;
+    animation-delay: 1s;
+}
+
+.f4 {
+    right: 25%;
+    bottom: 25%;
+    animation-delay: 1.4s;
+}
 
 @keyframes boom {
     0%, 100% {
         transform: scale(.2);
         opacity: 0;
     }
+
     40% {
         transform: scale(1);
         opacity: 1;
     }
+
     70% {
         transform: scale(1.5);
         opacity: .7;
@@ -338,35 +360,82 @@ body {
     opacity: 0;
 }
 
-.tool:nth-child(1) { animation: fly1 2s forwards; }
-.tool:nth-child(2) { animation: fly2 2s forwards; }
-.tool:nth-child(3) { animation: fly3 2s forwards; }
-.tool:nth-child(4) { animation: fly4 2s forwards; }
-.tool:nth-child(5) { animation: fly5 2s forwards; }
-.tool:nth-child(6) { animation: fly6 2s forwards; }
+.tool:nth-child(1) {
+    animation: fly1 2s forwards;
+}
+
+.tool:nth-child(2) {
+    animation: fly2 2s forwards;
+}
+
+.tool:nth-child(3) {
+    animation: fly3 2s forwards;
+}
+
+.tool:nth-child(4) {
+    animation: fly4 2s forwards;
+}
+
+.tool:nth-child(5) {
+    animation: fly5 2s forwards;
+}
+
+.tool:nth-child(6) {
+    animation: fly6 2s forwards;
+}
 
 @keyframes fly1 {
-    to { transform: translate(-220px, -180px) rotate(360deg); opacity: 1; }
+    to {
+        transform:
+            translate(-220px, -180px)
+            rotate(360deg);
+        opacity: 1;
+    }
 }
 
 @keyframes fly2 {
-    to { transform: translate(220px, -150px) rotate(-360deg); opacity: 1; }
+    to {
+        transform:
+            translate(220px, -150px)
+            rotate(-360deg);
+        opacity: 1;
+    }
 }
 
 @keyframes fly3 {
-    to { transform: translate(-250px, 150px) rotate(300deg); opacity: 1; }
+    to {
+        transform:
+            translate(-250px, 150px)
+            rotate(300deg);
+        opacity: 1;
+    }
 }
 
 @keyframes fly4 {
-    to { transform: translate(240px, 170px) rotate(-300deg); opacity: 1; }
+    to {
+        transform:
+            translate(240px, 170px)
+            rotate(-300deg);
+        opacity: 1;
+    }
 }
 
 @keyframes fly5 {
-    to { transform: translate(-120px, 230px) rotate(250deg); opacity: 1; }
+    to {
+        transform:
+            translate(-120px, 230px)
+            rotate(250deg);
+        opacity: 1;
+    }
 }
 
 @keyframes fly6 {
-    to { transform: translate(130px, -230px) rotate(-250deg); opacity: 1; }
+    to {
+        transform:
+            translate(130px, -230px)
+            rotate(-250deg);
+        opacity: 1;
+    }
 }
 
 /* =========================
@@ -376,8 +445,6 @@ body {
 #main {
     display: none;
 }
-
-/* HERO */
 
 .hero {
     min-height: 100vh;
@@ -424,7 +491,9 @@ body {
     }
 }
 
-/* GENERAL SECTIONS */
+/* =========================
+   SECTIONS
+========================= */
 
 .section {
     min-height: 100vh;
@@ -452,7 +521,9 @@ body {
     text-shadow: 0 0 20px #ff6500;
 }
 
-/* PHOTO */
+/* =========================
+   PHOTO
+========================= */
 
 .photo {
     width: min(350px, 90%);
@@ -468,7 +539,9 @@ body {
     display: block;
 }
 
-/* TKR */
+/* =========================
+   TKR
+========================= */
 
 .tkr-card {
     padding: 35px;
@@ -489,7 +562,30 @@ body {
     }
 }
 
-/* LETTER */
+/* =========================
+   SPOTIFY
+========================= */
+
+.spotify-subtitle {
+    color: #aaa;
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+.spotify-player {
+    width: min(650px, 100%);
+    margin: 30px auto 0;
+}
+
+.spotify-player iframe {
+    width: 100%;
+    border: none;
+    border-radius: 12px;
+}
+
+/* =========================
+   LETTER
+========================= */
 
 .letter {
     padding: 35px;
@@ -500,7 +596,9 @@ body {
     line-height: 1.9;
 }
 
-/* NOTIFICATION */
+/* =========================
+   NOTIFICATION
+========================= */
 
 .notification {
     position: fixed;
@@ -541,13 +639,16 @@ body {
         transform: translateY(-100px);
         opacity: 0;
     }
+
     to {
         transform: translateY(0);
         opacity: 1;
     }
 }
 
-/* END */
+/* =========================
+   END
+========================= */
 
 .end {
     min-height: 100vh;
@@ -569,23 +670,38 @@ body {
     margin-top: 20px;
     color: #ffd0a3;
 }
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    .title {
+        font-size: 32px;
+    }
+
+    .tkr-card,
+    .letter {
+        padding: 25px 20px;
+    }
+
+    .hero h2 {
+        font-size: 27px;
+    }
+
+    .notification {
+        right: 10px;
+        top: 15px;
+        width: calc(100% - 20px);
+    }
+
+}
 </style>
 </head>
 
 <body>
 
-     </head>
-
-<body>
-
-<audio id="birthdayMusic" preload="auto">
-    <source src="birthday-piano.mp3" type="audio/mpeg">
-</audio>
-
-<audio id="countdownMusic" preload="auto">
-    <source src="countdown.mp3" type="audio/mpeg">
-</audio>
-    
 <!-- =========================
      COUNTDOWN
 ========================= -->
@@ -595,6 +711,7 @@ body {
     <div class="terminal" id="terminal"></div>
 
     <div class="count-content">
+
         <div class="count-label">
             BIRTHDAY PROTOCOL
         </div>
@@ -606,6 +723,7 @@ body {
         <div class="count-label">
             INITIALIZING...
         </div>
+
     </div>
 
 </div>
@@ -698,13 +816,22 @@ body {
 
         <div>
 
-            <h1>HAPPY BIRTHDAY</h1>
+            <h1>
+                HAPPY BIRTHDAY
+            </h1>
 
-            <h2>ADIT</h2>
+            <h2>
+                ADIT
+            </h2>
 
             <div class="typing">
+
                 <span id="typingText"></span>
-                <span class="cursor">&nbsp;</span>
+
+                <span class="cursor">
+                    &nbsp;
+                </span>
+
             </div>
 
         </div>
@@ -724,8 +851,10 @@ body {
 
             <div class="photo">
 
-                <!-- GANTI foto.jpg dengan nama foto kamu -->
-                <img src="Screenshot_20260810_204957_Gallery.jpg" alt="Adit">
+                <img
+                    src="Screenshot_20260810_204957_Gallery.jpg"
+                    alt="Adit"
+                >
 
             </div>
 
@@ -746,7 +875,9 @@ body {
 
             <div class="tkr-card">
 
-                <div class="gear">⚙️</div>
+                <div class="gear">
+                    ⚙️
+                </div>
 
                 <h2>
                     Built for the road,
@@ -767,38 +898,38 @@ body {
 
     </section>
 
-<!-- =========================
-     SPOTIFY SONG
-========================= -->
 
-<section class="section">
+    <!-- SPOTIFY -->
 
-    <div class="container">
+    <section class="section">
 
-        <div class="title">
-            🎵 A SONG FOR YOU
+        <div class="container">
+
+            <div class="title">
+                🎵 A SONG FOR YOU
+            </div>
+
+            <p class="spotify-subtitle">
+                Satu lagu khusus buat nemenin kamu 🧡
+            </p>
+
+            <div class="spotify-player">
+
+                <iframe
+                    src="https://open.spotify.com/embed/track/2uy1RsdzULhpzJCiWoTlK3?utm_source=generator"
+                    width="100%"
+                    height="152"
+                    frameborder="0"
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                    loading="lazy">
+                </iframe>
+
+            </div>
+
         </div>
 
-        <p class="spotify-subtitle">
-            Satu lagu khusus buat nemenin kamu 🧡
-        </p>
+    </section>
 
-        <div class="spotify-player">
-
-            <iframe
-                src="https://open.spotify.com/embed/track/2uy1RsdzULhpzJCiWoTlK3?utm_source=generator"
-                width="100%"
-                height="152"
-                frameborder="0"
-                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                loading="lazy">
-            </iframe>
-
-        </div>
-
-    </div>
-
-</section>
 
     <!-- LETTER -->
 
@@ -813,17 +944,20 @@ body {
             <div class="letter">
 
                 Selamat ulang tahun, Adit! 🧡
+
                 <br><br>
 
                 Semoga di umur yang baru ini
                 kamu selalu diberi kesehatan,
                 kebahagiaan, dan banyak hal
                 baik yang datang ke hidupmu.
+
                 <br><br>
 
                 Tetap jadi diri kamu sendiri
                 dan terus kejar semua hal yang
                 ingin kamu capai.
+
                 <br><br>
 
                 Semoga perjalananmu ke depan
@@ -840,7 +974,6 @@ body {
     <!-- END -->
 
     <section class="end">
-
 
         <div>
 
@@ -913,11 +1046,13 @@ for (let i = 0; i < 100; i++) {
     span.textContent =
         terminalLines[
             Math.floor(
-                Math.random() * terminalLines.length
+                Math.random() *
+                terminalLines.length
             )
         ];
 
     terminal.appendChild(span);
+
 }
 
 
@@ -957,7 +1092,7 @@ const timer =
 
 
 /* =========================
-   BIRTHDAY REVEAL
+   HAPPY BIRTHDAY REVEAL
 ========================= */
 
 function showReveal() {
@@ -980,7 +1115,7 @@ function showReveal() {
 
 
 /* =========================
-   GIFT
+   OPEN GIFT
 ========================= */
 
 function openGift() {
@@ -1010,7 +1145,7 @@ function openGift() {
 
 
 /* =========================
-   TYPING
+   TYPING ANIMATION
 ========================= */
 
 const message =
@@ -1034,6 +1169,7 @@ function startTyping() {
             if (typingIndex >= message.length) {
 
                 clearInterval(typing);
+
             }
 
         }, 45);
@@ -1082,7 +1218,7 @@ window.addEventListener("scroll", () => {
 
 });
 
-<script src="script.js"></script>
+</script>
 
 </body>
-</html>
+    </html>

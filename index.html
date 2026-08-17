@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For You, My Crush 🧡</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: #050505;
+      color: white;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    .screen {
+      position: fixed;
+      inset: 0;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      flex-direction: column;
+    }
+
+    .screen.active {
+      display: flex;
+    }
+
+    /* ROTATE */
+    #rotate {
+      background: radial-gradient(circle, #351500, #050505 70%);
+    }
+
+    .phone {
+      font-size: 70px;
+      animation: rotatePhone 2s infinite ease-in-out;
+      filter: drop-shadow(0 0 15px #ff7b00);
+    }
+
+    @keyframes rotatePhone {
+      0%, 100% {
+        transform: rotate(0deg);
+      }
+      50% {
+        transform: rotate(90deg);
+      }
+    }
+
+    .rotate-title {
+      margin-top: 25px;
+      color: #ff8c00;
+      font-size: 24px;
+      text-shadow: 0 0 15px #ff6500;
+    }
+
+    .rotate-sub {
+      margin-top: 10px;
+      color: #aaa;
+    }
+
+    /* MATRIX */
+    #countdown {
+      background: #050505;
+      overflow: hidden;
+    }
+
+    #matrix {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .count-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .count-number {
+      font-size: 110px;
+      font-weight: bold;
+      color: #ff7900;
+      text-shadow:
+        0 0 10px #ff7900,
+        0 0 30px #ff4500,
+        0 0 60px #ff2200;
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+      50% {
+        transform: scale(1.15);
+      }
+    }
+
+    .loading {
+      margin-top: 15px;
+      color: #ff9d42;
+      letter-spacing: 4px;
+    }
+
+    /* PIN */
+    #pinScreen {
+      background:
+        radial-gradient(circle at center, #321400 0%, #0b0500 45%, #020202 100%);
+    }
+
+    .pin-box {
+      width: min(90%, 360px);
+      padding: 35px 25px;
+      border: 1px solid #ff7200;
+      border-radius: 25px;
+      background: rgba(20, 8, 0, 0.85);
+      box-shadow:
+        0 0 20px rgba(255, 102, 0, .5),
+        inset 0 0 30px rgba(255, 102, 0, .08);
+    }
+
+    .heart {
+      color: #ff7200;
+      font-size: 45px;
+      text-shadow: 0 0 20px #ff6500;
+      margin-bottom: 10px;
+    }
+
+    .pin-title {
+      font-size: 30px;
+      color: #ff8a00;
+      text-shadow: 0 0 15px #ff6500;
+      margin-bottom: 8px;
+    }
+
+    .pin-sub {
+      color: #aaa;
+      margin-bottom: 25px;
+    }
+
+    .dots {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .dot {
+      width: 14px;
+      height: 14px;
+      border: 2px solid #ff7900;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #ff6500;
+    }
+
+    .dot.filled {
+      background: #ff7900;
+    }
+
+    .keypad {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .key {
+      height: 55px;
+      border: 1px solid #ff7200;
+      border-radius: 14px;
+      background: rgba(255, 100, 0, .06);
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .key:hover {
+      background: #ff7200;
+      box-shadow: 0 0 20px #ff7200;
+      transform: scale(1.05);
+    }
+
+    .hint {
+      margin-top: 20px;
+      color: #ff9d42;
+      font-size: 13px;
+    }
+
+    .error {
+      height: 20px;
+      margin-top: 10px;
+      color: #ff4b00;
+      font-size: 13px;
+    }
+
+    /* BIRTHDAY */
+    #birthday {
+      background:
+        radial-gradient(circle at center, #351500, #080300 65%);
+      overflow-y: auto;
+    }
+
+    .birthday-title {
+      font-size: clamp(45px, 12vw, 100px);
+      color: #ff7900;
+      text-shadow:
+        0 0 10px #ff7900,
+        0 0 30px #ff4500,
+        0 0 70px #ff2200;
+      animation: birthdayGlow 2s infinite alternate;
+    }
+
+    @keyframes birthdayGlow {
+      from {
+        opacity: .7;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    .birthday-text {
+      margin-top: 20px;
+      font-size: 20px;
+      color: #ffd0a3;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ROTATE -->
+  <section id="rotate" class="screen active">
+    <div class="phone">📱</div>
+    <div class="rotate-title">Putar HP kamu dulu 🧡</div>
+    <div class="rotate-sub">Miringkan layar untuk melanjutkan...</div>
+  </section>
+
+  <!-- COUNTDOWN -->
+  <section id="countdown" class="screen">
+    <canvas id="matrix"></canvas>
+
+    <div class="count-content">
+      <div id="number" class="count-number">3</div>
+      <div class="loading">GET READY...</div>
+    </div>
+  </section>
+
+  <!-- PIN -->
+  <section id="pinScreen" class="screen">
+    <div class="pin-box">
+
+      <div class="heart">♥</div>
+
+      <div class="pin-title">For You, My Crush</div>
+      <div class="pin-sub">Masukkan PIN untuk membuka kejutan 🧡</div>
+
+      <div class="dots">
+        <div class="dot" id="d1"></div>
+        <div class="dot" id="d2"></div>
+        <div class="dot" id="d3"></div>
+        <div class="dot" id="d4"></div>
+      </div>
+
+      <div class="keypad">
+        <button class="key" onclick="press(1)">1</button>
+        <button class="key" onclick="press(2)">2</button>
+        <button class="key" onclick="press(3)">3</button>
+
+        <button class="key" onclick="press(4)">4</button>
+        <button class="key" onclick="press(5)">5</button>
+        <button class="key" onclick="press(6)">6</button>
+
+        <button class="key" onclick="press(7)">7</button>
+        <button class="key" onclick="press(8)">8</button>
+        <button class="key" onclick="press(9)">9</button>
+
+        <button class="key" onclick="clearPin()">⌫</button>
+        <button class="key" onclick="press(0)">0</button>
+        <button class="key" onclick="checkPin()">✓</button>
+      </div>
+
+      <div class="hint">Sandi PIN: 0000</div>
+      <div id="error" class="error"></div>
+
+    </div>
+  </section>
+
+  <!-- BIRTHDAY -->
+  <section id="birthday" class="screen">
+    <div>
+      <div class="birthday-title">BIRTHDAY</div>
+      <div class="birthday-text">
+        Welcome to your little surprise 🧡✨
+      </div>
+    </div>
+  </section>
+
+  <script>
+    /* =========================
+       ROTATE DETECTION
+    ========================= */
+
+    function checkOrientation() {
+      const rotate = document.getElementById("rotate");
+
+      if (window.innerWidth > window.innerHeight) {
+        rotate.classList.remove("active");
+        startCountdown();
+      } else {
+        rotate.classList.add("active");
+      }
+    }
+
+    window.addEventListener("resize", checkOrientation);
+    window.addEventListener("orientationchange", checkOrientation);
+
+
+    /* =========================
+       COUNTDOWN
+    ========================= */
+
+    let countdownStarted = false;
+
+    function startCountdown() {
+      if (countdownStarted) return;
+
+      countdownStarted = true;
+
+      document.getElementById("countdown").classList.add("active");
+
+      let number = 3;
+      const display = document.getElementById("number");
+
+      const timer = setInterval(() => {
+        number--;
+
+        if (number <= 0) {
+          clearInterval(timer);
+
+          document.getElementById("countdown").classList.remove("active");
+          document.getElementById("pinScreen").classList.add("active");
+
+        } else {
+          display.textContent = number;
+        }
+      }, 1000);
+    }
+
+
+    /* =========================
+       MATRIX EFFECT
+    ========================= */
+
+    const canvas = document.getElementById("matrix");
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const chars = "01ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const fontSize = 14;
+    let columns = Math.floor(canvas.width / fontSize);
+    let drops = Array(columns).fill(1);
+
+    function drawMatrix() {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.08)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = "#ff7200";
+      ctx.font = fontSize + "px monospace";
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = chars[Math.floor(Math.random() * chars.length)];
+
+        ctx.fillText(
+          text,
+          i * fontSize,
+          drops[i] * fontSize
+        );
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > .975) {
+          drops[i] = 0;
+        }
+
+        drops[i]++;
+      }
+    }
+
+    setInterval(drawMatrix, 45);
+
+
+    /* =========================
+       PIN
+    ========================= */
+
+    let pin = "";
+
+     function press(num) {
+      if (pin.length >= 4) return;
+
+      pin += num;
+
+      updateDots();
+
+      if (pin.length === 4) {
+        setTimeout(checkPin, 250);
+      }
+    }
+
+    function updateDots() {
+      for (let i = 1; i <= 4; i++) {
+        const dot = document.getElementById("d" + i);
+
+        if (i <= pin.length) {
+          dot.classList.add("filled");
+        } else {
+          dot.classList.remove("filled");
+        }
+      }
+    }
+
+    function clearPin() {
+      pin = "";
+      updateDots();
+      document.getElementById("error").textContent = "";
+    }
+
+    function checkPin() {
+      if (pin === "0000") {
+        document.getElementById("pinScreen").classList.remove("active");
+        document.getElementById("birthday").classList.add("active");
+      } else {
+        document.getElementById("error").textContent = "PIN salah... coba lagi 🧡";
+
+        setTimeout(() => {
+          clearPin();
+        }, 800);
+      }
+    }
+
+    checkOrientation();
+  </script>
+
+</body>
+          </html>

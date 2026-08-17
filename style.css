@@ -568,7 +568,8 @@ body {
     line-height: 1.9;
 }
 
-   SPOTIFY
+ /* =========================
+   SPOTIFY SONG
 ========================= */
 
 .spotify-subtitle {
@@ -577,73 +578,26 @@ body {
     line-height: 1.6;
 }
 
-.spotify-box {
-    display: flex;
-    gap: 10px;
+.spotify-player {
     width: min(650px, 100%);
     margin: auto;
-}
+    padding: 8px;
 
-.spotify-box input {
-    flex: 1;
-    min-width: 0;
-    padding: 15px 18px;
     border: 1px solid #663000;
-    border-radius: 15px;
+    border-radius: 18px;
+
     background: #120700;
-    color: white;
-    outline: none;
-    font-size: 14px;
-}
 
-.spotify-box input::placeholder {
-    color: #777;
-}
-
-.spotify-box input:focus {
-    border-color: #ff7900;
-    box-shadow: 0 0 15px #ff650055;
-}
-
-.spotify-box button {
-    padding: 0 25px;
-    border: none;
-    border-radius: 15px;
-    background: #ff7900;
-    color: #050505;
-    font-weight: bold;
-    cursor: pointer;
-    transition: .3s;
-}
-
-.spotify-box button:hover {
-    transform: scale(1.05);
     box-shadow:
-        0 0 15px #ff7900,
-        0 0 30px #ff4500;
+        0 0 20px #ff650022,
+        0 0 40px #ff450011;
 }
 
-#spotifyPlayer {
-    width: min(650px, 100%);
-    margin: 30px auto 0;
-}
-
-#spotifyPlayer iframe {
+.spotify-player iframe {
+    display: block;
     width: 100%;
     border: none;
     border-radius: 12px;
-}
-
-@media (max-width: 600px) {
-
-    .spotify-box {
-        flex-direction: column;
-    }
-
-    .spotify-box button {
-        padding: 14px;
-    }
-
 }
 
 /* =========================

@@ -1,828 +1,428 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For You, My Crush 🧡</title>
-
-<style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-html, body {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background: #050505;
-    font-family: "Courier New", monospace;
-    color: #ff7900;
-}
-
-/* =========================
-   GENERAL
-========================= */
-
-.screen {
-    position: fixed;
-    inset: 0;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
-
-.screen.active {
-    display: flex;
-}
-
-/* =========================
-   ROTATE SCREEN
-========================= */
-
-#rotate {
-    flex-direction: column;
-    background:
-        radial-gradient(circle, #321300, #050505 70%);
-}
-
-.rotate-phone {
-    font-size: 65px;
-    animation: phoneRotate 2s infinite ease-in-out;
-    filter: drop-shadow(0 0 15px #ff6500);
-}
-
-@keyframes phoneRotate {
-    0%, 100% {
-        transform: rotate(0deg);
-    }
-
-    50% {
-        transform: rotate(90deg);
-    }
-}
-
-.rotate-title {
-    margin-top: 25px;
-    font-size: 22px;
-    color: #ff8a25;
-    text-shadow: 0 0 15px #ff6500;
-}
-
-.rotate-sub {
-    margin-top: 10px;
-    color: #999;
-    font-size: 13px;
-}
-
-/* =========================
-   TERMINAL
-========================= */
-
-#terminal {
-    background: #020202;
-    overflow: hidden;
-    align-items: center;
-    justify-content: center;
-}
-
-.terminal-bg {
-    position: absolute;
-    inset: 0;
-    padding: 20px;
-    color: #ff6500;
-    opacity: .28;
-    font-size: 11px;
-    line-height: 1.5;
-    overflow: hidden;
-    text-align: left;
-}
-
-.terminal-bg span {
-    display: block;
-}
-
-.terminal-center {
-    position: relative;
-    z-index: 5;
-    width: min(90%, 600px);
-}
-
-.terminal-line {
-    color: #ff7900;
-    margin-bottom: 15px;
-    font-size: 13px;
-}
-
-.terminal-box {
-    border: 1px solid #ff6500;
-    padding: 25px;
-    background: rgba(10, 5, 0, .85);
-    box-shadow:
-        0 0 20px rgba(255, 100, 0, .25),
-        inset 0 0 30px rgba(255, 100, 0, .05);
-}
-
-.count-label {
-    color: #ff9a42;
-    font-size: 14px;
-    letter-spacing: 4px;
-}
-
-.count-number {
-    font-family: Arial, sans-serif;
-    font-size: clamp(90px, 18vw, 150px);
-    font-weight: bold;
-    color: #ff7900;
-    text-shadow:
-        0 0 10px #ff7900,
-        0 0 30px #ff4500,
-        0 0 70px #ff2200;
-    animation: countPulse 1s infinite;
-}
-
-@keyframes countPulse {
-    50% {
-        transform: scale(1.08);
-    }
-}
-
-/* =========================
-   BIRTHDAY REVEAL
-========================= */
-
-#birthdayReveal {
-    background:
-        radial-gradient(circle at center, #451900, #090300 65%);
-    overflow: hidden;
-}
-
-.fireworks {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-}
-
-.firework {
-    position: absolute;
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: #ff7900;
-    box-shadow:
-        0 0 10px #ff7900,
-        0 0 20px #ff4500;
-    animation: explode 2s infinite;
-}
-
-.firework::before,
-.firework::after {
-    content: "";
-    position: absolute;
-    width: 5px;
-    height: 120px;
-    background: linear-gradient(
-        transparent,
-        #ff7900,
-        transparent
-    );
-    left: 0;
-    top: -58px;
-}
-
-.firework::after {
-    transform: rotate(90deg);
-}
-
-.f1 {
-    left: 18%;
-    top: 25%;
-    animation-delay: .2s;
-}
-
-.f2 {
-    right: 18%;
-    top: 20%;
-    animation-delay: .8s;
-}
-
-.f3 {
-    left: 30%;
-    top: 65%;
-    animation-delay: 1.2s;
-}
-
-.f4 {
-    right: 28%;
-    top: 62%;
-    animation-delay: 1.6s;
-}
-
-@keyframes explode {
-    0%, 100% {
-        transform: scale(.2);
-        opacity: 0;
-    }
-
-    40% {
-        transform: scale(1);
-        opacity: 1;
-    }
-
-    70% {
-        transform: scale(1.5);
-        opacity: .8;
-    }
-}
-
-.birthday-content {
-    position: relative;
-    z-index: 10;
-}
-
-/* =========================
-   CAKE
-========================= */
-
-.cake {
-    position: relative;
-    width: 210px;
-    height: 160px;
-    margin: 0 auto 25px;
-    animation: cakeAppear 1.5s ease forwards;
-}
-
-@keyframes cakeAppear {
-    from {
-        transform: translateY(80px) scale(.5);
-        opacity: 0;
-    }
-
-    to {
-        transform: translateY(0) scale(1);
-        opacity: 1;
-    }
-}
-
-.cake-top {
-    position: absolute;
-    width: 170px;
-    height: 35px;
-    left: 20px;
-    top: 55px;
-    background: #ff8a25;
-    border-radius: 50%;
-    box-shadow: 0 0 20px rgba(255, 100, 0, .5);
-}
-
-.cake-body {
-    position: absolute;
-    width: 170px;
-    height: 65px;
-    left: 20px;
-    top: 70px;
-    background: linear-gradient(
-        #ff6500,
-        #9d3500
-    );
-    border-radius: 0 0 20px 20px;
-    box-shadow: 0 10px 30px rgba(255, 80, 0, .3);
-}
-
-.cake-cream {
-    position: absolute;
-    width: 170px;
-    height: 25px;
-    left: 20px;
-    top: 68px;
-    background: #ffd0a3;
-    border-radius: 50%;
-}
-
-.candle {
-    position: absolute;
-    width: 10px;
-    height: 45px;
-    background: #ffd0a3;
-    top: 15px;
-    left: 100px;
-    border-radius: 4px;
-}
-
-.flame {
-    position: absolute;
-    width: 15px;
-    height: 22px;
-    background: #ffb000;
-    border-radius: 50% 50% 50% 50%;
-    top: -20px;
-    left: -2px;
-    box-shadow:
-        0 0 10px #ffb000,
-        0 0 25px #ff6500;
-    animation: flame 0.7s infinite alternate;
-}
-
-@keyframes flame {
-    from {
-        transform: scale(.8);
-    }
-
-    to {
-        transform: scale(1.15);
-    }
-}
-
-.happy-title {
-    font-family: Arial, sans-serif;
-    font-size: clamp(40px, 10vw, 90px);
-    font-weight: 900;
-    color: #ff7900;
-    text-shadow:
-        0 0 10px #ff7900,
-        0 0 30px #ff4500,
-        0 0 70px #ff2200;
-    animation: titleGlow 1.5s infinite alternate;
-}
-
-@keyframes titleGlow {
-    from {
-        opacity: .7;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
-.crush-title {
-    margin-top: 15px;
-    color: #ffd0a3;
-    font-size: 18px;
-    letter-spacing: 3px;
-}
-
-/* =========================
-   PIN
-========================= */
-
-#pinScreen {
-    background:
-        radial-gradient(circle, #3b1600, #050505 70%);
-}
-
-.pin-box {
-    width: min(90%, 370px);
-    padding: 30px 25px;
-    border: 1px solid #ff7200;
-    border-radius: 25px;
-    background: rgba(15, 6, 0, .9);
-    box-shadow:
-        0 0 30px rgba(255, 100, 0, .3),
-        inset 0 0 30px rgba(255, 100, 0, .04);
-}
-
-.pin-heart {
-    font-size: 50px;
-    color: #ff7900;
-    text-shadow: 0 0 25px #ff4500;
-}
-
-.pin-title {
-    margin-top: 10px;
-    font-family: Arial, sans-serif;
-    font-size: 29px;
-    color: #ff8a25;
-    text-shadow: 0 0 15px #ff6500;
-}
-
-.pin-sub {
-    margin-top: 8px;
-    color: #aaa;
-    font-family: Arial, sans-serif;
-}
-
-.dots {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin: 25px 0;
-}
-
-.dot {
-    width: 14px;
-    height: 14px;
-    border: 2px solid #ff7900;
-    border-radius: 50%;
-    box-shadow: 0 0 8px #ff6500;
-}
-
-.dot.filled {
-    background: #ff7900;
-}
-
-.keypad {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-}
-
-.key {
-    height: 55px;
-    border: 1px solid #ff7200;
-    border-radius: 14px;
-    background: rgba(255, 100, 0, .05);
-    color: white;
-    font-size: 19px;
-    font-family: Arial, sans-serif;
-}
-
-.key:active {
-    background: #ff7200;
-    box-shadow: 0 0 20px #ff7200;
-}
-
-.pin-hint {
-    margin-top: 18px;
-    color: #ff9a42;
-    font-size: 12px;
-}
-
-#error {
-    height: 18px;
-    margin-top: 8px;
-    color: #ff3c00;
-    font-size: 12px;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You, My Crush</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            background: #050505;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+
+        .screen {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        /* =========================
+           LOADING
+        ========================= */
+
+        #loading {
+            background:
+                radial-gradient(
+                    circle at center,
+                    #3a1700 0%,
+                    #100600 45%,
+                    #030303 100%
+                );
+        }
+
+        .tool {
+            font-size: 70px;
+            color: #ff7900;
+            animation: spin 1.5s linear infinite;
+            filter:
+                drop-shadow(0 0 10px #ff7900)
+                drop-shadow(0 0 25px #ff4500);
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loading-title {
+            margin-top: 25px;
+            font-size: 18px;
+            letter-spacing: 2px;
+            color: #ff8a25;
+            text-shadow: 0 0 15px #ff6500;
+        }
+
+        .loading-dots {
+            margin-top: 12px;
+            color: #ffb066;
+            font-size: 14px;
+        }
+
+        .dots::after {
+            content: "";
+            animation: dots 1.5s infinite;
+        }
+
+        @keyframes dots {
+            0% {
+                content: "";
+            }
+
+            33% {
+                content: ".";
+            }
+
+            66% {
+                content: "..";
+            }
+
+            100% {
+                content: "...";
+            }
+        }
+
+        /* =========================
+           PIN
+        ========================= */
+
+        #pin {
+            display: none;
+
+            background:
+                radial-gradient(
+                    circle at center,
+                    #351500 0%,
+                    #0b0500 50%,
+                    #020202 100%
+                );
+        }
+
+        .pin-box {
+            width: min(90%, 370px);
+            padding: 35px 25px;
+            border: 1px solid #ff7200;
+            border-radius: 25px;
+
+            background: rgba(15, 6, 0, 0.9);
+
+            box-shadow:
+                0 0 25px rgba(255, 100, 0, 0.35),
+                inset 0 0 30px rgba(255, 100, 0, 0.05);
+        }
+
+        .pin-heart {
+            font-size: 50px;
+            color: #ff7900;
+
+            text-shadow:
+                0 0 10px #ff7900,
+                0 0 30px #ff4500;
+        }
+
+        .pin-title {
+            margin-top: 10px;
+            font-size: 29px;
+            font-weight: bold;
+            color: #ff8a25;
+
+            text-shadow:
+                0 0 10px #ff7900,
+                0 0 25px #ff4500;
+        }
+
+        .pin-subtitle {
+            margin-top: 8px;
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        /* PIN DOTS */
+
+        .pin-dots {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 28px 0;
+        }
+
+        .dot {
+            width: 14px;
+            height: 14px;
+            border: 2px solid #ff7900;
+            border-radius: 50%;
+
+            box-shadow:
+                0 0 8px #ff6500;
+        }
+
+        .dot.active {
+            background: #ff7900;
+        }
+
+        /* KEYPAD */
+
+        .keypad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 11px;
+        }
+
+        .key {
+            height: 55px;
+
+            border: 1px solid #ff7200;
+            border-radius: 14px;
+
+            background: rgba(255, 100, 0, 0.05);
+
+            color: white;
+            font-size: 20px;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .key:active {
+            background: #ff7200;
+
+            box-shadow:
+                0 0 20px #ff7200;
+
+            transform: scale(0.95);
+        }
+
+        .pin-hint {
+            margin-top: 20px;
+            color: #ff9a42;
+            font-size: 12px;
+        }
+
+        .error {
+            height: 18px;
+            margin-top: 10px;
+
+            color: #ff3c00;
+            font-size: 12px;
+        }
+    </style>
 </head>
 
 <body>
 
-<!-- =========================
-     ROTATE
-========================= -->
+    <!-- =========================
+         LOADING SCREEN
+    ========================= -->
 
-<section id="rotate" class="screen active">
+    <div id="loading" class="screen">
 
-    <div class="rotate-phone">📱</div>
+        <!-- Ikon alat TKR -->
+        <div class="tool">🔧</div>
 
-    <div class="rotate-title">
-        PUTAR HP KAMU
-    </div>
-
-    <div class="rotate-sub">
-        Miringkan layar untuk membuka kejutan...
-    </div>
-
-</section>
-
-
-<!-- =========================
-     TERMINAL + COUNTDOWN
-========================= -->
-
-<section id="terminal" class="screen">
-
-    <div class="terminal-bg" id="terminalBg"></div>
-
-    <div class="terminal-center">
-
-        <div class="terminal-line">
-            user@birthday:~$ ./start_surprise.sh
+        <div class="loading-title">
+            Loading your surprise
         </div>
 
-        <div class="terminal-box">
+        <div class="loading-dots">
+            Please wait<span class="dots"></span>
+        </div>
 
-            <div class="count-label">
-                INITIALIZING SURPRISE
+    </div>
+
+
+    <!-- =========================
+         PIN SCREEN
+    ========================= -->
+
+    <div id="pin" class="screen">
+
+        <div class="pin-box">
+
+            <div class="pin-heart">
+                ♥
             </div>
 
-            <div id="countNumber" class="count-number">
-                10
+            <div class="pin-title">
+                FOR YOU, MY CRUSH
             </div>
 
-            <div class="terminal-line">
-                loading birthday.exe...
+            <div class="pin-subtitle">
+                Enter your PIN to continue
             </div>
 
-        </div>
 
-    </div>
+            <!-- PIN BULATAN -->
 
-</section>
+            <div class="pin-dots">
 
+                <div class="dot" id="dot1"></div>
+                <div class="dot" id="dot2"></div>
+                <div class="dot" id="dot3"></div>
+                <div class="dot" id="dot4"></div>
 
-<!-- =========================
-     BIRTHDAY REVEAL
-========================= -->
-
-<section id="birthdayReveal" class="screen">
-
-    <div class="fireworks">
-        <div class="firework f1"></div>
-        <div class="firework f2"></div>
-        <div class="firework f3"></div>
-        <div class="firework f4"></div>
-    </div>
-
-    <div class="birthday-content">
-
-        <div class="cake">
-
-            <div class="candle">
-                <div class="flame"></div>
             </div>
 
-            <div class="cake-top"></div>
-            <div class="cake-cream"></div>
-            <div class="cake-body"></div>
 
-        </div>
+            <!-- KEYPAD -->
 
-        <div class="happy-title">
-            HAPPY<br>BIRTHDAY
-        </div>
+            <div class="keypad">
 
-        <div class="crush-title">
-            FOR YOU, MY CRUSH 🧡
+                <button class="key" onclick="press(1)">1</button>
+                <button class="key" onclick="press(2)">2</button>
+                <button class="key" onclick="press(3)">3</button>
+
+                <button class="key" onclick="press(4)">4</button>
+                <button class="key" onclick="press(5)">5</button>
+                <button class="key" onclick="press(6)">6</button>
+
+                <button class="key" onclick="press(7)">7</button>
+                <button class="key" onclick="press(8)">8</button>
+                <button class="key" onclick="press(9)">9</button>
+
+                <button class="key" onclick="clearPin()">⌫</button>
+                <button class="key" onclick="press(0)">0</button>
+                <button class="key" onclick="checkPin()">✓</button>
+
+            </div>
+
+
+            <!-- PETUNJUK PIN -->
+
+            <div class="pin-hint">
+                Sandi PIN: 0000
+            </div>
+
+            <div id="error" class="error"></div>
+
         </div>
 
     </div>
 
-</section>
+
+    <script>
+
+        /* =========================
+           LOADING
+        ========================= */
+
+        setTimeout(function() {
+
+            document.getElementById("loading").style.display = "none";
+
+            document.getElementById("pin").style.display = "flex";
+
+        }, 3000);
 
 
-<!-- =========================
-     PIN
-========================= -->
+        /* =========================
+           PIN
+        ========================= */
 
-<section id="pinScreen" class="screen">
-
-    <div class="pin-box">
-
-        <div class="pin-heart">♥</div>
-
-        <div class="pin-title">
-            For You, My Crush
-        </div>
-
-        <div class="pin-sub">
-            Masukkan PIN untuk melanjutkan
-        </div>
-
-        <div class="dots">
-            <div class="dot" id="dot1"></div>
-            <div class="dot" id="dot2"></div>
-            <div class="dot" id="dot3"></div>
-            <div class="dot" id="dot4"></div>
-        </div>
-
-        <div class="keypad">
-
-            <button class="key" onclick="press(1)">1</button>
-            <button class="key" onclick="press(2)">2</button>
-            <button class="key" onclick="press(3)">3</button>
-
-            <button class="key" onclick="press(4)">4</button>
-            <button class="key" onclick="press(5)">5</button>
-            <button class="key" onclick="press(6)">6</button>
-
-            <button class="key" onclick="press(7)">7</button>
-            <button class="key" onclick="press(8)">8</button>
-            <button class="key" onclick="press(9)">9</button>
-
-            <button class="key" onclick="clearPin()">⌫</button>
-            <button class="key" onclick="press(0)">0</button>
-            <button class="key" onclick="checkPin()">✓</button>
-
-        </div>
-
-        <div class="pin-hint">
-            Sandi PIN: 0000
-        </div>
-
-        <div id="error"></div>
-
-    </div>
-
-</section>
+        let pin = "";
 
 
-<script>
+        function press(number) {
 
-/* =========================
-   ORIENTATION
-========================= */
+            if (pin.length >= 4) {
+                return;
+            }
 
-let countdownStarted = false;
+            pin += number;
 
-function checkOrientation() {
+            updateDots();
 
-    if (window.innerWidth > window.innerHeight) {
+            if (pin.length === 4) {
 
-        document.getElementById("rotate")
-            .classList.remove("active");
-
-        startCountdown();
-
-    } else {
-
-        document.getElementById("rotate")
-            .classList.add("active");
-
-    }
-}
-
-window.addEventListener("resize", checkOrientation);
-window.addEventListener("orientationchange", checkOrientation);
-
-
-/* =========================
-   TERMINAL BACKGROUND
-========================= */
-
-const terminalBg =
-    document.getElementById("terminalBg");
-
-const terminalTexts = [
-    "root@birthday:~$ loading...",
-    "system: orange_mode = true",
-    "system: fireworks = enabled",
-    "system: cake.exe loaded",
-    "system: preparing surprise...",
-    "user@birthday:~$ access granted",
-    "creating memories...",
-    "loading happiness...",
-    "initializing love.exe...",
-    "birthday protocol started..."
-];
-
-for (let i = 0; i < 100; i++) {
-
-    const line =
-        document.createElement("span");
-
-    line.textContent =
-        terminalTexts[
-            Math.floor(
-                Math.random() * terminalTexts.length
-            )
-        ];
-
-    terminalBg.appendChild(line);
-}
-
-
-/* =========================
-   COUNTDOWN
-========================= */
-
-function startCountdown() {
-
-    if (countdownStarted) return;
-
-    countdownStarted = true;
-
-    const terminal =
-        document.getElementById("terminal");
-
-    terminal.classList.add("active");
-
-    let number = 10;
-
-    const countNumber =
-        document.getElementById("countNumber");
-
-    const timer =
-        setInterval(() => {
-
-            number--;
-
-            if (number <= 0) {
-
-                clearInterval(timer);
-
-                terminal.classList.remove("active");
-
-                showBirthday();
-
-            } else {
-
-                countNumber.textContent =
-                    number;
+                setTimeout(function() {
+                    checkPin();
+                }, 300);
 
             }
 
-        }, 1000);
-}
+        }
 
 
-/* =========================
-   BIRTHDAY REVEAL
-========================= */
+        function updateDots() {
 
-function showBirthday() {
+            for (let i = 1; i <= 4; i++) {
 
-    const reveal =
-        document.getElementById("birthdayReveal");
+                const dot =
+                    document.getElementById("dot" + i);
 
-    reveal.classList.add("active");
+                if (i <= pin.length) {
 
-    setTimeout(() => {
+                    dot.classList.add("active");
 
-        reveal.classList.remove("active");
+                } else {
 
-        document.getElementById("pinScreen")
-            .classList.add("active");
+                    dot.classList.remove("active");
 
-    }, 6500);
-}
+                }
 
-
-/* =========================
-   PIN
-========================= */
-
-let pin = "";
-
-function press(number) {
-
-    if (pin.length >= 4) return;
-
-    pin += number;
-
-    updateDots();
-
-    if (pin.length === 4) {
-
-        setTimeout(checkPin, 300);
-
-    }
-}
-
-function updateDots() {
-
-    for (let i = 1; i <= 4; i++) {
-
-        const dot =
-            document.getElementById("dot" + i);
-
-        if (i <= pin.length) {
-
-            dot.classList.add("filled");
-
-        } else {
-
-            dot.classList.remove("filled");
+            }
 
         }
-    }
-}
-
-function clearPin() {
-
-    pin = "";
-
-    updateDots();
-
-    document.getElementById("error")
-        .textContent = "";
-
-}
-
-function checkPin() {
-
-    if (pin === "0000") {
-
-        window.location.href =
-           "birthday.html";
-
-    } else {
-
-        document.getElementById("error")
-            .textContent =
-            "PIN salah... coba lagi 🧡";
-
-        setTimeout(() => {
-
-            clearPin();
-
-        }, 900);
-
-    }
-}
 
 
-/* =========================
-   START
-========================= */
+        function clearPin() {
 
-checkOrientation();
+            pin = "";
 
-</script>
+            updateDots();
+
+            document.getElementById("error").textContent = "";
+
+        }
+
+
+        function checkPin() {
+
+            if (pin === "0000") {
+
+                /*
+                 * NANTI DI SINI
+                 * KITA SAMBUNG KE
+                 * BIRTHDAY.HTML
+                 */
+
+                window.location.href = "birthday.html";
+
+            } else {
+
+                document.getElementById("error").textContent =
+                    "PIN salah... coba lagi 🧡";
+
+                setTimeout(function() {
+
+                    clearPin();
+
+                }, 800);
+
+            }
+
+        }
+
+    </script>
 
 </body>
-</html> 
+</html>

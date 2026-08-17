@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday 🧡</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #050505;
+      color: white;
+      font-family: Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    section {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 40px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* HERO */
+
+    .hero {
+      background:
+        radial-gradient(circle at center, #4a1d00 0%, #120700 45%, #030303 100%);
+    }
+
+    .glow {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background: #ff7200;
+      filter: blur(150px);
+      opacity: .15;
+      border-radius: 50%;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .small-title {
+      color: #ff9a42;
+      letter-spacing: 5px;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: clamp(50px, 13vw, 110px);
+      color: #ff7900;
+      text-shadow:
+        0 0 10px #ff7900,
+        0 0 30px #ff4500,
+        0 0 70px #ff2200;
+      animation: glow 2s infinite alternate;
+    }
+
+    @keyframes glow {
+      from {
+        text-shadow:
+          0 0 10px #ff7900,
+          0 0 20px #ff4500;
+      }
+
+      to {
+        text-shadow:
+          0 0 20px #ff7900,
+          0 0 50px #ff4500,
+          0 0 90px #ff2200;
+      }
+    }
+
+    .hero-text {
+      margin-top: 20px;
+      color: #ffd0a3;
+      font-size: 19px;
+    }
+
+    .scroll {
+      margin-top: 50px;
+      color: #ff8a25;
+      animation: bounce 1.5s infinite;
+    }
+
+    @keyframes bounce {
+      50% {
+        transform: translateY(10px);
+      }
+    }
+
+    /* CARDS */
+
+    .dark-section {
+      background: #080808;
+    }
+
+    .section-content {
+      width: min(900px, 100%);
+    }
+
+    .section-title {
+      color: #ff7900;
+      font-size: clamp(32px, 7vw, 55px);
+      margin-bottom: 20px;
+      text-shadow: 0 0 20px #ff6500;
+    }
+
+    .card {
+      margin: 20px auto;
+      padding: 30px;
+      max-width: 700px;
+      border: 1px solid #ff7200;
+      border-radius: 25px;
+      background: rgba(255, 100, 0, .05);
+      box-shadow:
+        0 0 25px rgba(255, 100, 0, .15),
+        inset 0 0 25px rgba(255, 100, 0, .03);
+    }
+
+    .card p {
+      color: #ddd;
+      line-height: 1.8;
+    }
+
+    /* MEMORIES */
+
+    .memories {
+      background:
+        radial-gradient(circle at center, #301300, #050505 65%);
+    }
+
+    .photo-placeholder {
+      width: min(330px, 90%);
+      height: 220px;
+      margin: 25px auto;
+      border: 2px dashed #ff7900;
+      border-radius: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #ff9a42;
+      box-shadow: 0 0 20px rgba(255, 100, 0, .15);
+    }
+
+    /* PLAYLIST */
+
+    .playlist {
+      background: #050505;
+    }
+
+    .song {
+      max-width: 600px;
+      margin: 15px auto;
+      padding: 20px;
+      border: 1px solid #663000;
+      border-radius: 15px;
+      color: #ffd0a3;
+    }
+
+    /* END */
+
+    .ending {
+      background:
+        radial-gradient(circle, #4a1d00, #050505 65%);
+    }
+
+    .heart {
+      font-size: 80px;
+      color: #ff7200;
+      text-shadow: 0 0 30px #ff4500;
+      animation: heartBeat 1.5s infinite;
+    }
+
+    @keyframes heartBeat {
+      50% {
+        transform: scale(1.15);
+      }
+    }
+
+    .ending h2 {
+      margin-top: 20px;
+      color: #ff8a25;
+      font-size: 35px;
+    }
+
+    .ending p {
+      margin-top: 15px;
+      color: #ffd0a3;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="glow"></div>
+
+    <div class="hero-content">
+      <div class="small-title">A LITTLE SURPRISE FOR YOU</div>
+
+      <h1>HAPPY<br>BIRTHDAY</h1>
+
+      <div class="hero-text">
+        🧡 This little website was made just for you.
+      </div>
+
+      <div class="scroll">
+        ↓ Scroll down ↓
+      </div>
+    </div>
+  </section>
+
+
+  <!-- LETTER -->
+  <section class="dark-section">
+    <div class="section-content">
+
+      <div class="section-title">
+        💌 A Letter For You
+      </div>
+
+      <div class="card">
+        <p>
+          Untuk seseorang yang spesial...
+          <br><br>
+
+          Selamat ulang tahun! 🎂🧡
+          <br><br>
+
+          Semoga di hari spesial ini kamu mendapatkan
+          banyak kebahagiaan, senyuman, dan hal-hal baik
+          yang kamu harapkan.
+          <br><br>
+
+          Ini baru permulaan dari kejutan kecil ini.
+          Masih banyak bagian lain yang akan kita isi
+          di sini. ✨
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- MEMORIES -->
+  <section class="memories">
+    <div class="section-content">
+
+      <div class="section-title">
+        📸 Our Photo Memories
+      </div>
+
+      <div class="photo-placeholder">
+        FOTO KITA NANTI 🧡
+      </div>
+
+      <div class="photo-placeholder">
+        FOTO KEDUA NANTI 🧡
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- PLAYLIST -->
+  <section class="playlist">
+    <div class="section-content">
+
+      <div class="section-title">
+        🎵 Special Playlist
+      </div>
+
+      <div class="song">
+        🎧 Lagu pertama — nanti kita isi
+      </div>
+
+      <div class="song">
+        🎧 Lagu kedua — nanti kita isi
+      </div>
+
+      <div class="song">
+        🎧 Lagu ketiga — nanti kita isi
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ENDING -->
+  <section class="ending">
+
+    <div>
+      <div class="heart">♥</div>
+
+      <h2>Once Again, Happy Birthday 🧡</h2>
+
+      <p>
+        Semoga hari ini menjadi salah satu
+        hari yang paling berkesan untukmu.
+      </p>
+    </div>
+
+  </section>
+
+</body>
+  </html>

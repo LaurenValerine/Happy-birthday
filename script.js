@@ -1,4 +1,17 @@
 /* =========================
+   BIRTHDAY PIANO MUSIC
+========================= */
+
+const birthdayMusic =
+    document.getElementById("birthdayMusic");
+
+birthdayMusic.loop = true;
+
+document.addEventListener("click", () => {
+    birthdayMusic.play().catch(() => {});
+}, { once: true });
+
+/* =========================
    TERMINAL BACKGROUND
 ========================= */
 

@@ -1,4 +1,4 @@
- * {
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -438,6 +438,10 @@ body {
     display: none;
 }
 
+/* =========================
+   HERO
+========================= */
+
 .hero {
     min-height: 100vh;
     display: flex;
@@ -554,7 +558,6 @@ body {
     }
 }
 
- 
 /* =========================
    LETTER
 ========================= */
@@ -568,7 +571,7 @@ body {
     line-height: 1.9;
 }
 
- /* =========================
+/* =========================
    SPOTIFY SONG
 ========================= */
 
@@ -676,30 +679,9 @@ body {
 }
 
 /* =========================
-   MOBILE
+   NEXT BUTTON
 ========================= */
 
-@media (max-width: 600px) {
-
-    .title {
-        font-size: 32px;
-    }
-
-    .tkr-card,
-    .letter {
-        padding: 25px 20px;
-    }
-
-    .hero h2 {
-        font-size: 27px;
-    }
-
-    .notification {
-        right: 10px;
-        top: 15px;
-        width: calc(100% - 20px);
-    }
-      }
 .next-button {
     display: inline-block;
     margin-top: 35px;
@@ -732,3 +714,30 @@ body {
 
     transform: scale(1.05);
 }
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    .title {
+        font-size: 32px;
+    }
+
+    .tkr-card,
+    .letter {
+        padding: 25px 20px;
+    }
+
+    .hero h2 {
+        font-size: 27px;
+    }
+
+    .notification {
+        right: 10px;
+        top: 15px;
+        width: calc(100% - 20px);
+    }
+
+    }

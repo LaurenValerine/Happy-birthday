@@ -182,47 +182,4 @@ window.addEventListener("scroll", () => {
 
 });
 
-/* =========================
-   SPOTIFY PLAYER
-========================= */
-
-function loadSpotify() {
-
-    const input =
-        document.getElementById("spotifyLink");
-
-    const player =
-        document.getElementById("spotifyPlayer");
-
-    const link =
-        input.value.trim();
-
-    if (!link) {
-
-        alert("Masukkan link Spotify dulu ya 🧡");
-
-        return;
-    }
-
-    const match =
-        link.match(/track\/([a-zA-Z0-9]+)/);
-
-    if (!match) {
-
-        alert("Masukkan link lagu Spotify yang benar ya!");
-
-        return;
-    }
-
-    const trackId = match[1];
-
-    player.innerHTML = `
-        <iframe
-            src="https://open.spotify.com/embed/track/${trackId}"
-            height="152"
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-            loading="lazy">
-        </iframe>
-    `;
-
-}
+ 

@@ -119,7 +119,7 @@ function openGift() {
 ========================= */  
   
 const message =  
-    "Today is your special day. Wishing you happiness, good health, and all your dreams come true. Semoga setiap langkahmu selalu membawa cerita yang indah.";  
+    "Today is your special day. Wishing you happiness, good health, and all your dreams come true. Sebelum lanjutt ada pantun dulu om. Pergi ke pasar membeli pita,Singgah sebentar membeli udang,Selamat bertambah tua om tercinta,Minta kuota dong sayangg...nyambung ga sihh...halahh bodo amat lahhh
   
 let typingIndex = 0;  
   

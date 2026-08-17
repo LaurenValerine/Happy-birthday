@@ -667,3 +667,35 @@ body {
         width: calc(100% - 20px);
     }
       }
+.next-button {
+    display: inline-block;
+    margin-top: 35px;
+    padding: 14px 45px;
+
+    border: 1px solid #ff7900;
+    border-radius: 30px;
+
+    color: #ff7900;
+    text-decoration: none;
+    font-weight: bold;
+    letter-spacing: 4px;
+
+    background: rgba(255, 101, 0, 0.08);
+
+    box-shadow:
+        0 0 10px #ff6500,
+        0 0 25px #ff450055;
+
+    transition: .3s;
+}
+
+.next-button:hover {
+    background: #ff7900;
+    color: #050505;
+
+    box-shadow:
+        0 0 20px #ff7900,
+        0 0 50px #ff4500;
+
+    transform: scale(1.05);
+}

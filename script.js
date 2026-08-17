@@ -45,6 +45,9 @@ for (let i = 0; i < 100; i++) {
    COUNTDOWN
 ========================= */
 
+const countdownSound =
+    new Audio("countdown.mp3");
+
 let number = 10;
 
 const countdown =
@@ -54,6 +57,9 @@ const countNumber =
     document.getElementById("number");
 
 const timer = setInterval(() => {
+
+    countdownSound.currentTime = 0;
+    countdownSound.play().catch(() => {});
 
     number--;
 
@@ -72,7 +78,6 @@ const timer = setInterval(() => {
     }
 
 }, 1000);
-
 
 /* =========================
    HAPPY BIRTHDAY REVEAL

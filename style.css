@@ -1,0 +1,669 @@
+ * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #050505;
+    color: white;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+}
+
+/* =========================
+   COUNTDOWN
+========================= */
+
+#countdown {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #030303;
+    overflow: hidden;
+}
+
+.terminal {
+    position: absolute;
+    inset: 0;
+    padding: 15px;
+    font-family: monospace;
+    font-size: 11px;
+    line-height: 1.5;
+    color: #ff6500;
+    opacity: .22;
+    overflow: hidden;
+}
+
+.terminal span {
+    display: block;
+}
+
+.count-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+.count-label {
+    color: #ff9a42;
+    letter-spacing: 4px;
+    font-size: 13px;
+}
+
+.count-number {
+    margin: 15px 0;
+    font-size: clamp(100px, 25vw, 180px);
+    font-weight: 900;
+    color: #ff7900;
+    text-shadow:
+        0 0 10px #ff7900,
+        0 0 30px #ff4500,
+        0 0 80px #ff2200;
+    animation: pulse .8s infinite alternate;
+}
+
+@keyframes pulse {
+    to {
+        transform: scale(1.08);
+    }
+}
+
+/* =========================
+   BIRTHDAY REVEAL
+========================= */
+
+#reveal {
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background:
+        radial-gradient(circle, #461800, #080300 70%);
+}
+
+.reveal-content {
+    position: relative;
+    z-index: 3;
+}
+
+.cake {
+    width: 180px;
+    height: 130px;
+    position: relative;
+    margin: auto;
+}
+
+.cake-body {
+    position: absolute;
+    bottom: 10px;
+    left: 15px;
+    width: 150px;
+    height: 65px;
+    border-radius: 10px 10px 25px 25px;
+    background: linear-gradient(#ff8a25, #9c3500);
+    box-shadow: 0 10px 30px #ff450055;
+}
+
+.cake-top {
+    position: absolute;
+    top: 45px;
+    left: 15px;
+    width: 150px;
+    height: 35px;
+    border-radius: 50%;
+    background: #ffd0a3;
+}
+
+.candle {
+    position: absolute;
+    top: 8px;
+    left: 85px;
+    width: 10px;
+    height: 45px;
+    background: #ffd0a3;
+    border-radius: 5px;
+    z-index: 2;
+}
+
+.flame {
+    position: absolute;
+    width: 15px;
+    height: 22px;
+    top: -20px;
+    left: -2px;
+    border-radius: 50%;
+    background: #ffae00;
+    box-shadow:
+        0 0 10px #ffae00,
+        0 0 30px #ff6500;
+    animation: flame .5s infinite alternate;
+}
+
+@keyframes flame {
+    to {
+        transform: scale(1.2);
+    }
+}
+
+.happy {
+    margin-top: 20px;
+    font-size: clamp(45px, 10vw, 90px);
+    font-weight: 900;
+    color: #ff7900;
+    text-shadow:
+        0 0 15px #ff7900,
+        0 0 40px #ff4500;
+}
+
+.adit {
+    margin-top: 5px;
+    font-size: 30px;
+    letter-spacing: 8px;
+    color: #ffd0a3;
+}
+
+/* =========================
+   FIREWORKS
+========================= */
+
+.firework {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #ff7900;
+    box-shadow:
+        0 0 10px #ff7900,
+        0 0 25px #ff4500;
+    animation: boom 1.8s infinite;
+}
+
+.firework::before,
+.firework::after {
+    content: "";
+    position: absolute;
+    width: 4px;
+    height: 100px;
+    background: linear-gradient(
+        transparent,
+        #ff7900,
+        transparent
+    );
+    left: 0;
+    top: -48px;
+}
+
+.firework::after {
+    transform: rotate(90deg);
+}
+
+.f1 {
+    left: 15%;
+    top: 25%;
+}
+
+.f2 {
+    right: 15%;
+    top: 20%;
+    animation-delay: .5s;
+}
+
+.f3 {
+    left: 25%;
+    bottom: 20%;
+    animation-delay: 1s;
+}
+
+.f4 {
+    right: 25%;
+    bottom: 25%;
+    animation-delay: 1.4s;
+}
+
+@keyframes boom {
+    0%, 100% {
+        transform: scale(.2);
+        opacity: 0;
+    }
+
+    40% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    70% {
+        transform: scale(1.5);
+        opacity: .7;
+    }
+}
+
+/* =========================
+   GIFT BOX
+========================= */
+
+#gift {
+    position: fixed;
+    inset: 0;
+    z-index: 80;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    background:
+        radial-gradient(circle, #351300, #050505 70%);
+}
+
+.gift-box {
+    position: relative;
+    width: 150px;
+    height: 120px;
+    margin-bottom: 30px;
+    cursor: pointer;
+    animation: giftFloat 2s infinite ease-in-out;
+}
+
+@keyframes giftFloat {
+    50% {
+        transform: translateY(-12px);
+    }
+}
+
+.gift-body {
+    position: absolute;
+    bottom: 0;
+    width: 150px;
+    height: 90px;
+    background: #ff6500;
+    border-radius: 8px;
+    box-shadow: 0 0 30px #ff450055;
+}
+
+.gift-lid {
+    position: absolute;
+    top: 20px;
+    left: -8px;
+    width: 166px;
+    height: 30px;
+    background: #ff8a25;
+    border-radius: 7px;
+    z-index: 2;
+}
+
+.ribbon-v {
+    position: absolute;
+    width: 20px;
+    height: 120px;
+    left: 65px;
+    background: #ffd0a3;
+    z-index: 3;
+}
+
+.ribbon-h {
+    position: absolute;
+    width: 166px;
+    height: 18px;
+    left: -8px;
+    top: 75px;
+    background: #ffd0a3;
+    z-index: 3;
+}
+
+.gift-text {
+    color: #ffd0a3;
+    font-size: 16px;
+    animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+    50% {
+        opacity: .4;
+    }
+}
+
+/* =========================
+   TKR EXPLOSION
+========================= */
+
+#tkrExplosion {
+    position: fixed;
+    inset: 0;
+    z-index: 70;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background: #050505;
+}
+
+.tool {
+    position: absolute;
+    font-size: 45px;
+    opacity: 0;
+}
+
+.tool:nth-child(1) {
+    animation: fly1 2s forwards;
+}
+
+.tool:nth-child(2) {
+    animation: fly2 2s forwards;
+}
+
+.tool:nth-child(3) {
+    animation: fly3 2s forwards;
+}
+
+.tool:nth-child(4) {
+    animation: fly4 2s forwards;
+}
+
+.tool:nth-child(5) {
+    animation: fly5 2s forwards;
+}
+
+.tool:nth-child(6) {
+    animation: fly6 2s forwards;
+}
+
+@keyframes fly1 {
+    to {
+        transform:
+            translate(-220px, -180px)
+            rotate(360deg);
+        opacity: 1;
+    }
+}
+
+@keyframes fly2 {
+    to {
+        transform:
+            translate(220px, -150px)
+            rotate(-360deg);
+        opacity: 1;
+    }
+}
+
+@keyframes fly3 {
+    to {
+        transform:
+            translate(-250px, 150px)
+            rotate(300deg);
+        opacity: 1;
+    }
+}
+
+@keyframes fly4 {
+    to {
+        transform:
+            translate(240px, 170px)
+            rotate(-300deg);
+        opacity: 1;
+    }
+}
+
+@keyframes fly5 {
+    to {
+        transform:
+            translate(-120px, 230px)
+            rotate(250deg);
+        opacity: 1;
+    }
+}
+
+@keyframes fly6 {
+    to {
+        transform:
+            translate(130px, -230px)
+            rotate(-250deg);
+        opacity: 1;
+    }
+}
+
+/* =========================
+   MAIN WEBSITE
+========================= */
+
+#main {
+    display: none;
+}
+
+.hero {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 30px;
+    background:
+        radial-gradient(circle at center, #401700, #050505 70%);
+}
+
+.hero h1 {
+    font-size: clamp(50px, 12vw, 100px);
+    color: #ff7900;
+    text-shadow:
+        0 0 15px #ff7900,
+        0 0 40px #ff4500;
+}
+
+.hero h2 {
+    margin-top: 5px;
+    font-size: 35px;
+    letter-spacing: 8px;
+    color: #ffd0a3;
+}
+
+.typing {
+    margin: 30px auto 0;
+    max-width: 600px;
+    min-height: 60px;
+    color: #ddd;
+    line-height: 1.7;
+}
+
+.cursor {
+    border-right: 2px solid #ff7900;
+    animation: cursor .7s infinite;
+}
+
+@keyframes cursor {
+    50% {
+        border-color: transparent;
+    }
+}
+
+/* =========================
+   SECTIONS
+========================= */
+
+.section {
+    min-height: 100vh;
+    padding: 100px 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: #070707;
+}
+
+.section:nth-child(even) {
+    background:
+        radial-gradient(circle, #241000, #050505 70%);
+}
+
+.container {
+    width: min(850px, 100%);
+}
+
+.title {
+    color: #ff7900;
+    font-size: 40px;
+    margin-bottom: 25px;
+    text-shadow: 0 0 20px #ff6500;
+}
+
+/* =========================
+   PHOTO
+========================= */
+
+.photo {
+    width: min(350px, 90%);
+    margin: auto;
+    padding: 12px;
+    background: #eee;
+    transform: rotate(-2deg);
+    box-shadow: 0 10px 40px #000;
+}
+
+.photo img {
+    width: 100%;
+    display: block;
+}
+
+/* =========================
+   TKR
+========================= */
+
+.tkr-card {
+    padding: 35px;
+    border: 1px solid #ff7200;
+    border-radius: 25px;
+    background: #ff650008;
+    box-shadow: 0 0 30px #ff650022;
+}
+
+.gear {
+    font-size: 70px;
+    animation: gear 5s linear infinite;
+}
+
+@keyframes gear {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* =========================
+   LETTER
+========================= */
+
+.letter {
+    padding: 35px;
+    border-radius: 20px;
+    border: 1px solid #663000;
+    background: #120700;
+    color: #ddd;
+    line-height: 1.9;
+}
+
+/* =========================
+   NOTIFICATION
+========================= */
+
+.notification {
+    position: fixed;
+    right: 20px;
+    top: 25px;
+    z-index: 200;
+    width: min(340px, calc(100% - 40px));
+    padding: 15px;
+    border-radius: 18px;
+    background: rgba(35, 35, 35, .95);
+    box-shadow: 0 8px 30px #000;
+    display: none;
+    align-items: center;
+    gap: 15px;
+    animation: notification .5s ease;
+}
+
+.notification-icon {
+    font-size: 35px;
+}
+
+.notification-text {
+    text-align: left;
+}
+
+.notification-title {
+    font-size: 12px;
+    color: #aaa;
+}
+
+.notification-message {
+    margin-top: 4px;
+    font-weight: bold;
+}
+
+@keyframes notification {
+    from {
+        transform: translateY(-100px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* =========================
+   END
+========================= */
+
+.end {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background:
+        radial-gradient(circle, #421600, #050505 70%);
+}
+
+.end h2 {
+    color: #ff7900;
+    font-size: 45px;
+    text-shadow: 0 0 25px #ff4500;
+}
+
+.end p {
+    margin-top: 20px;
+    color: #ffd0a3;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    .title {
+        font-size: 32px;
+    }
+
+    .tkr-card,
+    .letter {
+        padding: 25px 20px;
+    }
+
+    .hero h2 {
+        font-size: 27px;
+    }
+
+    .notification {
+        right: 10px;
+        top: 15px;
+        width: calc(100% - 20px);
+    }
+      }

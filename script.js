@@ -1,17 +1,4 @@
 /* =========================
-   BIRTHDAY PIANO MUSIC
-========================= */
-
-const birthdayMusic =
-    document.getElementById("birthdayMusic");
-
-birthdayMusic.loop = true;
-
-document.addEventListener("click", () => {
-    birthdayMusic.play().catch(() => {});
-}, { once: true });
-
-/* =========================
    TERMINAL BACKGROUND
 ========================= */
 
@@ -42,7 +29,7 @@ for (let i = 0; i < 100; i++) {
 
 
 /* =========================
-   COUNTDOWN + AUDIO
+   COUNTDOWN
 ========================= */
 
 let number = 10;
@@ -53,34 +40,13 @@ const countdown =
 const countNumber =
     document.getElementById("number");
 
-const birthdayMusic =
-    document.getElementById("birthdayMusic");
-
-const countdownMusic =
-    document.getElementById("countdownMusic");
-
-/* Piano mulai saat halaman dibuka */
-birthdayMusic.volume = 0.7;
-
-birthdayMusic.play().catch(() => {
-    /* Chrome bisa menahan autoplay sampai ada interaksi */
-});
-
-
-/* Countdown mulai */
 const timer = setInterval(() => {
 
     number--;
 
-    /* Putar suara countdown setiap angka */
-    countdownMusic.currentTime = 0;
-    countdownMusic.play().catch(() => {});
-
     if (number <= 0) {
 
         clearInterval(timer);
-
-        countdownMusic.pause();
 
         countdown.style.display = "none";
 
@@ -93,6 +59,8 @@ const timer = setInterval(() => {
     }
 
 }, 1000);
+
+
 /* =========================
    HAPPY BIRTHDAY REVEAL
 ========================= */
@@ -213,5 +181,3 @@ window.addEventListener("scroll", () => {
     }
 
 });
-
- 

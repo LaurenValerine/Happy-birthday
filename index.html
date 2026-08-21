@@ -1,674 +1,428 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For You, The Best Mom in the World</title>
-
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            width: 100%;
-            height: 100vh;
-            overflow: hidden;
-            background: #050505;
-            font-family: Arial, sans-serif;
-            color: white;
-        }
-
-        .screen {
-            position: fixed;
-            inset: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            text-align: center;
-        }
-
-        /* =========================
-           LOADING
-        ========================= */
-
-        #loading {
-            background:
-                radial-gradient(
-                    circle at center,
-                    #3a1700 0%,
-                    #100600 45%,
-                    #030303 100%
-                );
-        }
-
-        .tool {
-            font-size: 70px;
-            color: #ff7900;
-            animation: spin 1.5s linear infinite;
-            filter:
-                drop-shadow(0 0 10px #ff7900)
-                drop-shadow(0 0 25px #ff4500);
-        }
-
-        @keyframes spin {
-            from {
-                transform: rotate(0deg);
-            }
-
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        .loading-title {
-            margin-top: 25px;
-            font-size: 18px;
-            letter-spacing: 2px;
-            color: #ff8a25;
-            text-shadow: 0 0 15px #ff6500;
-        }
-
-        .loading-dots {
-            margin-top: 12px;
-            color: #ffb066;
-            font-size: 14px;
-        }
-
-        .dots::after {
-            content: "";
-            animation: dots 1.5s infinite;
-        }
-
-        @keyframes dots {
-            0% {
-                content: "";
-            }
-
-            33% {
-                content: ".";
-            }
-
-            66% {
-                content: "..";
-            }
-
-            100% {
-                content: "...";
-            }
-        }
-
-        /* =========================
-           PIN
-        ========================= */
-
-        #pin {
-            display: none;
-
-            background:
-                radial-gradient(
-                    circle at center,
-                    #351500 0%,
-                    #0b0500 50%,
-                    #020202 100%
-                );
-        }
-
-        .pin-box {
-<style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
-    background: #0d0815;
-    font-family: Arial, sans-serif;
-    color: white;
-}
-
-.screen {
-    position: fixed;
-    inset: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    text-align: center;
-}
-
-/* =========================
-   LOADING
-========================= */
-
-#loading {
-    background:
-        radial-gradient(
-            circle at center,
-            #38204f 0%,
-            #1a1026 45%,
-            #09060d 100%
-        );
-}
-
-/* Ornamen bunga */
-#loading::before,
-#loading::after {
-    content: "🌹";
-    position: absolute;
-    font-size: 90px;
-    opacity: .15;
-    filter: blur(1px);
-}
-
-#loading::before {
-    top: 8%;
-    left: 8%;
-    transform: rotate(-25deg);
-}
-
-#loading::after {
-    bottom: 8%;
-    right: 8%;
-    transform: rotate(25deg);
-}
-
-/* ICON LOADING */
-.tool {
-    font-size: 65px;
-    animation: spin 1.8s linear infinite;
-    filter:
-        drop-shadow(0 0 8px #b58bd4)
-        drop-shadow(0 0 20px #7d5a9e);
-}
-
-@keyframes spin {
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-.loading-title {
-    margin-top: 25px;
-    font-size: 18px;
-    letter-spacing: 2px;
-    color: #d9b9e8;
-
-    text-shadow:
-        0 0 10px #8f6aa8;
-}
-
-.loading-dots {
-    margin-top: 12px;
-    color: #a88ab9;
-    font-size: 14px;
-}
-
-.dots::after {
-    content: "";
-    animation: dots 1.5s infinite;
-}
-
-@keyframes dots {
-
-    0% {
-        content: "";
-    }
-
-    33% {
-        content: ".";
-    }
-
-    66% {
-        content: "..";
-    }
-
-    100% {
-        content: "...";
-    }
-}
-
-
-/* =========================
-   PIN SCREEN
-========================= */
-
-#pin {
-    display: none;
-
-    background:
-        radial-gradient(
-            circle at center,
-            #38204f 0%,
-            #1b1027 48%,
-            #09060d 100%
-        );
-}
-
-/* Bunga dekorasi */
-#pin::before,
-#pin::after {
-    content: "🌹";
-    position: absolute;
-    font-size: 100px;
-    opacity: .12;
-    pointer-events: none;
-}
-
-#pin::before {
-    top: 5%;
-    left: 5%;
-    transform: rotate(-25deg);
-}
-
-#pin::after {
-    bottom: 5%;
-    right: 5%;
-    transform: rotate(20deg);
-}
-
-
-/* =========================
-   PIN BOX
-========================= */
-
-.pin-box {
-    position: relative;
-    z-index: 2;
-
-    width: min(90%, 370px);
-    padding: 35px 25px;
-
-    border: 1px solid #80618f;
-    border-radius: 25px;
-
-    background: rgba(22, 13, 31, 0.92);
-
-    box-shadow:
-        0 0 25px rgba(126, 91, 150, .25),
-        inset 0 0 30px rgba(126, 91, 150, .05);
-
-    backdrop-filter: blur(8px);
-}
-
-
-/* =========================
-   HEART
-========================= */
-
-.pin-heart {
-    font-size: 50px;
-    color: #c69bd9;
-
-    text-shadow:
-        0 0 10px #a875bd,
-        0 0 25px #765080;
-
-    animation: heartBeat 1.5s infinite;
-}
-
-@keyframes heartBeat {
-
-    0%, 100% {
-        transform: scale(1);
-    }
-
-    50% {
-        transform: scale(1.08);
-    }
-}
-
-
-/* =========================
-   TITLE
-========================= */
-
-.pin-title {
-    margin-top: 10px;
-
-    font-size: 27px;
-    font-weight: bold;
-
-    color: #d8b7e5;
-
-    text-shadow:
-        0 0 10px #866094,
-        0 0 20px #543a63;
-}
-
-.pin-subtitle {
-    margin-top: 8px;
-
-    color: #aaa0b0;
-    font-size: 14px;
-}
-
-
-/* =========================
-   PIN DOTS
-========================= */
-
-.pin-dots {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-
-    margin: 28px 0;
-}
-
-.dot {
-    width: 14px;
-    height: 14px;
-
-    border: 2px solid #a982b8;
-    border-radius: 50%;
-
-    box-shadow:
-        0 0 8px #765080;
-}
-
-.dot.active {
-    background: #b88ac9;
-
-    box-shadow:
-        0 0 10px #b88ac9,
-        0 0 20px #765080;
-}
-
-
-/* =========================
-   KEYPAD
-========================= */
-
-.keypad {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 11px;
-}
-
-.key {
-    height: 55px;
-
-    border: 1px solid #765080;
-    border-radius: 14px;
-
-    background: rgba(126, 91, 150, .08);
-
-    color: #eee;
-    font-size: 20px;
-
-    cursor: pointer;
-
-    transition: .2s;
-}
-
-.key:hover {
-    background: rgba(126, 91, 150, .2);
-    border-color: #a982b8;
-}
-
-.key:active {
-    background: #80618f;
-
-    box-shadow:
-        0 0 15px #80618f;
-
-    transform: scale(.95);
-}
-
-
-/* =========================
-   HINT
-========================= */
-
-.pin-hint {
-    margin-top: 20px;
-
-    color: #a88ab9;
-    font-size: 12px;
-}
-
-.error {
-    height: 18px;
-    margin-top: 10px;
-
-    color: #d99ab8;
-    font-size: 12px;
-}
-
-
-/* =========================
-   MOBILE
-========================= */
-
-@media (max-width: 600px) {
-
-    .pin-box {
-        width: 90%;
-        padding: 30px 20px;
-    }
-
-    .pin-title {
-        font-size: 24px;
-    }
-
-    #loading::before,
-    #loading::after,
-    #pin::before,
-    #pin::after {
-        font-size: 70px;
-    }
-
-}
-</style>
-</head>
-
-<body>
-
-    <!-- =========================
-         LOADING SCREEN
-    ========================= -->
-
-    <div id="loading" class="screen">
-
-        <!-- Ikon alat TKR -->
-        <div class="tool">🌸</div>
-
-        <div class="loading-title">
-            Loading your surprise
-        </div>
-
-        <div class="loading-dots">
-            Please wait<span class="dots"></span>
-        </div>
-
-    </div>
-
-
-    <!-- =========================
-         PIN SCREEN
-    ========================= -->
-
-    <div id="pin" class="screen">
-
-        <div class="pin-box">
-
-            <div class="pin-heart">
-                ♥
-            </div>
-
-            <div class="pin-title">
-                FOR YOU, THE BEST MOM IN THE WORLD
-            </div>
-
-            <div class="pin-subtitle">
-                Enter your PIN to continue
-            </div>
-
-
-            <!-- PIN BULATAN -->
-
-            <div class="pin-dots">
-
-                <div class="dot" id="dot1"></div>
-                <div class="dot" id="dot2"></div>
-                <div class="dot" id="dot3"></div>
-                <div class="dot" id="dot4"></div>
-
-            </div>
-
-
-            <!-- KEYPAD -->
-
-            <div class="keypad">
-
-                <button class="key" onclick="press(1)">1</button>
-                <button class="key" onclick="press(2)">2</button>
-                <button class="key" onclick="press(3)">3</button>
-
-                <button class="key" onclick="press(4)">4</button>
-                <button class="key" onclick="press(5)">5</button>
-                <button class="key" onclick="press(6)">6</button>
-
-                <button class="key" onclick="press(7)">7</button>
-                <button class="key" onclick="press(8)">8</button>
-                <button class="key" onclick="press(9)">9</button>
-
-                <button class="key" onclick="clearPin()">⌫</button>
-                <button class="key" onclick="press(0)">0</button>
-                <button class="key" onclick="checkPin()">✓</button>
-
-            </div>
-
-
-            <!-- PETUNJUK PIN -->
-
-            <div class="pin-hint">
-                Sandi PIN: 2121
-            </div>
-
-            <div id="error" class="error"></div>
-
-        </div>
-
-    </div>
-
-
-    <script>
-
-        /* =========================
-           LOADING
-        ========================= */
-
-        setTimeout(function() {
-
-            document.getElementById("loading").style.display = "none";
-
-            document.getElementById("pin").style.display = "flex";
-
-        }, 3000);
-
-
-        /* =========================
-           PIN
-        ========================= */
-
-        let pin = "";
-
-
-        function press(number) {
-
-            if (pin.length >= 4) {
-                return;
-            }
-
-            pin += number;
-
-            updateDots();
-
-            if (pin.length === 4) {
-
-                setTimeout(function() {
-                    checkPin();
-                }, 300);
-
-            }
-
-        }
-
-
-        function updateDots() {
-
-            for (let i = 1; i <= 4; i++) {
-
-                const dot =
-                    document.getElementById("dot" + i);
-
-                if (i <= pin.length) {
-
-                    dot.classList.add("active");
-
-                } else {
-
-                    dot.classList.remove("active");
-
-                }
-
-            }
-
-        }
-
-
-        function clearPin() {
-
-            pin = "";
-
-            updateDots();
-
-            document.getElementById("error").textContent = "";
-
-        }
-
-
-        function checkPin() {
-
-            if (pin === "2121") {
-
-                /*
-                 * NANTI DI SINI
-                 * KITA SAMBUNG KE
-                 * BIRTHDAY.HTML
-                 */
-
-                window.location.href = "birthday.html";
-
-            } else {
-
-                document.getElementById("error").textContent =
-                    "PIN salah... coba lagi 💜";
-
-                setTimeout(function() {
-
-                    clearPin();
-
-                }, 800);
-
-            }
-
-        }
-
-    </script>
-
-</body>
-</html>
+<!DOCTYPE html>  
+<html lang="id">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>For You, My Crush</title>  
+  
+    <style>  
+        * {  
+            box-sizing: border-box;  
+            margin: 0;  
+            padding: 0;  
+        }  
+  
+        body {  
+            width: 100%;  
+            height: 100vh;  
+            overflow: hidden;  
+            background: #050505;  
+            font-family: Arial, sans-serif;  
+            color: white;  
+        }  
+  
+        .screen {  
+            position: fixed;  
+            inset: 0;  
+            display: flex;  
+            justify-content: center;  
+            align-items: center;  
+            flex-direction: column;  
+            text-align: center;  
+        }  
+  
+        /* =========================  
+           LOADING  
+        ========================= */  
+  
+        #loading {  
+            background:  
+                radial-gradient(  
+                    circle at center,  
+                    #3a1700 0%,  
+                    #100600 45%,  
+                    #030303 100%  
+                );  
+        }  
+  
+        .tool {  
+            font-size: 70px;  
+            color: #ff7900;  
+            animation: spin 1.5s linear infinite;  
+            filter:  
+                drop-shadow(0 0 10px #ff7900)  
+                drop-shadow(0 0 25px #ff4500);  
+        }  
+  
+        @keyframes spin {  
+            from {  
+                transform: rotate(0deg);  
+            }  
+  
+            to {  
+                transform: rotate(360deg);  
+            }  
+        }  
+  
+        .loading-title {  
+            margin-top: 25px;  
+            font-size: 18px;  
+            letter-spacing: 2px;  
+            color: #ff8a25;  
+            text-shadow: 0 0 15px #ff6500;  
+        }  
+  
+        .loading-dots {  
+            margin-top: 12px;  
+            color: #ffb066;  
+            font-size: 14px;  
+        }  
+  
+        .dots::after {  
+            content: "";  
+            animation: dots 1.5s infinite;  
+        }  
+  
+        @keyframes dots {  
+            0% {  
+                content: "";  
+            }  
+  
+            33% {  
+                content: ".";  
+            }  
+  
+            66% {  
+                content: "..";  
+            }  
+  
+            100% {  
+                content: "...";  
+            }  
+        }  
+  
+        /* =========================  
+           PIN  
+        ========================= */  
+  
+        #pin {  
+            display: none;  
+  
+            background:  
+                radial-gradient(  
+                    circle at center,  
+                    #351500 0%,  
+                    #0b0500 50%,  
+                    #020202 100%  
+                );  
+        }  
+  
+        .pin-box {  
+            width: min(90%, 370px);  
+            padding: 35px 25px;  
+            border: 1px solid #ff7200;  
+            border-radius: 25px;  
+  
+            background: rgba(15, 6, 0, 0.9);  
+  
+            box-shadow:  
+                0 0 25px rgba(255, 100, 0, 0.35),  
+                inset 0 0 30px rgba(255, 100, 0, 0.05);  
+        }  
+  
+        .pin-heart {  
+            font-size: 50px;  
+            color: #ff7900;  
+  
+            text-shadow:  
+                0 0 10px #ff7900,  
+                0 0 30px #ff4500;  
+        }  
+  
+        .pin-title {  
+            margin-top: 10px;  
+            font-size: 29px;  
+            font-weight: bold;  
+            color: #ff8a25;  
+  
+            text-shadow:  
+                0 0 10px #ff7900,  
+                0 0 25px #ff4500;  
+        }  
+  
+        .pin-subtitle {  
+            margin-top: 8px;  
+            color: #aaa;  
+            font-size: 14px;  
+        }  
+  
+        /* PIN DOTS */  
+  
+        .pin-dots {  
+            display: flex;  
+            justify-content: center;  
+            gap: 15px;  
+            margin: 28px 0;  
+        }  
+  
+        .dot {  
+            width: 14px;  
+            height: 14px;  
+            border: 2px solid #ff7900;  
+            border-radius: 50%;  
+  
+            box-shadow:  
+                0 0 8px #ff6500;  
+        }  
+  
+        .dot.active {  
+            background: #ff7900;  
+        }  
+  
+        /* KEYPAD */  
+  
+        .keypad {  
+            display: grid;  
+            grid-template-columns: repeat(3, 1fr);  
+            gap: 11px;  
+        }  
+  
+        .key {  
+            height: 55px;  
+  
+            border: 1px solid #ff7200;  
+            border-radius: 14px;  
+  
+            background: rgba(255, 100, 0, 0.05);  
+  
+            color: white;  
+            font-size: 20px;  
+  
+            cursor: pointer;  
+  
+            transition: 0.2s;  
+        }  
+  
+        .key:active {  
+            background: #ff7200;  
+  
+            box-shadow:  
+                0 0 20px #ff7200;  
+  
+            transform: scale(0.95);  
+        }  
+  
+        .pin-hint {  
+            margin-top: 20px;  
+            color: #ff9a42;  
+            font-size: 12px;  
+        }  
+  
+        .error {  
+            height: 18px;  
+            margin-top: 10px;  
+  
+            color: #ff3c00;  
+            font-size: 12px;  
+        }  
+    </style>  
+</head>  
+  
+<body>  
+  
+    <!-- =========================  
+         LOADING SCREEN  
+    ========================= -->  
+  
+    <div id="loading" class="screen">  
+  
+        <!-- Ikon alat TKR -->  
+        <div class="tool">🔧</div>  
+  
+        <div class="loading-title">  
+            Loading your surprise  
+        </div>  
+  
+        <div class="loading-dots">  
+            Please wait<span class="dots"></span>  
+        </div>  
+  
+    </div>  
+  
+  
+    <!-- =========================  
+         PIN SCREEN  
+    ========================= -->  
+  
+    <div id="pin" class="screen">  
+  
+        <div class="pin-box">  
+  
+            <div class="pin-heart">  
+                ♥  
+            </div>  
+  
+            <div class="pin-title">  
+                FOR YOU, MY CRUSH  
+            </div>  
+  
+            <div class="pin-subtitle">  
+                Enter your PIN to continue  
+            </div>  
+  
+  
+            <!-- PIN BULATAN -->  
+  
+            <div class="pin-dots">  
+  
+                <div class="dot" id="dot1"></div>  
+                <div class="dot" id="dot2"></div>  
+                <div class="dot" id="dot3"></div>  
+                <div class="dot" id="dot4"></div>  
+  
+            </div>  
+  
+  
+            <!-- KEYPAD -->  
+  
+            <div class="keypad">  
+  
+                <button class="key" onclick="press(1)">1</button>  
+                <button class="key" onclick="press(2)">2</button>  
+                <button class="key" onclick="press(3)">3</button>  
+  
+                <button class="key" onclick="press(4)">4</button>  
+                <button class="key" onclick="press(5)">5</button>  
+                <button class="key" onclick="press(6)">6</button>  
+  
+                <button class="key" onclick="press(7)">7</button>  
+                <button class="key" onclick="press(8)">8</button>  
+                <button class="key" onclick="press(9)">9</button>  
+  
+                <button class="key" onclick="clearPin()">⌫</button>  
+                <button class="key" onclick="press(0)">0</button>  
+                <button class="key" onclick="checkPin()">✓</button>  
+  
+            </div>  
+  
+  
+            <!-- PETUNJUK PIN -->  
+  
+            <div class="pin-hint">  
+                Sandi PIN: 0000  
+            </div>  
+  
+            <div id="error" class="error"></div>  
+  
+        </div>  
+  
+    </div>  
+  
+  
+    <script>  
+  
+        /* =========================  
+           LOADING  
+        ========================= */  
+  
+        setTimeout(function() {  
+  
+            document.getElementById("loading").style.display = "none";  
+  
+            document.getElementById("pin").style.display = "flex";  
+  
+        }, 3000);  
+  
+  
+        /* =========================  
+           PIN  
+        ========================= */  
+  
+        let pin = "";  
+  
+  
+        function press(number) {  
+  
+            if (pin.length >= 4) {  
+                return;  
+            }  
+  
+            pin += number;  
+  
+            updateDots();  
+  
+            if (pin.length === 4) {  
+  
+                setTimeout(function() {  
+                    checkPin();  
+                }, 300);  
+  
+            }  
+  
+        }  
+  
+  
+        function updateDots() {  
+  
+            for (let i = 1; i <= 4; i++) {  
+  
+                const dot =  
+                    document.getElementById("dot" + i);  
+  
+                if (i <= pin.length) {  
+  
+                    dot.classList.add("active");  
+  
+                } else {  
+  
+                    dot.classList.remove("active");  
+  
+                }  
+  
+            }  
+  
+        }  
+  
+  
+        function clearPin() {  
+  
+            pin = "";  
+  
+            updateDots();  
+  
+            document.getElementById("error").textContent = "";  
+  
+        }  
+  
+  
+        function checkPin() {  
+  
+            if (pin === "0000") {  
+  
+                /*  
+                 * NANTI DI SINI  
+                 * KITA SAMBUNG KE  
+                 * BIRTHDAY.HTML  
+                 */  
+  
+                window.location.href = "birthday.html";  
+  
+            } else {  
+  
+                document.getElementById("error").textContent =  
+                    "PIN salah... coba lagi 🧡";  
+  
+                setTimeout(function() {  
+  
+                    clearPin();  
+  
+                }, 800);  
+  
+            }  
+  
+        }  
+  
+    </script>  
+  
+</body>  
+</html>  

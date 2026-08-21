@@ -118,114 +118,360 @@
         }
 
         .pin-box {
-            width: min(90%, 370px);
-            padding: 35px 25px;
-            border: 1px solid #ff7200;
-            border-radius: 25px;
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-            background: rgba(15, 6, 0, 0.9);
+body {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background: #0d0815;
+    font-family: Arial, sans-serif;
+    color: white;
+}
 
-            box-shadow:
-                0 0 25px rgba(255, 100, 0, 0.35),
-                inset 0 0 30px rgba(255, 100, 0, 0.05);
-        }
+.screen {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
 
-        .pin-heart {
-            font-size: 50px;
-            color: #ff7900;
+/* =========================
+   LOADING
+========================= */
 
-            text-shadow:
-                0 0 10px #ff7900,
-                0 0 30px #ff4500;
-        }
+#loading {
+    background:
+        radial-gradient(
+            circle at center,
+            #38204f 0%,
+            #1a1026 45%,
+            #09060d 100%
+        );
+}
 
-        .pin-title {
-            margin-top: 10px;
-            font-size: 29px;
-            font-weight: bold;
-            color: #ff8a25;
+/* Ornamen bunga */
+#loading::before,
+#loading::after {
+    content: "🌹";
+    position: absolute;
+    font-size: 90px;
+    opacity: .15;
+    filter: blur(1px);
+}
 
-            text-shadow:
-                0 0 10px #ff7900,
-                0 0 25px #ff4500;
-        }
+#loading::before {
+    top: 8%;
+    left: 8%;
+    transform: rotate(-25deg);
+}
 
-        .pin-subtitle {
-            margin-top: 8px;
-            color: #aaa;
-            font-size: 14px;
-        }
+#loading::after {
+    bottom: 8%;
+    right: 8%;
+    transform: rotate(25deg);
+}
 
-        /* PIN DOTS */
+/* ICON LOADING */
+.tool {
+    font-size: 65px;
+    animation: spin 1.8s linear infinite;
+    filter:
+        drop-shadow(0 0 8px #b58bd4)
+        drop-shadow(0 0 20px #7d5a9e);
+}
 
-        .pin-dots {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin: 28px 0;
-        }
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
 
-        .dot {
-            width: 14px;
-            height: 14px;
-            border: 2px solid #ff7900;
-            border-radius: 50%;
+    to {
+        transform: rotate(360deg);
+    }
+}
 
-            box-shadow:
-                0 0 8px #ff6500;
-        }
+.loading-title {
+    margin-top: 25px;
+    font-size: 18px;
+    letter-spacing: 2px;
+    color: #d9b9e8;
 
-        .dot.active {
-            background: #ff7900;
-        }
+    text-shadow:
+        0 0 10px #8f6aa8;
+}
 
-        /* KEYPAD */
+.loading-dots {
+    margin-top: 12px;
+    color: #a88ab9;
+    font-size: 14px;
+}
 
-        .keypad {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 11px;
-        }
+.dots::after {
+    content: "";
+    animation: dots 1.5s infinite;
+}
 
-        .key {
-            height: 55px;
+@keyframes dots {
 
-            border: 1px solid #ff7200;
-            border-radius: 14px;
+    0% {
+        content: "";
+    }
 
-            background: rgba(255, 100, 0, 0.05);
+    33% {
+        content: ".";
+    }
 
-            color: white;
-            font-size: 20px;
+    66% {
+        content: "..";
+    }
 
-            cursor: pointer;
+    100% {
+        content: "...";
+    }
+}
 
-            transition: 0.2s;
-        }
 
-        .key:active {
-            background: #ff7200;
+/* =========================
+   PIN SCREEN
+========================= */
 
-            box-shadow:
-                0 0 20px #ff7200;
+#pin {
+    display: none;
 
-            transform: scale(0.95);
-        }
+    background:
+        radial-gradient(
+            circle at center,
+            #38204f 0%,
+            #1b1027 48%,
+            #09060d 100%
+        );
+}
 
-        .pin-hint {
-            margin-top: 20px;
-            color: #ff9a42;
-            font-size: 12px;
-        }
+/* Bunga dekorasi */
+#pin::before,
+#pin::after {
+    content: "🌹";
+    position: absolute;
+    font-size: 100px;
+    opacity: .12;
+    pointer-events: none;
+}
 
-        .error {
-            height: 18px;
-            margin-top: 10px;
+#pin::before {
+    top: 5%;
+    left: 5%;
+    transform: rotate(-25deg);
+}
 
-            color: #ff3c00;
-            font-size: 12px;
-        }
-    </style>
+#pin::after {
+    bottom: 5%;
+    right: 5%;
+    transform: rotate(20deg);
+}
+
+
+/* =========================
+   PIN BOX
+========================= */
+
+.pin-box {
+    position: relative;
+    z-index: 2;
+
+    width: min(90%, 370px);
+    padding: 35px 25px;
+
+    border: 1px solid #80618f;
+    border-radius: 25px;
+
+    background: rgba(22, 13, 31, 0.92);
+
+    box-shadow:
+        0 0 25px rgba(126, 91, 150, .25),
+        inset 0 0 30px rgba(126, 91, 150, .05);
+
+    backdrop-filter: blur(8px);
+}
+
+
+/* =========================
+   HEART
+========================= */
+
+.pin-heart {
+    font-size: 50px;
+    color: #c69bd9;
+
+    text-shadow:
+        0 0 10px #a875bd,
+        0 0 25px #765080;
+
+    animation: heartBeat 1.5s infinite;
+}
+
+@keyframes heartBeat {
+
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.08);
+    }
+}
+
+
+/* =========================
+   TITLE
+========================= */
+
+.pin-title {
+    margin-top: 10px;
+
+    font-size: 27px;
+    font-weight: bold;
+
+    color: #d8b7e5;
+
+    text-shadow:
+        0 0 10px #866094,
+        0 0 20px #543a63;
+}
+
+.pin-subtitle {
+    margin-top: 8px;
+
+    color: #aaa0b0;
+    font-size: 14px;
+}
+
+
+/* =========================
+   PIN DOTS
+========================= */
+
+.pin-dots {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+
+    margin: 28px 0;
+}
+
+.dot {
+    width: 14px;
+    height: 14px;
+
+    border: 2px solid #a982b8;
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 8px #765080;
+}
+
+.dot.active {
+    background: #b88ac9;
+
+    box-shadow:
+        0 0 10px #b88ac9,
+        0 0 20px #765080;
+}
+
+
+/* =========================
+   KEYPAD
+========================= */
+
+.keypad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 11px;
+}
+
+.key {
+    height: 55px;
+
+    border: 1px solid #765080;
+    border-radius: 14px;
+
+    background: rgba(126, 91, 150, .08);
+
+    color: #eee;
+    font-size: 20px;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.key:hover {
+    background: rgba(126, 91, 150, .2);
+    border-color: #a982b8;
+}
+
+.key:active {
+    background: #80618f;
+
+    box-shadow:
+        0 0 15px #80618f;
+
+    transform: scale(.95);
+}
+
+
+/* =========================
+   HINT
+========================= */
+
+.pin-hint {
+    margin-top: 20px;
+
+    color: #a88ab9;
+    font-size: 12px;
+}
+
+.error {
+    height: 18px;
+    margin-top: 10px;
+
+    color: #d99ab8;
+    font-size: 12px;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    .pin-box {
+        width: 90%;
+        padding: 30px 20px;
+    }
+
+    .pin-title {
+        font-size: 24px;
+    }
+
+    #loading::before,
+    #loading::after,
+    #pin::before,
+    #pin::after {
+        font-size: 70px;
+    }
+
+}
+</style>
 </head>
 
 <body>
@@ -237,7 +483,7 @@
     <div id="loading" class="screen">
 
         <!-- Ikon alat TKR -->
-        <div class="tool">🔧</div>
+        <div class="tool">🌸</div>
 
         <div class="loading-title">
             Loading your surprise
@@ -263,7 +509,7 @@
             </div>
 
             <div class="pin-title">
-                FOR YOU, MY CRUSH
+                FOR YOU, THE BEST MOM IN THE WORLD
             </div>
 
             <div class="pin-subtitle">
@@ -309,7 +555,7 @@
             <!-- PETUNJUK PIN -->
 
             <div class="pin-hint">
-                Sandi PIN: 0000
+                Sandi PIN: 2121
             </div>
 
             <div id="error" class="error"></div>
@@ -397,7 +643,7 @@
 
         function checkPin() {
 
-            if (pin === "0000") {
+            if (pin === "2121") {
 
                 /*
                  * NANTI DI SINI
@@ -410,7 +656,7 @@
             } else {
 
                 document.getElementById("error").textContent =
-                    "PIN salah... coba lagi 🧡";
+                    "PIN salah... coba lagi 💜";
 
                 setTimeout(function() {
 

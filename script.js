@@ -1,33 +1,11 @@
-/* =========================================================
-   HAPPY BIRTHDAY M RIZKY ADITYA P
-   COMPLETE SCRIPT.JS
+ /* =========================================================
+   BIRTHDAY WEBSITE - SCRIPT.JS
    ========================================================= */
 
 
 /* =========================================================
-   HELPER
-   ========================================================= */
-
-function show(id, display = "flex") {
-    const el = document.getElementById(id);
-    if (el) {
-        el.style.display = display;
-        el.classList.add("active");
-    }
-}
-
-function hide(id) {
-    const el = document.getElementById(id);
-    if (el) {
-        el.style.display = "none";
-        el.classList.remove("active");
-    }
-}
-
-
-/* =========================================================
-   TERMINAL
-   ========================================================= */
+   TERMINAL BACKGROUND
+========================================================= */
 
 const terminal = document.getElementById("terminal");
 
@@ -37,53 +15,60 @@ const terminalLines = [
     "loading happiness.exe...",
     "checking memories...",
     "TKR module loaded...",
-    "engine status: ONLINE",
-    "birthday protocol: READY",
+    "fireworks.exe ready",
     "cake.exe ready",
     "gift.exe ready",
-    "surprise protocol active..."
+    "surprise protocol active...",
+    "target: M RIZKY ADITYA P",
+    "birthday protocol: READY"
 ];
 
 if (terminal) {
-    for (let i = 0; i < 90; i++) {
-        const line = document.createElement("span");
 
-        line.textContent =
+    for (let i = 0; i < 100; i++) {
+
+        const span = document.createElement("span");
+
+        span.textContent =
             terminalLines[
                 Math.floor(Math.random() * terminalLines.length)
             ];
 
-        terminal.appendChild(line);
+        terminal.appendChild(span);
     }
 }
 
 
 /* =========================================================
-   COUNTDOWN
-   ========================================================= */
+   COUNTDOWN 10 → 0
+========================================================= */
 
-let countdownNumber = 10;
+let number = 10;
 
-const numberElement =
-    document.getElementById("number");
+const countdown = document.getElementById("countdown");
+const countNumber = document.getElementById("number");
 
-const countdownTimer = setInterval(() => {
+const timer = setInterval(() => {
 
-    countdownNumber--;
+    number--;
 
-    if (numberElement) {
-        numberElement.textContent = countdownNumber;
-    }
+    if (number <= 0) {
 
-    if (countdownNumber <= 0) {
+        clearInterval(timer);
 
-        clearInterval(countdownTimer);
-
-        hide("countdown");
+        if (countdown) {
+            countdown.classList.add("countdown-hide");
+        }
 
         setTimeout(() => {
             showReveal();
-        }, 500);
+        }, 700);
+
+    } else {
+
+        if (countNumber) {
+            countNumber.textContent = number;
+        }
 
     }
 
@@ -91,18 +76,36 @@ const countdownTimer = setInterval(() => {
 
 
 /* =========================================================
-   REVEAL CAKE
-   ========================================================= */
+   CAKE REVEAL
+========================================================= */
 
 function showReveal() {
 
-    show("reveal");
+    const reveal = document.getElementById("reveal");
+
+    if (!reveal) return;
+
+    reveal.style.display = "flex";
+
+    reveal.classList.add("reveal-show");
 
     setTimeout(() => {
 
-        hide("reveal");
+        reveal.classList.remove("reveal-show");
+        reveal.classList.add("reveal-hide");
 
-        show("gift");
+        setTimeout(() => {
+
+            reveal.style.display = "none";
+
+            const gift = document.getElementById("gift");
+
+            if (gift) {
+                gift.style.display = "flex";
+                gift.classList.add("gift-show");
+            }
+
+        }, 700);
 
     }, 5000);
 }
@@ -110,102 +113,77 @@ function showReveal() {
 
 /* =========================================================
    GIFT
-   ========================================================= */
+========================================================= */
+
+let giftOpened = false;
 
 function openGift() {
 
+    if (giftOpened) return;
+
+    giftOpened = true;
+
     const gift = document.getElementById("gift");
 
-    if (!gift) return;
+    if (gift) {
 
-    // Efek kado ditekan
-    gift.classList.add("gift-shake");
+        gift.classList.add("gift-shake");
 
-    setTimeout(() => {
+        setTimeout(() => {
 
-        gift.classList.remove("gift-shake");
+            gift.style.display = "none";
 
-        // Tutup halaman kado
-        hide("gift");
+            startErrorPrank();
 
-        // Buka prank ERROR
-        startPrank();
+        }, 650);
+    }
 
-    }, 700);
 }
-
-
-/*
-   Pakai event delegation supaya tombol
-   tetap bisa diklik walaupun elemen dibuat/
-   ditampilkan setelah script berjalan.
-*/
-
-document.addEventListener("click", function(event) {
-
-    const button =
-        event.target.closest("#giftButton");
-
-    if (!button) return;
-
-    event.preventDefault();
-
-    openGift();
-
-});
 
 
 /* =========================================================
    ERROR PRANK
-   ========================================================= */
+========================================================= */
 
 let errorClicks = 0;
+let prankStarted = false;
 
-const errorWord =
-    document.getElementById("errorWord");
+function startErrorPrank() {
 
-const errorGuide =
-    document.getElementById("errorGuide");
+    const explosion = document.getElementById("tkrExplosion");
 
-const errorCounter =
-    document.getElementById("errorCounter");
+    if (!explosion) return;
 
+    explosion.style.display = "flex";
 
-function startPrank() {
+    setTimeout(() => {
 
-    errorClicks = 0;
+        explosion.classList.add("prank-active");
 
-    show("prank");
+    }, 50);
 
-    if (errorGuide) {
-        errorGuide.textContent =
-            "Klik ERROR 3 kali.";
-    }
+    const guide = document.getElementById("errorGuide");
 
-    if (errorCounter) {
-        errorCounter.textContent =
-            "0 / 3";
-    }
-
-    if (errorWord) {
-        errorWord.className = "error-word";
-        errorWord.textContent = "ERROR";
+    if (guide) {
+        guide.textContent = "Klik ERROR 3 kali.";
     }
 
 }
 
 
-/* =========================================================
-   ERROR CLICK
-   ========================================================= */
-
 function clickError() {
+
+    if (prankStarted) return;
 
     errorClicks++;
 
-    if (errorCounter) {
-        errorCounter.textContent =
-            `${errorClicks} / 3`;
+    const explosion = document.getElementById("tkrExplosion");
+    const errorWord = document.getElementById("errorWord");
+    const guide = document.getElementById("errorGuide");
+    const counter = document.getElementById("errorCounter");
+
+    if (counter) {
+        counter.textContent = `${errorClicks} / 3`;
     }
 
 
@@ -213,19 +191,20 @@ function clickError() {
 
     if (errorClicks === 1) {
 
-        if (errorGuide) {
-            errorGuide.textContent =
-                "SYSTEM WARNING...";
-        }
-
         if (errorWord) {
-            errorWord.classList.add(
-                "error-warning"
-            );
+            errorWord.classList.add("error-warning");
         }
 
-        createErrorParticles(25);
+        if (guide) {
+            guide.textContent =
+                "WARNING... system instability detected.";
+        }
 
+        if (explosion) {
+            explosion.classList.add("danger-level-1");
+        }
+
+        createGlitchParticles(15);
     }
 
 
@@ -233,23 +212,22 @@ function clickError() {
 
     else if (errorClicks === 2) {
 
-        if (errorGuide) {
-            errorGuide.textContent =
-                "CRITICAL ERROR DETECTED";
-        }
-
         if (errorWord) {
-            errorWord.classList.remove(
-                "error-warning"
-            );
-
-            errorWord.classList.add(
-                "error-danger"
-            );
+            errorWord.classList.remove("error-warning");
+            errorWord.classList.add("error-danger");
         }
 
-        createErrorParticles(50);
+        if (guide) {
+            guide.textContent =
+                "CRITICAL ERROR... one more click.";
+        }
 
+        if (explosion) {
+            explosion.classList.remove("danger-level-1");
+            explosion.classList.add("danger-level-2");
+        }
+
+        createGlitchParticles(35);
     }
 
 
@@ -257,461 +235,387 @@ function clickError() {
 
     else if (errorClicks >= 3) {
 
-        if (errorGuide) {
-            errorGuide.textContent =
-                "SYSTEM COLLAPSE...";
+        prankStarted = true;
+
+        if (guide) {
+            guide.textContent = "SYSTEM FAILURE.";
+        }
+
+        if (counter) {
+            counter.style.display = "none";
         }
 
         if (errorWord) {
-
-            errorWord.classList.remove(
-                "error-warning",
-                "error-danger"
-            );
-
-            errorWord.classList.add(
-                "error-explode"
-            );
-
+            errorWord.classList.add("error-explode");
         }
 
-        createErrorParticles(100);
+        if (explosion) {
+            explosion.classList.add("danger-level-3");
+        }
+
+        createGlitchParticles(80);
 
         setTimeout(() => {
-
-            hide("prank");
-
             createBirthdayHeart();
-
         }, 850);
-
     }
 
 }
 
 
-/* CLICK / ENTER KEY SUPPORT */
-
-if (errorWord) {
-
-    errorWord.addEventListener(
-        "click",
-        clickError
-    );
-
-    errorWord.addEventListener(
-        "keydown",
-        (event) => {
-
-            if (
-                event.key === "Enter" ||
-                event.key === " "
-            ) {
-                event.preventDefault();
-                clickError();
-            }
-
-        }
-    );
-
-}
-
-
 /* =========================================================
-   ERROR PARTICLES
-   ========================================================= */
+   GLITCH PARTICLES
+========================================================= */
 
-function createErrorParticles(amount) {
+function createGlitchParticles(amount) {
 
-    const container =
-        document.getElementById(
-            "prankParticles"
-        );
+    const explosion = document.getElementById("tkrExplosion");
 
-    if (!container) return;
-
+    if (!explosion) return;
 
     for (let i = 0; i < amount; i++) {
 
-        const particle =
-            document.createElement("span");
+        const particle = document.createElement("span");
 
-        particle.className =
-            "error-particle";
+        particle.className = "glitch-particle";
 
         particle.style.left =
-            `${50 + (Math.random() * 10 - 5)}%`;
+            `${50 + (Math.random() * 40 - 20)}%`;
 
         particle.style.top =
-            `${50 + (Math.random() * 10 - 5)}%`;
+            `${50 + (Math.random() * 40 - 20)}%`;
 
         particle.style.setProperty(
             "--x",
-            `${Math.random() * 700 - 350}px`
+            `${Math.random() * 600 - 300}px`
         );
 
         particle.style.setProperty(
             "--y",
-            `${Math.random() * 700 - 350}px`
+            `${Math.random() * 500 - 250}px`
         );
 
-        container.appendChild(particle);
+        particle.style.animationDelay =
+            `${Math.random() * 0.25}s`;
 
+        explosion.appendChild(particle);
 
         setTimeout(() => {
             particle.remove();
         }, 1200);
-
     }
 
 }
 
 
 /* =========================================================
-   MATHEMATICAL HEART
-   =========================================================
-
-   Kita memakai persamaan parametrik:
-
-   x = 16 sin³(t)
-
-   y = 13 cos(t)
-       - 5 cos(2t)
-       - 2 cos(3t)
-       - cos(4t)
-
-   Bukan Python.
-   Semua dihitung langsung oleh JavaScript.
-   */
-
-
-/* =========================================================
-   CREATE BIRTHDAY HEART
-   ========================================================= */
+   HAPPY BIRTHDAY HEART
+========================================================= */
 
 function createBirthdayHeart() {
 
-    const heart =
-        document.getElementById(
-            "birthdayHeart"
-        );
+    const prank = document.getElementById("tkrExplosion");
+    const birthdayLove = document.getElementById("birthdayLove");
+    const heartMessage = document.getElementById("heartMessage");
 
-    const message =
-        document.getElementById(
-            "heartMessage"
-        );
-
-    if (!heart) return;
+    if (!birthdayLove || !heartMessage) return;
 
 
-    heart.innerHTML = "";
+    if (prank) {
 
-    if (message) {
-        message.style.display = "none";
-    }
+        prank.classList.add("prank-blackout");
 
-
-    show("birthdayLove");
-
-
-    /*
-       Membuat beberapa lapisan hati.
-
-       r = 0
-       berada di tengah.
-
-       r = 1
-       berada di tepi.
-
-       Dengan begitu LOVE bukan cuma garis,
-       tetapi benar-benar terisi.
-    */
-
-    const layers = 9;
-
-    const wordsPerLayer = 55;
-
-    let index = 0;
-
-
-    for (let layer = 1; layer <= layers; layer++) {
-
-        const radius =
-            layer / layers;
-
-
-        for (
-            let i = 0;
-            i < wordsPerLayer;
-            i++
-        ) {
-
-            const t =
-                (Math.PI * 2 * i)
-                / wordsPerLayer;
-
-
-            /*
-               Persamaan parametrik hati
-            */
-
-            const heartX =
-                16 *
-                Math.pow(
-                    Math.sin(t),
-                    3
-                );
-
-
-            const heartY =
-                13 *
-                Math.cos(t)
-                -
-                5 *
-                Math.cos(2 * t)
-                -
-                2 *
-                Math.cos(3 * t)
-                -
-                Math.cos(4 * t);
-
-
-            /*
-               Radius dari pusat.
-               Lapisan dalam dibuat lebih kecil.
-            */
-
-            const x =
-                heartX * radius;
-
-            const y =
-                heartY * radius;
-
-
-            const word =
-                document.createElement("span");
-
-            word.className =
-                "heart-word";
-
-            word.textContent =
-                "HAPPY BIRTHDAY";
-
-
-            /*
-               Posisi di layar.
-
-               Angka ini sengaja dibuat
-               relatif terhadap ukuran layar.
-            */
-
-            const xPosition =
-                50 + x * 1.55;
-
-            const yPosition =
-                48 - y * 1.55;
-
-
-            word.style.left =
-                `${xPosition}%`;
-
-            word.style.top =
-                `${yPosition}%`;
-
-
-            /*
-               Sedikit variasi ukuran
-               supaya tidak terlalu kaku.
-            */
-
-            const size =
-                8 +
-                Math.random() * 5;
-
-            word.style.fontSize =
-                `${size}px`;
-
-
-            /*
-               Muncul bertahap.
-            */
-
-            word.style.animationDelay =
-                `${index * 0.008}s`;
-
-
-            heart.appendChild(word);
-
-            index++;
-
-        }
+        setTimeout(() => {
+            prank.style.display = "none";
+        }, 800);
 
     }
 
 
+    birthdayLove.style.display = "flex";
+
+    setTimeout(() => {
+        birthdayLove.classList.add("birthday-love-show");
+    }, 50);
+
+
+    const heartContainer =
+        document.getElementById("birthdayHeart");
+
+    if (!heartContainer) return;
+
+
+    const words = [];
+
+    const width = 21;
+    const height = 17;
+
     /*
-       Setelah semua tulisan muncul,
-       tampilkan tulisan utama.
+       Membentuk pola hati menggunakan koordinat.
     */
+
+    for (let y = 1; y < height; y++) {
+
+        for (let x = 0; x < width; x++) {
+
+            const nx =
+                (x - width / 2) / (width / 2);
+
+            const ny =
+                (y - height / 2) / (height / 2);
+
+            const equation =
+                Math.pow(nx * nx + ny * ny - 0.35, 3)
+                - nx * nx * Math.pow(ny, 3);
+
+            if (equation < 0.01) {
+
+                words.push({
+                    x: x,
+                    y: y
+                });
+
+            }
+
+        }
+    }
+
+
+    /*
+       Bersihkan container.
+    */
+
+    heartContainer.innerHTML = "";
+
+
+    /*
+       Buat HAPPY BIRTHDAY berkali-kali.
+    */
+
+    words.forEach((position, index) => {
+
+        const word =
+            document.createElement("span");
+
+        word.textContent = "HAPPY BIRTHDAY";
+
+        word.className = "heart-word";
+
+        word.style.left =
+            `${position.x * 5}%`;
+
+        word.style.top =
+            `${position.y * 5.2}%`;
+
+        word.style.animationDelay =
+            `${index * 0.018}s`;
+
+        heartContainer.appendChild(word);
+
+    });
+
+
+    /*
+       Setelah heart selesai dibentuk,
+       tahan selama 3 detik.
+    */
+
+    const formationTime =
+        Math.min(words.length * 18 + 1200, 4500);
 
     setTimeout(() => {
 
-        if (message) {
-            message.style.display = "block";
+        if (heartMessage) {
+            heartMessage.classList.add("heart-message-show");
         }
 
-    }, 3200);
+    }, formationTime);
 
-
-    /*
-       Setelah 3 detik berikutnya,
-       masuk ke halaman pertanyaan.
-    */
 
     setTimeout(() => {
 
-        hide("birthdayLove");
+        birthdayLove.classList.add("birthday-love-fade");
 
-        show("nextPage");
+        setTimeout(() => {
 
-    }, 6200);
+            birthdayLove.style.display = "none";
+
+            showNextQuestion();
+
+        }, 700);
+
+    }, formationTime + 3000);
 
 }
 
 
 /* =========================================================
-   NEXT PAGE
-   ========================================================= */
+   NEXT QUESTION
+========================================================= */
 
-const yesButton =
-    document.getElementById("yesButton");
+function showNextQuestion() {
 
-const noButton =
-    document.getElementById("noButton");
+    const nextPage = document.getElementById("nextPage");
 
-const noMessage =
-    document.getElementById("noMessage");
+    if (!nextPage) return;
 
+    nextPage.style.display = "flex";
+
+    setTimeout(() => {
+
+        nextPage.classList.add("next-page-show");
+
+    }, 50);
+
+}
+
+
+/* =========================================================
+   YES / NO
+========================================================= */
 
 let noClicks = 0;
 
-
 const noMessages = [
-    "Yakin gamau tauu? 😭",
-    "Yahh jahat...",
-    "Serius mau nolak?",
-    "Padahal tinggal klik YA 😭",
-    "TIDAK terusss?",
-    "Sistem mulai kecewa...",
-    "Kesempatan terakhir... mungkin.",
-    "Kok tombol TIDAK yang dipilih 😭"
+    "yahh jahat 😭",
+    "yakin gamau tauu?",
+    "masa hadiahnya ditolak...",
+    "satu kali lagi ajaa 😭",
+    "serius gamau?",
+    "aku sudah menyiapkan ini loh...",
+    "kesempatan terakhir mungkin 👀",
+    "YA-nya kok malah diabaikan 😭"
 ];
 
 
-if (noButton) {
+function chooseNo() {
 
-    noButton.addEventListener(
-        "click",
-        () => {
+    noClicks++;
 
-            noClicks++;
+    const yesButton = document.getElementById("yesButton");
+    const noMessage = document.getElementById("noMessage");
 
-            if (noMessage) {
+    if (noMessage) {
 
-                noMessage.textContent =
-                    noMessages[
-                        (noClicks - 1)
-                        % noMessages.length
-                    ];
+        const message =
+            noMessages[
+                (noClicks - 1) % noMessages.length
+            ];
 
-            }
+        noMessage.textContent = message;
+
+        noMessage.classList.remove("message-pop");
+
+        void noMessage.offsetWidth;
+
+        noMessage.classList.add("message-pop");
+    }
 
 
-            /*
-               Tombol YA makin besar
-               setiap kali TIDAK ditekan.
-            */
+    /*
+       YA membesar setiap kali TIDAK ditekan.
+    */
 
-            if (yesButton) {
+    if (yesButton) {
 
-                const scale =
-                    1 +
-                    noClicks * 0.15;
+        const scale =
+            Math.min(1 + noClicks * 0.16, 2.5);
 
-                yesButton.style.transform =
-                    `scale(${scale})`;
+        yesButton.style.transform =
+            `scale(${scale})`;
 
-            }
+        yesButton.style.zIndex = 10;
 
-        }
-    );
+    }
+
+}
+
+
+function chooseYes() {
+
+    const nextPage = document.getElementById("nextPage");
+
+    if (!nextPage) return;
+
+    nextPage.classList.add("next-page-hide");
+
+    setTimeout(() => {
+
+        nextPage.style.display = "none";
+
+        startFinalCountdown();
+
+    }, 700);
 
 }
 
 
 /* =========================================================
-   YES
-   ========================================================= */
+   COUNTDOWN 3 DETIK
+========================================================= */
 
-if (yesButton) {
+function startFinalCountdown() {
 
-    yesButton.addEventListener(
-        "click",
-        startYesCountdown
-    );
+    const countdownOverlay =
+        document.createElement("section");
 
-}
+    countdownOverlay.id =
+        "finalCountdown";
 
+    countdownOverlay.innerHTML = `
+        <div class="final-countdown-content">
+            <p>ACCESS GRANTED</p>
+            <div id="finalCountNumber">3</div>
+            <span>Loading birthday page...</span>
+        </div>
+    `;
 
-function startYesCountdown() {
-
-    hide("nextPage");
-
-
-    const countdown =
-        document.createElement("div");
-
-    countdown.className =
-        "yes-countdown";
-
-    document.body.appendChild(countdown);
+    document.body.appendChild(countdownOverlay);
 
 
     let count = 3;
 
-    countdown.textContent = count;
+    const finalTimer = setInterval(() => {
 
+        count--;
 
-    const timer =
-        setInterval(() => {
+        const number =
+            document.getElementById("finalCountNumber");
 
-            count--;
+        if (count <= 0) {
 
-            if (count <= 0) {
+            clearInterval(finalTimer);
 
-                clearInterval(timer);
+            countdownOverlay.classList.add(
+                "final-countdown-hide"
+            );
 
-                countdown.remove();
+            setTimeout(() => {
 
-                openMainPage();
+                countdownOverlay.remove();
 
-            } else {
+                showMainWebsite();
 
-                countdown.textContent =
-                    count;
+            }, 600);
 
+        } else {
+
+            if (number) {
+                number.textContent = count;
             }
 
-        }, 1000);
+        }
+
+    }, 1000);
 
 }
 
 
 /* =========================================================
-   MAIN PAGE
-   ========================================================= */
+   MAIN WEBSITE
+========================================================= */
 
-function openMainPage() {
+function showMainWebsite() {
 
     const main =
         document.getElementById("main");
@@ -720,20 +624,27 @@ function openMainPage() {
 
     main.style.display = "block";
 
-    main.classList.add(
-        "page-fade-in"
-    );
+    window.scrollTo({
+        top: 0,
+        behavior: "instant"
+    });
 
-    startTyping();
+    setTimeout(() => {
+
+        main.classList.add("main-show");
+
+        startTyping();
+
+    }, 100);
 
 }
 
 
 /* =========================================================
-   TYPING MESSAGE
-   ========================================================= */
+   TYPING
+========================================================= */
 
-const birthdayMessage =
+const message =
 `Today is your special day. Wishing you happiness, good health, and all your dreams come true.
 
 Sebelum lanjutt ada pantun dulu om.
@@ -746,7 +657,7 @@ Minta kuota dong sayangg...
 Nyambung ga sihh...
 halahh bodo amat lahhh 😭`;
 
-
+let typingIndex = 0;
 let typingStarted = false;
 
 
@@ -756,33 +667,22 @@ function startTyping() {
 
     typingStarted = true;
 
-
     const text =
-        document.getElementById(
-            "typingText"
-        );
+        document.getElementById("typingText");
 
     if (!text) return;
 
-
-    let index = 0;
-
     text.textContent = "";
-
 
     const typing =
         setInterval(() => {
 
             text.textContent +=
-                birthdayMessage[index];
+                message[typingIndex];
 
-            index++;
+            typingIndex++;
 
-
-            if (
-                index >=
-                birthdayMessage.length
-            ) {
+            if (typingIndex >= message.length) {
 
                 clearInterval(typing);
 
@@ -794,138 +694,172 @@ function startTyping() {
 
 
 /* =========================================================
+   SCROLL REVEAL
+========================================================= */
+
+const sections =
+    document.querySelectorAll(".section");
+
+const observer =
+    new IntersectionObserver(
+        entries => {
+
+            entries.forEach(entry => {
+
+                if (entry.isIntersecting) {
+
+                    entry.target.classList.add(
+                        "section-visible"
+                    );
+
+                }
+
+            });
+
+        },
+        {
+            threshold: 0.15
+        }
+    );
+
+
+sections.forEach(section => {
+
+    observer.observe(section);
+
+});
+
+
+/* =========================================================
    SCROLL NOTIFICATION
-   ========================================================= */
+========================================================= */
 
 let notificationShown = false;
 
+window.addEventListener("scroll", () => {
 
-window.addEventListener(
-    "scroll",
-    () => {
+    if (notificationShown) return;
 
-        if (notificationShown) return;
+    const scroll =
+        window.scrollY;
 
-        const height =
-            document.documentElement
-                .scrollHeight
-            -
-            window.innerHeight;
+    const height =
+        document.documentElement.scrollHeight -
+        window.innerHeight;
 
+    if (height <= 0) return;
 
-        if (height <= 0) return;
+    const percentage =
+        scroll / height;
 
+    if (percentage >= 0.35) {
 
-        const percentage =
-            window.scrollY / height;
+        notificationShown = true;
 
+        const notification =
+            document.getElementById("notification");
 
-        if (percentage >= 0.35) {
+        if (!notification) return;
 
-            notificationShown = true;
+        notification.style.display = "flex";
 
+        setTimeout(() => {
 
-            const notification =
-                document.getElementById(
-                    "notification"
-                );
+            notification.classList.add(
+                "notification-hide"
+            );
 
+            setTimeout(() => {
 
-            if (notification) {
+                notification.style.display = "none";
 
-                notification.style.display =
-                    "flex";
+            }, 500);
 
-
-                setTimeout(() => {
-
-                    notification.style.display =
-                        "none";
-
-                }, 4500);
-
-            }
-
-        }
+        }, 4000);
 
     }
-);
+
+});
 
 
 /* =========================================================
    FINAL GIFT
-   ========================================================= */
+========================================================= */
 
-const finalGiftButton =
-    document.getElementById(
-        "finalGiftButton"
-    );
-
-
-if (finalGiftButton) {
-
-    finalGiftButton.addEventListener(
-        "click",
-        openFinalGift
-    );
-
-}
+let finalGiftOpened = false;
 
 
 function openFinalGift() {
 
-    const finalPage =
-        document.getElementById(
-            "finalLovePage"
+    if (finalGiftOpened) return;
+
+    finalGiftOpened = true;
+
+    const finalButton =
+        document.querySelector(".next-button");
+
+    if (finalButton) {
+
+        finalButton.classList.add(
+            "final-button-active"
         );
 
-    if (!finalPage) return;
-
-
-    finalPage.style.display = "block";
-
-    finalPage.classList.add(
-        "page-fade-in"
-    );
-
+    }
 
     setTimeout(() => {
 
-        init3DHeart();
+        const main =
+            document.getElementById("main");
 
-    }, 200);
+        const finalPage =
+            document.getElementById("finalLovePage");
+
+        if (main) {
+            main.style.display = "none";
+        }
+
+        if (finalPage) {
+
+            finalPage.style.display = "flex";
+
+            setTimeout(() => {
+
+                finalPage.classList.add(
+                    "final-page-show"
+                );
+
+                init3DHeart();
+
+            }, 100);
+
+        }
+
+    }, 600);
 
 }
 
 
 /* =========================================================
-   THREE.JS 3D HEART
-   ========================================================= */
+   THREE.JS 3D WIREFRAME HEART
+========================================================= */
 
 let scene;
 let camera;
 let renderer;
+let heartGroup;
 
-let leftHeart;
-let rightHeart;
+let heartClicked = false;
+let animationStarted = false;
 
-let heartInitialized = false;
-
-let heartAnimationStarted = false;
-
-
-/* =========================================================
-   INIT 3D HEART
-   ========================================================= */
 
 function init3DHeart() {
 
-    if (heartInitialized) return;
+    const container =
+        document.getElementById("love3dContainer");
 
-    if (
-        typeof THREE ===
-        "undefined"
-    ) {
+    if (!container) return;
+
+    if (typeof THREE === "undefined") {
 
         console.error(
             "Three.js tidak ditemukan."
@@ -936,17 +870,6 @@ function init3DHeart() {
     }
 
 
-    const container =
-        document.getElementById(
-            "love3dContainer"
-        );
-
-    if (!container) return;
-
-
-    heartInitialized = true;
-
-
     scene =
         new THREE.Scene();
 
@@ -954,14 +877,12 @@ function init3DHeart() {
     camera =
         new THREE.PerspectiveCamera(
             45,
-            window.innerWidth /
-            window.innerHeight,
+            window.innerWidth / window.innerHeight,
             0.1,
             1000
         );
 
-
-    camera.position.z = 38;
+    camera.position.z = 9;
 
 
     renderer =
@@ -970,256 +891,69 @@ function init3DHeart() {
             alpha: true
         });
 
-
     renderer.setPixelRatio(
-        Math.min(
-            window.devicePixelRatio,
-            2
-        )
+        Math.min(window.devicePixelRatio, 2)
     );
-
 
     renderer.setSize(
         window.innerWidth,
         window.innerHeight
     );
 
-
     container.appendChild(
         renderer.domElement
     );
 
 
-    /*
-       Group utama.
-       Kiri dan kanan dibuat TERPISAH.
-       Jadi nanti benar-benar bisa dibelah.
-    */
-
-    leftHeart =
+    heartGroup =
         new THREE.Group();
 
-    rightHeart =
-        new THREE.Group();
-
-
-    scene.add(leftHeart);
-    scene.add(rightHeart);
-
-
-    create3DHeart();
-
-
-    heartAnimationStarted = true;
-
-    animateHeart();
-
-}
-
-
-/* =========================================================
-   CREATE 3D WIREFRAME HEART
-   ========================================================= */
-
-function create3DHeart() {
-
-    const pointsLeft = [];
-    const pointsRight = [];
-
-
-    /*
-       Membuat banyak titik pada permukaan hati.
-    */
-
-    for (
-        let i = 0;
-        i < 1800;
-        i++
-    ) {
-
-        const t =
-            Math.random() *
-            Math.PI * 2;
-
-
-        const scale =
-            Math.sqrt(
-                Math.random()
-            );
-
-
-        const x =
-            16 *
-            Math.pow(
-                Math.sin(t),
-                3
-            ) *
-            scale;
-
-
-        const y =
-            (
-                13 *
-                Math.cos(t)
-                -
-                5 *
-                Math.cos(2 * t)
-                -
-                2 *
-                Math.cos(3 * t)
-                -
-                Math.cos(4 * t)
-            ) *
-            scale;
-
-
-        /*
-           Kedalaman 3D.
-        */
-
-        const z =
-            (
-                Math.random() -
-                0.5
-            ) * 5;
-
-
-        const point =
-            new THREE.Vector3(
-                x * 0.75,
-                y * 0.75,
-                z
-            );
-
-
-        if (point.x <= 0) {
-            pointsLeft.push(point);
-        } else {
-            pointsRight.push(point);
-        }
-
-    }
-
-
-    /*
-       Titik-titik kiri
-    */
-
-    const leftGeometry =
-        new THREE.BufferGeometry()
-            .setFromPoints(
-                pointsLeft
-            );
-
-
-    const rightGeometry =
-        new THREE.BufferGeometry()
-            .setFromPoints(
-                pointsRight
-            );
-
-
-    const material =
-        new THREE.PointsMaterial({
-            color: 0xff6a00,
-            size: 0.09,
-            transparent: true,
-            opacity: 0.95
-        });
-
-
-    const leftPoints =
-        new THREE.Points(
-            leftGeometry,
-            material
-        );
-
-
-    const rightPoints =
-        new THREE.Points(
-            rightGeometry,
-            material.clone()
-        );
-
-
-    leftHeart.add(leftPoints);
-    rightHeart.add(rightPoints);
-
-
-    /*
-       Tambahkan garis wireframe
-       sederhana supaya terlihat
-       seperti hati 3D.
-    */
-
-    createHeartLines(
-        pointsLeft,
-        leftHeart
+    scene.add(
+        heartGroup
     );
 
-    createHeartLines(
-        pointsRight,
-        rightHeart
-    );
 
-}
+    /*
+       Heart dibuat dari banyak titik
+       menggunakan persamaan parametris.
+    */
 
-
-/* =========================================================
-   HEART WIREFRAME LINES
-   ========================================================= */
-
-function createHeartLines(
-    points,
-    group
-) {
-
-    const vertices = [];
-
-    const maxLines = 350;
-
+    const points = [];
 
     for (
-        let i = 0;
-        i < maxLines;
-        i++
+        let u = 0;
+        u < Math.PI * 2;
+        u += 0.16
     ) {
 
-        const a =
-            points[
-                Math.floor(
-                    Math.random() *
-                    points.length
+        for (
+            let v = 0;
+            v < Math.PI * 2;
+            v += 0.16
+        ) {
+
+            const x =
+                16 *
+                Math.pow(Math.sin(u), 3);
+
+            const y =
+                13 * Math.cos(u)
+                - 5 * Math.cos(2 * u)
+                - 2 * Math.cos(3 * u)
+                - Math.cos(4 * u);
+
+            const z =
+                4 *
+                Math.sin(v)
+                *
+                Math.sin(u);
+
+            points.push(
+                new THREE.Vector3(
+                    x / 16,
+                    y / 16,
+                    z / 8
                 )
-            ];
-
-
-        const b =
-            points[
-                Math.floor(
-                    Math.random() *
-                    points.length
-                )
-            ];
-
-
-        if (!a || !b) continue;
-
-
-        const distance =
-            a.distanceTo(b);
-
-
-        /*
-           Hanya hubungkan titik
-           yang cukup dekat.
-        */
-
-        if (distance < 2.5) {
-
-            vertices.push(
-                a.x, a.y, a.z,
-                b.x, b.y, b.z
             );
 
         }
@@ -1228,217 +962,235 @@ function createHeartLines(
 
 
     const geometry =
-        new THREE.BufferGeometry();
-
-
-    geometry.setAttribute(
-        "position",
-        new THREE.Float32BufferAttribute(
-            vertices,
-            3
-        )
-    );
+        new THREE.BufferGeometry()
+            .setFromPoints(points);
 
 
     const material =
-        new THREE.LineBasicMaterial({
-            color: 0xff6a00,
+        new THREE.PointsMaterial({
+            color: 0xff7900,
+            size: 0.035,
             transparent: true,
-            opacity: 0.35
+            opacity: 0.9
         });
 
 
-    const lines =
-        new THREE.LineSegments(
+    const heartPoints =
+        new THREE.Points(
             geometry,
             material
         );
 
 
-    group.add(lines);
-
-}
-
-
-/* =========================================================
-   HEART ANIMATION
-   ========================================================= */
-
-function animateHeart() {
-
-    if (!heartAnimationStarted) {
-        return;
-    }
-
-
-    requestAnimationFrame(
-        animateHeart
+    heartGroup.add(
+        heartPoints
     );
 
 
-    if (
-        leftHeart &&
-        rightHeart
+    /*
+       Tambahkan garis wireframe
+       berdasarkan geometri convex-ish.
+    */
+
+    const lineMaterial =
+        new THREE.LineBasicMaterial({
+            color: 0xff6500,
+            transparent: true,
+            opacity: 0.22
+        });
+
+
+    const lineGeometry =
+        new THREE.BufferGeometry();
+
+
+    const linePositions = [];
+
+
+    for (
+        let i = 0;
+        i < points.length - 1;
+        i += 3
     ) {
 
-        /*
-           Sebelum diklik,
-           kedua bagian bergerak
-           seperti satu hati.
-        */
+        const a = points[i];
+        const b = points[i + 1];
 
-        leftHeart.rotation.y += 0.004;
-        rightHeart.rotation.y += 0.004;
-
-        leftHeart.rotation.z =
-            Math.sin(
-                Date.now() * 0.001
-            ) * 0.015;
-
-        rightHeart.rotation.z =
-            Math.sin(
-                Date.now() * 0.001
-            ) * 0.015;
-
-    }
-
-
-    if (renderer) {
-
-        renderer.render(
-            scene,
-            camera
+        linePositions.push(
+            a.x, a.y, a.z,
+            b.x, b.y, b.z
         );
 
     }
 
+
+    lineGeometry.setAttribute(
+        "position",
+        new THREE.Float32BufferAttribute(
+            linePositions,
+            3
+        )
+    );
+
+
+    const lines =
+        new THREE.LineSegments(
+            lineGeometry,
+            lineMaterial
+        );
+
+
+    heartGroup.add(
+        lines
+    );
+
+
+    /*
+       Ukuran heart.
+    */
+
+    heartGroup.scale.set(
+        2.7,
+        2.7,
+        2.7
+    );
+
+
+    /*
+       Klik heart.
+    */
+
+    renderer.domElement.addEventListener(
+        "click",
+        handleHeartClick
+    );
+
+
+    window.addEventListener(
+        "resize",
+        resize3D
+    );
+
+
+    animate3DHeart();
+
 }
 
 
 /* =========================================================
-   FINAL HEART CLICK
-   ========================================================= */
+   3D ANIMATION
+========================================================= */
 
-let heartClicked = false;
+function animate3DHeart() {
 
+    if (!renderer || !scene || !camera) {
+        return;
+    }
 
-document.addEventListener(
-    "click",
-    (event) => {
-
-        const finalPage =
-            document.getElementById(
-                "finalLovePage"
-            );
+    requestAnimationFrame(
+        animate3DHeart
+    );
 
 
-        if (
-            !finalPage ||
-            finalPage.style.display === "none"
-        ) {
-            return;
-        }
+    if (!heartClicked && heartGroup) {
 
-
-        /*
-           Jangan klik elemen lain.
-           Hanya area love.
-        */
-
-        if (
-            event.target.closest(
-                ".final-love-text"
-            )
-        ) {
-            return;
-        }
-
-
-        if (heartClicked) return;
-
-        heartClicked = true;
-
-        splitHeart();
+        heartGroup.rotation.y += 0.008;
+        heartGroup.rotation.x =
+            Math.sin(Date.now() * 0.0007) * 0.12;
 
     }
-);
+
+
+    renderer.render(
+        scene,
+        camera
+    );
+
+}
+
+
+/* =========================================================
+   HEART CLICK
+========================================================= */
+
+function handleHeartClick(event) {
+
+    if (heartClicked) return;
+
+    heartClicked = true;
+
+    splitHeart();
+
+}
 
 
 /* =========================================================
    SPLIT HEART
-   ========================================================= */
+========================================================= */
 
 function splitHeart() {
 
-    if (
-        !leftHeart ||
-        !rightHeart
-    ) {
-        return;
+    if (!heartGroup) return;
+
+    const container =
+        document.getElementById(
+            "love3dContainer"
+        );
+
+
+    if (container) {
+        container.classList.add(
+            "heart-light-start"
+        );
     }
 
 
     /*
-       Hentikan rotasi normal.
+       Heart berhenti berputar
+       dan bergerak seperti terbelah.
     */
 
-    heartAnimationStarted = false;
+    heartGroup.children.forEach(
+        child => {
+
+            child.userData.originalX =
+                child.position.x;
+
+        }
+    );
 
 
-    /*
-       Animasi membelah.
-    */
-
-    const startTime =
+    const start =
         performance.now();
 
-    const duration = 1200;
+    const duration = 1100;
 
 
     function splitAnimation(now) {
 
         const progress =
             Math.min(
-                (now - startTime) /
-                duration,
+                (now - start) / duration,
                 1
             );
 
 
+        const ease =
+            progress * progress *
+            (3 - 2 * progress);
+
+
         /*
-           Easing
+           Bagian kiri dan kanan
+           disimulasikan dengan dua kelompok.
         */
 
-        const eased =
-            1 -
-            Math.pow(
-                1 - progress,
-                3
-            );
+        heartGroup.position.x =
+            -ease * 0.7;
 
 
-        leftHeart.position.x =
-            -6 * eased;
-
-        rightHeart.position.x =
-            6 * eased;
-
-
-        leftHeart.rotation.z =
-            -0.15 * eased;
-
-        rightHeart.rotation.z =
-            0.15 * eased;
-
-
-        if (renderer) {
-
-            renderer.render(
-                scene,
-                camera
-            );
-
-        }
+        heartGroup.rotation.z =
+            -ease * 0.08;
 
 
         if (progress < 1) {
@@ -1449,7 +1201,7 @@ function splitHeart() {
 
         } else {
 
-            createHeartLight();
+            createExplosionLight();
 
         }
 
@@ -1464,67 +1216,98 @@ function splitHeart() {
 
 
 /* =========================================================
-   LIGHT FROM INSIDE HEART
-   ========================================================= */
+   LIGHT
+========================================================= */
 
-function createHeartLight() {
+function createExplosionLight() {
 
     const container =
         document.getElementById(
-            "finalLovePage"
+            "love3dContainer"
         );
 
     if (!container) return;
 
 
     const light =
-        document.createElement(
-            "div"
-        );
+        document.createElement("div");
 
     light.className =
-        "heart-light";
-
+        "heart-explosion-light";
 
     container.appendChild(
         light
     );
 
 
-    /*
-       Cahaya semakin terang
-       sebelum ledakan.
-    */
-
     setTimeout(() => {
 
-        if (leftHeart) {
-            leftHeart.visible = false;
-        }
+        light.classList.add(
+            "light-max"
+        );
 
-        if (rightHeart) {
-            rightHeart.visible = false;
-        }
-
-    }, 900);
+    }, 100);
 
 
     setTimeout(() => {
 
-        light.remove();
+        explodeHeart();
 
-        createFinalFireworks();
-
-    }, 1400);
+    }, 1300);
 
 }
 
 
 /* =========================================================
-   FINAL FIREWORKS
-   ========================================================= */
+   HEART EXPLOSION
+========================================================= */
 
-function createFinalFireworks() {
+function explodeHeart() {
+
+    if (heartGroup) {
+
+        heartGroup.visible = false;
+
+    }
+
+
+    const container =
+        document.getElementById(
+            "love3dContainer"
+        );
+
+    if (container) {
+
+        container.classList.add(
+            "final-flash"
+        );
+
+    }
+
+
+    createFireworks();
+
+
+    setTimeout(() => {
+
+        if (container) {
+
+            container.classList.remove(
+                "final-flash"
+            );
+
+        }
+
+    }, 800);
+
+}
+
+
+/* =========================================================
+   FIREWORKS
+========================================================= */
+
+function createFireworks() {
 
     const container =
         document.getElementById(
@@ -1534,156 +1317,121 @@ function createFinalFireworks() {
     if (!container) return;
 
 
-    const bursts = 8;
+    container.innerHTML = "";
 
 
-    for (
-        let b = 0;
-        b < bursts;
-        b++
-    ) {
+    /*
+       Banyak ledakan.
+    */
+
+    for (let i = 0; i < 16; i++) {
 
         setTimeout(() => {
 
-            createFireworkBurst(
-                container
+            createFirework(
+                Math.random() * 100,
+                20 + Math.random() * 65
             );
 
-        }, b * 180);
+        }, i * 180);
 
     }
 
 }
 
 
-/* =========================================================
-   FIREWORK BURST
-   ========================================================= */
+function createFirework(x, y) {
 
-function createFireworkBurst(
-    container
-) {
+    const container =
+        document.getElementById(
+            "fireworksContainer"
+        );
 
-    const centerX =
-        15 +
-        Math.random() * 70;
-
-    const centerY =
-        15 +
-        Math.random() * 65;
+    if (!container) return;
 
 
-    const particles = 35;
+    const firework =
+        document.createElement("div");
+
+    firework.className =
+        "firework-burst";
+
+    firework.style.left =
+        `${x}%`;
+
+    firework.style.top =
+        `${y}%`;
 
 
-    for (
-        let i = 0;
-        i < particles;
-        i++
-    ) {
+    /*
+       Buat partikel radial.
+    */
+
+    for (let i = 0; i < 28; i++) {
 
         const particle =
-            document.createElement(
-                "span"
-            );
-
+            document.createElement("span");
 
         particle.className =
-            "final-firework";
-
-
-        particle.style.left =
-            `${centerX}%`;
-
-        particle.style.top =
-            `${centerY}%`;
-
+            "firework-particle";
 
         const angle =
-            Math.random() * 360;
+            (Math.PI * 2 / 28) * i;
 
         const distance =
-            50 +
-            Math.random() * 180;
-
+            80 + Math.random() * 130;
 
         particle.style.setProperty(
-            "--angle",
-            `${angle}deg`
+            "--x",
+            `${Math.cos(angle) * distance}px`
         );
-
 
         particle.style.setProperty(
-            "--distance",
-            `${distance}px`
+            "--y",
+            `${Math.sin(angle) * distance}px`
         );
 
+        particle.style.animationDelay =
+            `${Math.random() * 0.1}s`;
 
-        container.appendChild(
+        firework.appendChild(
             particle
         );
 
-
-        setTimeout(() => {
-
-            particle.remove();
-
-        }, 1600);
-
     }
+
+
+    container.appendChild(
+        firework
+    );
+
+
+    setTimeout(() => {
+
+        firework.remove();
+
+    }, 1800);
 
 }
 
 
 /* =========================================================
    RESIZE THREE.JS
-   ========================================================= */
+========================================================= */
 
-window.addEventListener(
-    "resize",
-    () => {
+function resize3D() {
 
-        if (
-            !camera ||
-            !renderer
-        ) {
-            return;
-        }
+    if (!camera || !renderer) return;
 
+    camera.aspect =
+        window.innerWidth /
+        window.innerHeight;
 
-        camera.aspect =
-            window.innerWidth /
-            window.innerHeight;
+    camera.updateProjectionMatrix();
 
+    renderer.setSize(
+        window.innerWidth,
+        window.innerHeight
+    );
 
-        camera.updateProjectionMatrix();
-
-
-        renderer.setSize(
-            window.innerWidth,
-            window.innerHeight
-        );
-
-    }
-);
-
-
-/* =========================================================
-   SAFETY LOG
-   ========================================================= */
-
-console.log(
-    "🎂 Birthday system loaded successfully."
-);
-
-console.log(
-    "🔧 TKR module: ONLINE"
-);
-
-console.log(
-    "❤️ Mathematical heart: READY"
-);
-
-console.log(
-    "🎁 Surprise protocol: ACTIVE"
-);
+               }

@@ -112,31 +112,47 @@ function showReveal() {
    GIFT
    ========================================================= */
 
-const giftButton =
-    document.getElementById("giftButton");
+function openGift() {
 
-if (giftButton) {
+    const gift = document.getElementById("gift");
 
-    giftButton.addEventListener("click", () => {
+    if (!gift) return;
 
-        const gift =
-            document.getElementById("gift");
+    // Efek kado ditekan
+    gift.classList.add("gift-shake");
 
-        if (gift) {
-            gift.classList.add("gift-shake");
-        }
+    setTimeout(() => {
 
-        setTimeout(() => {
+        gift.classList.remove("gift-shake");
 
-            hide("gift");
+        // Tutup halaman kado
+        hide("gift");
 
-            startPrank();
+        // Buka prank ERROR
+        startPrank();
 
-        }, 900);
-
-    });
-
+    }, 700);
 }
+
+
+/*
+   Pakai event delegation supaya tombol
+   tetap bisa diklik walaupun elemen dibuat/
+   ditampilkan setelah script berjalan.
+*/
+
+document.addEventListener("click", function(event) {
+
+    const button =
+        event.target.closest("#giftButton");
+
+    if (!button) return;
+
+    event.preventDefault();
+
+    openGift();
+
+});
 
 
 /* =========================================================

@@ -311,141 +311,76 @@ function createGlitchParticles(amount) {
 /* =========================================================
    HAPPY BIRTHDAY HEART
 ========================================================= */
-
 function createBirthdayHeart() {
+    const heart = document.getElementById("birthdayHeart");
+    const message = document.getElementById("heartMessage");
 
-    const prank = document.getElementById("tkrExplosion");
-    const birthdayLove = document.getElementById("birthdayLove");
-    const heartMessage = document.getElementById("heartMessage");
+    heart.innerHTML = "";
+    message.style.display = "none";
 
-    if (!birthdayLove || !heartMessage) return;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
 
+    const scaleX = width * 0.025;
+    const scaleY = height * 0.025;
 
-    if (prank) {
-
-        prank.classList.add("prank-blackout");
-
-        setTimeout(() => {
-            prank.style.display = "none";
-        }, 800);
-
-    }
-
-
-    birthdayLove.style.display = "flex";
-
-    setTimeout(() => {
-        birthdayLove.classList.add("birthday-love-show");
-    }, 50);
-
-
-    const heartContainer =
-        document.getElementById("birthdayHeart");
-
-    if (!heartContainer) return;
-
-
-    const words = [];
-
-    const width = 21;
-    const height = 17;
+    let index = 0;
 
     /*
-       Membentuk pola hati menggunakan koordinat.
+       Persamaan hati:
+
+       x = 16 sin³(t)
+
+       y = 13 cos(t)
+           - 5 cos(2t)
+           - 2 cos(3t)
+           - cos(4t)
     */
 
-    for (let y = 1; y < height; y++) {
+    for (let y = -14; y <= 14; y += 1.4) {
 
-        for (let x = 0; x < width; x++) {
+        for (let x = -17; x <= 17; x += 1.4) {
 
-            const nx =
-                (x - width / 2) / (width / 2);
-
-            const ny =
-                (y - height / 2) / (height / 2);
-
+            // Persamaan implisit hati
             const equation =
-                Math.pow(nx * nx + ny * ny - 0.35, 3)
-                - nx * nx * Math.pow(ny, 3);
+                Math.pow(
+                    x * x + y * y - 1,
+                    3
+                )
+                -
+                x * x * Math.pow(y, 3);
 
-            if (equation < 0.01) {
+            // Titik berada di dalam bentuk hati
+            if (equation <= 0) {
 
-                words.push({
-                    x: x,
-                    y: y
-                });
+                const word =
+                    document.createElement("span");
 
+                word.textContent = "HAPPY BIRTHDAY";
+                word.className = "heart-word";
+
+                const posX =
+                    50 + (x * scaleX / width);
+
+                const posY =
+                    48 - (y * scaleY / height);
+
+                word.style.left = `${posX}%`;
+                word.style.top = `${posY}%`;
+
+                word.style.animationDelay =
+                    `${index * 0.012}s`;
+
+                heart.appendChild(word);
+
+                index++;
             }
-
         }
     }
 
-
-    /*
-       Bersihkan container.
-    */
-
-    heartContainer.innerHTML = "";
-
-
-    /*
-       Buat HAPPY BIRTHDAY berkali-kali.
-    */
-
-    words.forEach((position, index) => {
-
-        const word =
-            document.createElement("span");
-
-        word.textContent = "HAPPY BIRTHDAY";
-
-        word.className = "heart-word";
-
-        word.style.left =
-            `${position.x * 5}%`;
-
-        word.style.top =
-            `${position.y * 5.2}%`;
-
-        word.style.animationDelay =
-            `${index * 0.018}s`;
-
-        heartContainer.appendChild(word);
-
-    });
-
-
-    /*
-       Setelah heart selesai dibentuk,
-       tahan selama 3 detik.
-    */
-
-    const formationTime =
-        Math.min(words.length * 18 + 1200, 4500);
-
     setTimeout(() => {
-
-        if (heartMessage) {
-            heartMessage.classList.add("heart-message-show");
-        }
-
-    }, formationTime);
-
-
-    setTimeout(() => {
-
-        birthdayLove.classList.add("birthday-love-fade");
-
-        setTimeout(() => {
-
-            birthdayLove.style.display = "none";
-
-            showNextQuestion();
-
-        }, 700);
-
-    }, formationTime + 3000);
-
+        message.style.display = "block";
+    }, 3500);
 }
 
 

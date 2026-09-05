@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -20,13 +20,22 @@
     <div class="terminal" id="terminal"></div>
 
     <div class="count-content">
-        <p class="count-label">SYSTEM INITIALIZING</p>
 
-        <div class="count-number" id="number">10</div>
+        <p class="count-label">
+            SYSTEM INITIALIZING
+        </p>
+
+        <div
+            class="count-number"
+            id="number"
+        >
+            10
+        </div>
 
         <p class="count-status">
             Preparing your birthday surprise...
         </p>
+
     </div>
 
 </section>
@@ -72,9 +81,11 @@
 
     <div class="gift-content">
 
-        <div
+        <button
             class="gift-image-box"
-            onclick="openGift()"
+            id="giftButton"
+            type="button"
+            aria-label="Buka kado"
         >
 
             <img
@@ -83,11 +94,16 @@
                 class="gift-image"
             >
 
-        </div>
+        </button>
 
         <p class="gift-text">
+
             Ada hadiah buat kamu...<br>
-            <span>klik kadonya 🎁</span>
+
+            <span>
+                klik kadonya 🎁
+            </span>
+
         </p>
 
     </div>
@@ -101,17 +117,20 @@
 
 <section id="tkrExplosion">
 
-    <div class="prank-background" id="prankBackground"></div>
+    <div
+        class="prank-background"
+        id="prankBackground"
+    ></div>
 
     <div class="error-screen">
 
-<div
-    class="error-glitch"
-    id="errorWord"
-    onclick="clickError()"
->
-    ERROR
-</div>
+        <button
+            class="error-glitch"
+            id="errorWord"
+            type="button"
+        >
+            ERROR
+        </button>
 
         <p id="errorGuide">
             Klik ERROR 3 kali.
@@ -174,14 +193,14 @@
 
             <button
                 id="yesButton"
-                onclick="chooseYes()"
+                type="button"
             >
                 YA
             </button>
 
             <button
                 id="noButton"
-                onclick="chooseNo()"
+                type="button"
             >
                 TIDAK
             </button>
@@ -354,7 +373,7 @@
                     width="100%"
                     height="152"
                     frameborder="0"
-                    allowfullscreen=""
+                    allowfullscreen
                     allow="
                         autoplay;
                         clipboard-write;
@@ -363,8 +382,8 @@
                         picture-in-picture
                     "
                     loading="lazy"
-                >
-                </iframe>
+                    title="Spotify music player"
+                ></iframe>
 
             </div>
 
@@ -473,7 +492,8 @@
 
             <button
                 class="next-button"
-                onclick="openFinalGift()"
+                id="finalGiftButton"
+                type="button"
             >
                 BUKA 🎁
             </button>
@@ -528,4 +548,4 @@
 <script src="script.js"></script>
 
 </body>
- </html>
+</html> 

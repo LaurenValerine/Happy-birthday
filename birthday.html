@@ -1,739 +1,42 @@
  <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HAPPY BIRTHDAY MY CRUSH🧡</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+    <title>Happy Birthday M Rizky Aditya P</title>
 
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    background: #050505;
-    color: white;
-    font-family: Arial, sans-serif;
-    overflow-x: hidden;
-}
-
-/* =========================
-   COUNTDOWN
-========================= */
-
-#countdown {
-    position: fixed;
-    inset: 0;
-    z-index: 100;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #030303;
-    overflow: hidden;
-}
-
-.terminal {
-    position: absolute;
-    inset: 0;
-    padding: 15px;
-    font-family: monospace;
-    font-size: 11px;
-    line-height: 1.5;
-    color: #ff6500;
-    opacity: .22;
-    overflow: hidden;
-}
-
-.terminal span {
-    display: block;
-}
-
-.count-content {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-}
-
-.count-label {
-    color: #ff9a42;
-    letter-spacing: 4px;
-    font-size: 13px;
-}
-
-.count-number {
-    margin: 15px 0;
-    font-size: clamp(100px, 25vw, 180px);
-    font-weight: 900;
-    color: #ff7900;
-    text-shadow:
-        0 0 10px #ff7900,
-        0 0 30px #ff4500,
-        0 0 80px #ff2200;
-    animation: pulse .8s infinite alternate;
-}
-
-@keyframes pulse {
-    to {
-        transform: scale(1.08);
-    }
-}
-
-/* =========================
-   BIRTHDAY REVEAL
-========================= */
-
-#reveal {
-    position: fixed;
-    inset: 0;
-    z-index: 90;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    background:
-        radial-gradient(circle, #461800, #080300 70%);
-}
-
-.reveal-content {
-    position: relative;
-    z-index: 3;
-}
-
-.cake {
-    width: 180px;
-    height: 130px;
-    position: relative;
-    margin: auto;
-}
-
-.cake-body {
-    position: absolute;
-    bottom: 10px;
-    left: 15px;
-    width: 150px;
-    height: 65px;
-    border-radius: 10px 10px 25px 25px;
-    background: linear-gradient(#ff8a25, #9c3500);
-    box-shadow: 0 10px 30px #ff450055;
-}
-
-.cake-top {
-    position: absolute;
-    top: 45px;
-    left: 15px;
-    width: 150px;
-    height: 35px;
-    border-radius: 50%;
-    background: #ffd0a3;
-}
-
-.candle {
-    position: absolute;
-    top: 8px;
-    left: 85px;
-    width: 10px;
-    height: 45px;
-    background: #ffd0a3;
-    border-radius: 5px;
-    z-index: 2;
-}
-
-.flame {
-    position: absolute;
-    width: 15px;
-    height: 22px;
-    top: -20px;
-    left: -2px;
-    border-radius: 50%;
-    background: #ffae00;
-    box-shadow:
-        0 0 10px #ffae00,
-        0 0 30px #ff6500;
-    animation: flame .5s infinite alternate;
-}
-
-@keyframes flame {
-    to {
-        transform: scale(1.2);
-    }
-}
-
-.happy {
-    margin-top: 20px;
-    font-size: clamp(45px, 10vw, 90px);
-    font-weight: 900;
-    color: #ff7900;
-    text-shadow:
-        0 0 15px #ff7900,
-        0 0 40px #ff4500;
-}
-
-.adit {
-    margin-top: 5px;
-    font-size: 30px;
-    letter-spacing: 8px;
-    color: #ffd0a3;
-}
-
-/* =========================
-   FIREWORKS
-========================= */
-
-.firework {
-    position: absolute;
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: #ff7900;
-    box-shadow:
-        0 0 10px #ff7900,
-        0 0 25px #ff4500;
-    animation: boom 1.8s infinite;
-}
-
-.firework::before,
-.firework::after {
-    content: "";
-    position: absolute;
-    width: 4px;
-    height: 100px;
-    background: linear-gradient(
-        transparent,
-        #ff7900,
-        transparent
-    );
-    left: 0;
-    top: -48px;
-}
-
-.firework::after {
-    transform: rotate(90deg);
-}
-
-.f1 {
-    left: 15%;
-    top: 25%;
-}
-
-.f2 {
-    right: 15%;
-    top: 20%;
-    animation-delay: .5s;
-}
-
-.f3 {
-    left: 25%;
-    bottom: 20%;
-    animation-delay: 1s;
-}
-
-.f4 {
-    right: 25%;
-    bottom: 25%;
-    animation-delay: 1.4s;
-}
-
-@keyframes boom {
-    0%, 100% {
-        transform: scale(.2);
-        opacity: 0;
-    }
-
-    40% {
-        transform: scale(1);
-        opacity: 1;
-    }
-
-    70% {
-        transform: scale(1.5);
-        opacity: .7;
-    }
-}
-
-/* =========================
-   GIFT
-========================= */
-
-#gift {
-    position: fixed;
-    inset: 0;
-    z-index: 80;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    text-align: center;
-    background:
-        radial-gradient(circle, #351300, #050505 70%);
-}
-
-.gift-box {
-    position: relative;
-    width: 150px;
-    height: 120px;
-    margin-bottom: 30px;
-    cursor: pointer;
-    animation: giftFloat 2s infinite ease-in-out;
-}
-
-@keyframes giftFloat {
-    50% {
-        transform: translateY(-12px);
-    }
-}
-
-.gift-body {
-    position: absolute;
-    bottom: 0;
-    width: 150px;
-    height: 90px;
-    background: #ff6500;
-    border-radius: 8px;
-    box-shadow: 0 0 30px #ff450055;
-}
-
-.gift-lid {
-    position: absolute;
-    top: 20px;
-    left: -8px;
-    width: 166px;
-    height: 30px;
-    background: #ff8a25;
-    border-radius: 7px;
-    z-index: 2;
-}
-
-.ribbon-v {
-    position: absolute;
-    width: 20px;
-    height: 120px;
-    left: 65px;
-    background: #ffd0a3;
-    z-index: 3;
-}
-
-.ribbon-h {
-    position: absolute;
-    width: 166px;
-    height: 18px;
-    left: -8px;
-    top: 75px;
-    background: #ffd0a3;
-    z-index: 3;
-}
-
-.gift-text {
-    color: #ffd0a3;
-    font-size: 16px;
-    animation: blink 1.5s infinite;
-}
-
-@keyframes blink {
-    50% {
-        opacity: .4;
-    }
-}
-
-/* =========================
-   TKR EXPLOSION
-========================= */
-
-#tkrExplosion {
-    position: fixed;
-    inset: 0;
-    z-index: 70;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    background: #050505;
-}
-
-.tool {
-    position: absolute;
-    font-size: 45px;
-    opacity: 0;
-}
-
-.tool:nth-child(1) {
-    animation: fly1 2s forwards;
-}
-
-.tool:nth-child(2) {
-    animation: fly2 2s forwards;
-}
-
-.tool:nth-child(3) {
-    animation: fly3 2s forwards;
-}
-
-.tool:nth-child(4) {
-    animation: fly4 2s forwards;
-}
-
-.tool:nth-child(5) {
-    animation: fly5 2s forwards;
-}
-
-.tool:nth-child(6) {
-    animation: fly6 2s forwards;
-}
-
-@keyframes fly1 {
-    to {
-        transform:
-            translate(-220px, -180px)
-            rotate(360deg);
-        opacity: 1;
-    }
-}
-
-@keyframes fly2 {
-    to {
-        transform:
-            translate(220px, -150px)
-            rotate(-360deg);
-        opacity: 1;
-    }
-}
-
-@keyframes fly3 {
-    to {
-        transform:
-            translate(-250px, 150px)
-            rotate(300deg);
-        opacity: 1;
-    }
-}
-
-@keyframes fly4 {
-    to {
-        transform:
-            translate(240px, 170px)
-            rotate(-300deg);
-        opacity: 1;
-    }
-}
-
-@keyframes fly5 {
-    to {
-        transform:
-            translate(-120px, 230px)
-            rotate(250deg);
-        opacity: 1;
-    }
-}
-
-@keyframes fly6 {
-    to {
-        transform:
-            translate(130px, -230px)
-            rotate(-250deg);
-        opacity: 1;
-    }
-}
-
-/* =========================
-   MAIN WEBSITE
-========================= */
-
-#main {
-    display: none;
-}
-
-.hero {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 30px;
-    background:
-        radial-gradient(circle at center, #401700, #050505 70%);
-}
-
-.hero h1 {
-    font-size: clamp(50px, 12vw, 100px);
-    color: #ff7900;
-    text-shadow:
-        0 0 15px #ff7900,
-        0 0 40px #ff4500;
-}
-
-.hero h2 {
-    margin-top: 5px;
-    font-size: 35px;
-    letter-spacing: 8px;
-    color: #ffd0a3;
-}
-
-.typing {
-    margin: 30px auto 0;
-    max-width: 600px;
-    min-height: 60px;
-    color: #ddd;
-    line-height: 1.7;
-}
-
-.cursor {
-    border-right: 2px solid #ff7900;
-    animation: cursor .7s infinite;
-}
-
-@keyframes cursor {
-    50% {
-        border-color: transparent;
-    }
-}
-
-/* =========================
-   SECTIONS
-========================= */
-
-.section {
-    min-height: 100vh;
-    padding: 100px 25px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    background: #070707;
-}
-
-.section:nth-child(even) {
-    background:
-        radial-gradient(circle, #241000, #050505 70%);
-}
-
-.container {
-    width: min(850px, 100%);
-}
-
-.title {
-    color: #ff7900;
-    font-size: 40px;
-    margin-bottom: 25px;
-    text-shadow: 0 0 20px #ff6500;
-}
-
-/* =========================
-   PHOTO
-========================= */
-
-.photo {
-    width: min(350px, 90%);
-    margin: auto;
-    padding: 12px;
-    background: #eee;
-    transform: rotate(-2deg);
-    box-shadow: 0 10px 40px #000;
-}
-
-.photo img {
-    width: 100%;
-    display: block;
-}
-
-/* =========================
-   TKR
-========================= */
-
-.tkr-card {
-    padding: 35px;
-    border: 1px solid #ff7200;
-    border-radius: 25px;
-    background: #ff650008;
-    box-shadow: 0 0 30px #ff650022;
-}
-
-.gear {
-    font-size: 70px;
-    animation: gear 5s linear infinite;
-}
-
-@keyframes gear {
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-/* =========================
-   SPOTIFY
-========================= */
-
-.spotify-subtitle {
-    color: #aaa;
-    margin-bottom: 25px;
-    line-height: 1.6;
-}
-
-.spotify-player {
-    width: min(650px, 100%);
-    margin: 30px auto 0;
-}
-
-.spotify-player iframe {
-    width: 100%;
-    border: none;
-    border-radius: 12px;
-}
-
-/* =========================
-   LETTER
-========================= */
-
-.letter {
-    padding: 35px;
-    border-radius: 20px;
-    border: 1px solid #663000;
-    background: #120700;
-    color: #ddd;
-    line-height: 1.9;
-}
-
-/* =========================
-   NOTIFICATION
-========================= */
-
-.notification {
-    position: fixed;
-    right: 20px;
-    top: 25px;
-    z-index: 200;
-    width: min(340px, calc(100% - 40px));
-    padding: 15px;
-    border-radius: 18px;
-    background: rgba(35, 35, 35, .95);
-    box-shadow: 0 8px 30px #000;
-    display: none;
-    align-items: center;
-    gap: 15px;
-    animation: notification .5s ease;
-}
-
-.notification-icon {
-    font-size: 35px;
-}
-
-.notification-text {
-    text-align: left;
-}
-
-.notification-title {
-    font-size: 12px;
-    color: #aaa;
-}
-
-.notification-message {
-    margin-top: 4px;
-    font-weight: bold;
-}
-
-@keyframes notification {
-    from {
-        transform: translateY(-100px);
-        opacity: 0;
-    }
-
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-/* =========================
-   END
-========================= */
-
-.end {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    background:
-        radial-gradient(circle, #421600, #050505 70%);
-}
-
-.end h2 {
-    color: #ff7900;
-    font-size: 45px;
-    text-shadow: 0 0 25px #ff4500;
-}
-
-.end p {
-    margin-top: 20px;
-    color: #ffd0a3;
-}
-
-/* =========================
-   MOBILE
-========================= */
-
-@media (max-width: 600px) {
-
-    .title {
-        font-size: 32px;
-    }
-
-    .tkr-card,
-    .letter {
-        padding: 25px 20px;
-    }
-
-    .hero h2 {
-        font-size: 27px;
-    }
-
-    .notification {
-        right: 10px;
-        top: 15px;
-        width: calc(100% - 20px);
-    }
-
-}
-</style>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- =========================
-     COUNTDOWN
-========================= -->
+<!-- =====================================================
+     1. COUNTDOWN
+===================================================== -->
 
-<div id="countdown">
+<section id="countdown">
 
     <div class="terminal" id="terminal"></div>
 
     <div class="count-content">
+        <p class="count-label">SYSTEM INITIALIZING</p>
 
-        <div class="count-label">
-            BIRTHDAY PROTOCOL
-        </div>
+        <div class="count-number" id="number">10</div>
 
-        <div class="count-number" id="number">
-            10
-        </div>
-
-        <div class="count-label">
-            INITIALIZING...
-        </div>
-
+        <p class="count-status">
+            Preparing your birthday surprise...
+        </p>
     </div>
 
-</div>
+</section>
 
 
-<!-- =========================
-     BIRTHDAY REVEAL
-========================= -->
+<!-- =====================================================
+     2. CAKE REVEAL
+===================================================== -->
 
-<div id="reveal">
+<section id="reveal">
 
     <div class="firework f1"></div>
     <div class="firework f2"></div>
@@ -742,96 +45,195 @@ body {
 
     <div class="reveal-content">
 
-        <div class="cake">
+        <img
+            src="1000530075-removebg-preview.png"
+            alt="Kue ulang tahun"
+            class="birthday-cake-image"
+        >
 
-            <div class="candle">
-                <div class="flame"></div>
-            </div>
-
-            <div class="cake-top"></div>
-            <div class="cake-body"></div>
-
-        </div>
-
-        <div class="happy">
+        <h1 class="happy">
             HAPPY BIRTHDAY
+        </h1>
+
+        <p class="adit">
+            M RIZKY ADITYA P
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     3. GIFT
+===================================================== -->
+
+<section id="gift">
+
+    <div class="gift-content">
+
+        <div
+            class="gift-image-box"
+            onclick="openGift()"
+        >
+
+            <img
+                src="1000530077-removebg-preview.png"
+                alt="Kado ulang tahun"
+                class="gift-image"
+            >
+
         </div>
 
-        <div class="adit">
-            ADIT
+        <p class="gift-text">
+            Ada hadiah buat kamu...<br>
+            <span>klik kadonya 🎁</span>
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     4. PRANK ERROR
+===================================================== -->
+
+<section id="tkrExplosion">
+
+    <div class="prank-background" id="prankBackground"></div>
+
+    <div class="error-screen">
+
+        <div class="error-glitch" id="errorWord">
+            ERROR
+        </div>
+
+        <p id="errorGuide">
+            Klik ERROR 3 kali.
+        </p>
+
+        <div
+            class="error-counter"
+            id="errorCounter"
+        >
+            0 / 3
         </div>
 
     </div>
 
-</div>
+</section>
 
 
-<!-- =========================
-     GIFT
-========================= -->
+<!-- =====================================================
+     5. HAPPY BIRTHDAY HEART
+===================================================== -->
 
-<div id="gift">
+<section id="birthdayLove">
 
-    <div class="gift-box" onclick="openGift()">
+    <div
+        class="birthday-heart"
+        id="birthdayHeart"
+    ></div>
 
-        <div class="gift-lid"></div>
-        <div class="gift-body"></div>
-        <div class="ribbon-v"></div>
-        <div class="ribbon-h"></div>
+    <div
+        class="heart-message"
+        id="heartMessage"
+    >
+        HAPPY BIRTHDAY
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     6. NEXT QUESTION
+===================================================== -->
+
+<section id="nextPage">
+
+    <div class="next-box">
+
+        <div class="question-icon">
+            ⚙️
+        </div>
+
+        <h2>
+            Siap untuk halaman berikutnya?
+        </h2>
+
+        <p id="noMessage">
+            Pilih dengan bijak...
+        </p>
+
+        <div class="answer-buttons">
+
+            <button
+                id="yesButton"
+                onclick="chooseYes()"
+            >
+                YA
+            </button>
+
+            <button
+                id="noButton"
+                onclick="chooseNo()"
+            >
+                TIDAK
+            </button>
+
+        </div>
 
     </div>
 
-    <div class="gift-text">
-        Tap the gift box to open it 🎁
-    </div>
-
-</div>
+</section>
 
 
-<!-- =========================
-     TKR EXPLOSION
-========================= -->
+<!-- =====================================================
+     7. MAIN WEBSITE
+===================================================== -->
 
-<div id="tkrExplosion">
-
-    <div class="tool">🔧</div>
-    <div class="tool">⚙️</div>
-    <div class="tool">🔩</div>
-    <div class="tool">🪛</div>
-    <div class="tool">🔧</div>
-    <div class="tool">⚙️</div>
-
-</div>
+<main id="main">
 
 
-<!-- =========================
-     MAIN WEBSITE
-========================= -->
-
-<div id="main">
-
-    <!-- HERO -->
+    <!-- =================================================
+         HERO
+    ================================================== -->
 
     <section class="hero">
 
-        <div>
+        <div class="hero-content">
+
+            <div class="birthday-character">
+
+                <img
+                    src="1000530082-removebg-preview.png"
+                    alt="Boneka ulang tahun"
+                    class="character-image"
+                >
+
+            </div>
+
+            <p class="hero-small">
+                SPECIAL DAY DETECTED
+            </p>
 
             <h1>
                 HAPPY BIRTHDAY
             </h1>
 
             <h2>
-                My Crush
-             (M.RIZKY ADITYA P) 
+                M RIZKY ADITYA P
             </h2>
 
-            <div class="typing">
+            <div class="typing-wrapper">
 
-                <span id="typingText"></span>
+                <p
+                    class="typing"
+                    id="typingText"
+                ></p>
 
-                <span class="cursor">
-                    &nbsp;
-                </span>
+                <span class="cursor"></span>
 
             </div>
 
@@ -840,39 +242,56 @@ body {
     </section>
 
 
-    <!-- PHOTO -->
+    <!-- =================================================
+         A LITTLE MEMORY
+    ================================================== -->
 
-    <section class="section">
+    <section class="section memory-section">
 
         <div class="container">
 
-            <div class="title">
-                📸 A Little Memory
-            </div>
+            <p class="section-label">
+                MEMORY DATABASE
+            </p>
+
+            <h2 class="title">
+                A Little Memory
+            </h2>
 
             <div class="photo">
 
                 <img
                     src="Screenshot_20260810_204957_Gallery.jpg"
-                    alt="Adit"
+                    alt="A little memory"
                 >
 
             </div>
+
+            <p class="section-description">
+                Sebuah foto, sebuah momen,
+                dan satu kenangan yang tersimpan.
+            </p>
 
         </div>
 
     </section>
 
 
-    <!-- TKR -->
+    <!-- =================================================
+         TKR SECTION
+    ================================================== -->
 
-    <section class="section">
+    <section class="section tkr-section">
 
         <div class="container">
 
-            <div class="title">
-                🔧 TKR MODE: ON
-            </div>
+            <p class="section-label">
+                AUTOMOTIVE MODULE
+            </p>
+
+            <h2 class="title">
+                TKR MODE
+            </h2>
 
             <div class="tkr-card">
 
@@ -880,17 +299,20 @@ body {
                     ⚙️
                 </div>
 
-                <h2>
-                    Built for the road,
-                    made for great memories.
-                </h2>
-
-                <br>
+                <h3>
+                    Teknik Kendaraan Ringan
+                </h3>
 
                 <p>
-                   May all your future journeys 
-                   be filled with good things
+                    Semoga semakin jago,
+                    semakin sukses,
+                    dan semua yang kamu cita-citakan
+                    bisa tercapai.
                 </p>
+
+                <div class="tools-row">
+                    🔧 &nbsp; ⚙️ &nbsp; 🔩 &nbsp; 🛠️
+                </div>
 
             </div>
 
@@ -899,18 +321,26 @@ body {
     </section>
 
 
-    <!-- SPOTIFY -->
+    <!-- =================================================
+         SPOTIFY
+    ================================================== -->
 
-    <section class="section">
+    <section class="section spotify-section">
 
         <div class="container">
 
-            <div class="title">
-                🎵 A SONG FOR YOU
-            </div>
+            <p class="section-label">
+                SOUNDTRACK
+            </p>
+
+            <h2 class="title">
+                A Song For You
+            </h2>
 
             <p class="spotify-subtitle">
-                Satu lagu khusus buat nemenin kamu 🧡
+                Ada satu lagu yang menemani halaman ini.
+                Tinggal tekan play, karena manusia rupanya
+                belum puas membuat perasaan menjadi playlist.
             </p>
 
             <div class="spotify-player">
@@ -920,58 +350,94 @@ body {
                     width="100%"
                     height="152"
                     frameborder="0"
-                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                    loading="lazy">
+                    allowfullscreen=""
+                    allow="
+                        autoplay;
+                        clipboard-write;
+                        encrypted-media;
+                        fullscreen;
+                        picture-in-picture
+                    "
+                    loading="lazy"
+                >
                 </iframe>
 
             </div>
 
+            <div class="song-lyrics">
+
+                <h3>
+                    Lyrics
+                </h3>
+
+                <p id="lyricsText">
+                    Putar lagunya dan nikmati bagian favoritmu.
+                </p>
+
+                <small>
+                    *Cuplikan lirik dapat ditambahkan kemudian.
+                </small>
+
+            </div>
+
         </div>
 
     </section>
 
 
-    <!-- LETTER -->
+    <!-- =================================================
+         LETTER
+    ================================================== -->
 
-    <section class="section">
+    <section class="section letter-section">
 
         <div class="container">
 
-            <div class="title">
-                💌 A Letter For You
-            </div>
+            <p class="section-label">
+                PRIVATE MESSAGE
+            </p>
+
+            <h2 class="title">
+                A Letter For You
+            </h2>
 
             <div class="letter">
 
-                Happy birthday, Adit! 🧡
+                <p>
+                    Happy birthday yaa.
+                </p>
 
-                <br><br>
+                <br>
 
-                Habedee omm 🥳🎂
-                Semoga di umur yang baru ini kamu 
-                selalu dikelilingi orang-orang baik,
-                diberi kesehatan, dilancarkan 
-                sekolahnya, sukses buat 
-                kedepannya, dan semua impian kakak 
-                bisa tercapai satu-satu.
+                <p>
+                    Semoga di umur yang baru ini,
+                    kamu selalu diberikan kesehatan,
+                    kebahagiaan, dan banyak hal baik.
+                </p>
 
-                <br><br>
+                <br>
 
-                btw om, semoga om juga selalu 
-                bahagia yaa. Soalnya kalau kamu 
-                bahagia, ada satu orang yang 
-               diam-diam ikut seneng juga hehe.
+                <p>
+                    Semoga semua rencana dan impianmu
+                    perlahan bisa tercapai.
+                    Jangan lupa tetap semangat,
+                    walaupun kadang hidup suka
+                    memberikan error tanpa peringatan.
+                </p>
 
-                <br><br>
+                <br>
 
-                Siapa nyakkk?
-                Manusia lahh yakali setan bisa 
-                seeffort ini
-                Tapi kalau om mau nebak, silakan. 
-                Aku kasih kesempatan clue nya 
-               'aku calon istrimu lohh om'
-             
-                HBD sekali lagi, Kakkk 🧡🎂
+                <p>
+                    Terima kasih sudah menjadi seseorang
+                    yang punya cerita sendiri dalam hidupku.
+                </p>
+
+                <br>
+
+                <p>
+                    Sekali lagi,
+                    HAPPY BIRTHDAY 🎂
+                </p>
 
             </div>
 
@@ -980,254 +446,82 @@ body {
     </section>
 
 
-    <!-- END -->
+    <!-- =================================================
+         FINAL GIFT
+    ================================================== -->
 
     <section class="end">
 
-        <div>
+        <div class="end-content">
+
+            <p class="section-label">
+                FINAL PROTOCOL
+            </p>
 
             <h2>
-                Happy Birthday, My... Guee😘🧡
+                Hadiah terakhir nihhh
             </h2>
 
             <p>
-                This little surprise was made just for you.
+                Tapi ini yang terakhir.
+                Beneran.
             </p>
+
+            <button
+                class="next-button"
+                onclick="openFinalGift()"
+            >
+                BUKA 🎁
+            </button>
 
         </div>
 
     </section>
 
-</div>
+
+</main>
 
 
-<!-- =========================
-     NOTIFICATION
-========================= -->
+<!-- =====================================================
+     8. FINAL 3D HEART PAGE
+===================================================== -->
 
-<div class="notification" id="notification">
+<section id="finalLovePage">
 
-    <div class="notification-icon">
-        🎂
+    <div
+        id="love3dContainer"
+        class="love3d-container"
+    ></div>
+
+    <div class="final-love-text">
+
+        <p class="for-you">
+            FOR YOU
+        </p>
+
+        <p class="love-hint">
+            jangan klik love nya
+        </p>
+
     </div>
 
-    <div class="notification-text">
+    <div
+        id="fireworksContainer"
+        class="fireworks-container"
+    ></div>
 
-        <div class="notification-title">
-            Birthday
-        </div>
+</section>
 
-        <div class="notification-message">
-            Happy birthday to you
-        </div>
 
-    </div>
+<!-- =====================================================
+     THREE.JS
+===================================================== -->
 
-</div>
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"
+></script>
 
-
-<script>
-
-/* =========================
-   TERMINAL BACKGROUND
-========================= */
-
-const terminal =
-    document.getElementById("terminal");
-
-const terminalLines = [
-    "root@birthday:~$ initializing...",
-    "system: birthday_mode = true",
-    "loading happiness.exe...",
-    "checking memories...",
-    "TKR module loaded...",
-    "fireworks.exe ready",
-    "cake.exe ready",
-    "gift.exe ready",
-    "surprise protocol active..."
-];
-
-for (let i = 0; i < 100; i++) {
-
-    const span =
-        document.createElement("span");
-
-    span.textContent =
-        terminalLines[
-            Math.floor(
-                Math.random() *
-                terminalLines.length
-            )
-        ];
-
-    terminal.appendChild(span);
-
-}
-
-
-/* =========================
-   COUNTDOWN
-========================= */
-
-let number = 10;
-
-const countdown =
-    document.getElementById("countdown");
-
-const countNumber =
-    document.getElementById("number");
-
-const timer =
-    setInterval(() => {
-
-        number--;
-
-        if (number <= 0) {
-
-            clearInterval(timer);
-
-            countdown.style.display = "none";
-
-            showReveal();
-
-        } else {
-
-            countNumber.textContent =
-                number;
-
-        }
-
-    }, 1000);
-
-
-/* =========================
-   HAPPY BIRTHDAY REVEAL
-========================= */
-
-function showReveal() {
-
-    const reveal =
-        document.getElementById("reveal");
-
-    reveal.style.display = "flex";
-
-    setTimeout(() => {
-
-        reveal.style.display = "none";
-
-        document.getElementById("gift")
-            .style.display = "flex";
-
-    }, 5000);
-
-}
-
-
-/* =========================
-   OPEN GIFT
-========================= */
-
-function openGift() {
-
-    const gift =
-        document.getElementById("gift");
-
-    gift.style.display = "none";
-
-    const explosion =
-        document.getElementById("tkrExplosion");
-
-    explosion.style.display = "flex";
-
-    setTimeout(() => {
-
-        explosion.style.display = "none";
-
-        document.getElementById("main")
-            .style.display = "block";
-
-        startTyping();
-
-    }, 2300);
-
-}
-
-
-/* =========================
-   TYPING ANIMATION
-========================= */
-
-const message =
-    "Today is your special day. Wishing you happiness, good health, and all your dreams come true. Semoga setiap langkahmu selalu membawa cerita yang indah.";
-
-let typingIndex = 0;
-
-function startTyping() {
-
-    const text =
-        document.getElementById("typingText");
-
-    const typing =
-        setInterval(() => {
-
-            text.textContent +=
-                message[typingIndex];
-
-            typingIndex++;
-
-            if (typingIndex >= message.length) {
-
-                clearInterval(typing);
-
-            }
-
-        }, 45);
-
-}
-
-
-/* =========================
-   SCROLL NOTIFICATION
-========================= */
-
-let notificationShown = false;
-
-window.addEventListener("scroll", () => {
-
-    if (notificationShown) return;
-
-    const scroll =
-        window.scrollY;
-
-    const height =
-        document.documentElement.scrollHeight
-        - window.innerHeight;
-
-    if (height <= 0) return;
-
-    const percentage =
-        scroll / height;
-
-    if (percentage >= 0.35) {
-
-        notificationShown = true;
-
-        const notification =
-            document.getElementById("notification");
-
-        notification.style.display = "flex";
-
-        setTimeout(() => {
-
-            notification.style.display = "none";
-
-        }, 4500);
-
-    }
-
-});
-
-</script>
+<script src="script.js"></script>
 
 </body>
-    </html>
+ </html>

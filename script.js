@@ -460,45 +460,344 @@ function openLastGift() {
 }
 
 
+/* =====================================================
+   FINAL 3D WIREFRAME HEART
+===================================================== */
+
+const wireHeart =
+    document.getElementById("wireHeart");
+
+const heartLight =
+    document.getElementById("heartLight");
+
+let heartClicked = false;
+
+
 /* =========================
-   FINAL LOVE
+   CREATE 3D WIREFRAME
 ========================= */
 
-wireHeart.addEventListener("click", () => {
+function create3DHeart() {
+
+    wireHeart.innerHTML = "";
+
+    const points = [];
 
     /*
-       Tahap pertama:
-       hati terbelah.
+       Membuat permukaan hati
+       menggunakan persamaan matematika.
     */
 
-    wireHeart.classList.add("splitting");
+    const layers = 12;
+    const segments = 34;
 
-    setTimeout(() => {
+    for (let layer = 0; layer < layers; layer++) {
+
+        const depth =
+            (layer / (layers - 1) - .5) * 90;
+
+        const depthScale =
+            1 - Math.abs(depth) / 180;
+
+        for (
+            let i = 0;
+            i < segments;
+            i++
+        ) {
+
+            const t =
+                Math.PI * 2 * i / segments;
+
+            /*
+               Heart equation
+            */
+
+            const hx =
+                16 *
+                Math.pow(
+                    Math.sin(t),
+                    3
+                );
+
+            const hy =
+                -(
+                    13 * Math.cos(t)
+                    - 5 * Math.cos(2 * t)
+                    - 2 * Math.cos(3 * t)
+                    - Math.cos(4 * t)
+                );
+
+            const x =
+                hx * 9 * depthScale;
+
+            const y =
+                hy * 9 * depthScale;
+
+            const point =
+                document.createElement("span");
+
+            point.className =
+                "heart-wire-point";
+
+            point.style.left =
+                `calc(50% + ${x}px)`;
+
+            point.style.top =
+                `calc(50% + ${y}px)`;
+
+            point.style.transform =
+                `translate(-50%, -50%)
+                 translateZ(${depth}px)`;
+
+            wireHeart.appendChild(point);
+
+            points.push({
+                element: point,
+                layer,
+                index: i,
+                x,
+                y,
+                z: depth
+            });
+
+        }
+
+    }
+
+
+    /*
+       Garis horizontal
+       mengikuti setiap lapisan.
+    */
+
+    for (
+        let layer = 0;
+        layer < layers;
+        layer++
+    ) {
+
+        for (
+            let i = 0;
+            i < segments;
+            i++
+        ) {
+
+            const next =
+                (i + 1) % segments;
+
+            createHeartLine(
+                points[
+                    layer * segments + i
+                ],
+                points[
+                    layer * segments + next
+                ]
+            );
+
+        }
+
+    }
+
+
+    /*
+       Garis vertikal
+       menghubungkan kedalaman 3D.
+    */
+
+    for (
+        let layer = 0;
+        layer < layers - 1;
+        layer++
+    ) {
+
+        for (
+            let i = 0;
+            i < segments;
+            i += 2
+        ) {
+
+            createHeartLine(
+                points[
+                    layer * segments + i
+                ],
+                points[
+                    (layer + 1) * segments + i
+                ]
+            );
+
+        }
+
+    }
+
+
+    /*
+       Garis tambahan diagonal
+       supaya terlihat seperti wireframe 3D.
+    */
+
+    for (
+        let layer = 0;
+        layer < layers - 1;
+        layer++
+    ) {
+
+        for (
+            let i = 1;
+            i < segments;
+            i += 4
+        ) {
+
+            const next =
+                (i + 1) % segments;
+
+            createHeartLine(
+                points[
+                    layer * segments + i
+                ],
+                points[
+                    (layer + 1) * segments + next
+                ]
+            );
+
+        }
+
+    }
+
+}
+
+
+/* =========================
+   CREATE LINE
+========================= */
+
+function createHeartLine(a, b) {
+
+    const line =
+        document.createElement("span");
+
+    line.className =
+        "heart-wire-line";
+
+    const dx =
+        b.x - a.x;
+
+    const dy =
+        b.y - a.y;
+
+    const dz =
+        b.z - a.z;
+
+    const length =
+        Math.sqrt(
+            dx * dx +
+            dy * dy +
+            dz * dz
+        );
+
+    const angle =
+        Math.atan2(dy, dx) *
+        180 / Math.PI;
+
+    const centerX =
+        (a.x + b.x) / 2;
+
+    const centerY =
+        (a.y + b.y) / 2;
+
+    const centerZ =
+        (a.z + b.z) / 2;
+
+    line.style.left =
+        `calc(50% + ${centerX}px)`;
+
+    line.style.top =
+        `calc(50% + ${centerY}px)`;
+
+    line.style.width =
+        `${length}px`;
+
+    line.style.transform =
+        `
+        translate(-50%, -50%)
+        rotate(${angle}deg)
+        translateZ(${centerZ}px)
+        `;
+
+    wireHeart.appendChild(line);
+
+}
+
+
+/* =========================
+   INITIALIZE HEART
+========================= */
+
+create3DHeart();
+
+
+/* =====================================================
+   HEART CLICK
+===================================================== */
+
+wireHeart.addEventListener(
+    "click",
+    () => {
+
+        if (heartClicked)
+            return;
+
+        heartClicked = true;
+
 
         /*
-           Cahaya muncul.
+           STEP 1
+           Hati mulai membelah.
         */
 
-        wireHeart.classList.add("glowing");
+        wireHeart.classList.add(
+            "splitting"
+        );
 
-    }, 600);
-
-
-    setTimeout(() => {
 
         /*
-           Setelah cahaya meningkat,
-           hati meledak secara visual.
+           STEP 2
+           Cahaya muncul dari tengah.
         */
 
-        wireHeart.classList.add("burst");
+        setTimeout(() => {
 
-        createFinalFireworks();
+            heartLight.classList.add(
+                "active"
+            );
 
-    }, 1700);
+            wireHeart.classList.add(
+                "glowing"
+            );
 
-});
+        }, 650);
 
+
+        /*
+           STEP 3
+           Hati pecah.
+        */
+
+        setTimeout(() => {
+
+            wireHeart.classList.remove(
+                "glowing"
+            );
+
+            wireHeart.classList.add(
+                "burst"
+            );
+
+            createFinalFireworks();
+
+        }, 1800);
+
+    }
+);
 
 /* =========================
    FIREWORKS

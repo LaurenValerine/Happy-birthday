@@ -605,97 +605,206 @@ function createBirthdayHeart() {
             if (equation <= 0) {
 
                 points.push({
-                    x,
-                    y
-                });
+/* =========================================================
+   7. HAPPY BIRTHDAY HEART
+========================================================= */
 
-            }
+function createBirthdayHeart() {
 
-        }
+    const birthdayLove =
+        document.getElementById("birthdayLove");
+
+    const birthdayHeart =
+        document.getElementById("birthdayHeart");
+
+
+    if (!birthdayLove || !birthdayHeart) {
+        return;
+    }
+
+
+    /* =========================
+       BLACKOUT PRANK
+    ========================= */
+
+    if (prank) {
+
+        prank.classList.add(
+            "prank-blackout"
+        );
 
     }
 
 
-    /*
-       Buat tulisan.
-    */
+    setTimeout(() => {
 
-    points.forEach(
-        (point, index) => {
+        if (prank) {
+
+            prank.style.display =
+                "none";
+
+        }
+
+    }, 800);
+
+
+    /* =========================
+       SHOW LOVE PAGE
+    ========================= */
+
+    birthdayLove.style.display =
+        "flex";
+
+    birthdayLove.classList.remove(
+        "birthday-love-fade"
+    );
+
+    void birthdayLove.offsetWidth;
+
+    birthdayLove.classList.add(
+        "birthday-love-show"
+    );
+
+
+    /* =========================
+       CLEAR OLD HEART
+    ========================= */
+
+    birthdayHeart.innerHTML = "";
+
+
+    /* =========================
+       HEART SHAPE
+       
+       count  = jumlah tulisan
+       indent = posisi ke samping
+    ========================= */
+
+    const rows = [
+
+        { count: 6, indent: 0 },
+        { count: 8, indent: -1 },
+        { count: 9, indent: -1 },
+        { count: 9, indent: -1 },
+
+        { count: 8, indent: 0 },
+        { count: 7, indent: 0 },
+        { count: 6, indent: 1 },
+        { count: 5, indent: 1 },
+
+        { count: 4, indent: 2 },
+        { count: 3, indent: 3 },
+        { count: 2, indent: 4 },
+        { count: 1, indent: 5 }
+
+    ];
+
+
+    /* =========================
+       BUAT SETIAP BARIS
+    ========================= */
+
+    rows.forEach((row, rowIndex) => {
+
+        const line =
+            document.createElement("div");
+
+
+        line.className =
+            "birthday-line";
+
+
+        /*
+           Posisi horizontal setiap baris.
+        */
+
+        line.style.setProperty(
+            "--indent",
+            row.indent
+        );
+
+
+        /*
+           Buat HAPPY BIRTHDAY
+           berkali-kali.
+        */
+
+        for (
+            let i = 0;
+            i < row.count;
+            i++
+        ) {
 
             const word =
-                document.createElement(
-                    "span"
-                );
+                document.createElement("span");
+
 
             word.className =
-                "heart-word";
+                "birthday-word";
+
 
             word.textContent =
                 "HAPPY BIRTHDAY";
 
 
-            const left =
-                50 +
-                point.x *
-                scaleX *
-                25;
-
-
-            const top =
-                50 -
-                point.y *
-                scaleY *
-                24;
-
-
-            word.style.left =
-                `${left}%`;
-
-            word.style.top =
-                `${top}%`;
-
+            /*
+               Animasi muncul
+               satu per satu.
+            */
 
             word.style.animationDelay =
-                `${index * 0.012}s`;
+                `${rowIndex * 0.12 + i * 0.035}s`;
 
 
-            birthdayHeart.appendChild(
+            line.appendChild(
                 word
             );
 
         }
-    );
 
 
-    /*
-       Waktu pembentukan heart.
-    */
+        birthdayHeart.appendChild(
+            line
+        );
 
-    const formationTime =
-        Math.min(
-            points.length * 12 + 800,
-            4200
+    });
+
+
+    /* =========================
+       HITUNG DURASI
+    ========================= */
+
+    const totalWords =
+        rows.reduce(
+            (total, row) =>
+                total + row.count,
+            0
         );
 
 
-    /*
-       Pesan tengah muncul
-       setelah heart terbentuk.
-    */
+    const formationTime =
+        Math.min(
+            totalWords * 35 + 900,
+            5000
+        );
+
+
+    /* =========================
+       SETELAH LOVE SELESAI
+    ========================= */
 
     setTimeout(() => {
 
-        heartMessage.classList.add(
-            "heart-message-show"
+        birthdayHeart.classList.add(
+            "heart-complete"
         );
 
     }, formationTime);
 
 
-    /*
-       Heart bertahan 3 detik.
-    */
+    /* =========================
+       LOVE BERTAHAN 3 DETIK
+    ========================= */
 
     setTimeout(() => {
 
@@ -709,9 +818,10 @@ function createBirthdayHeart() {
             birthdayLove.style.display =
                 "none";
 
-            heartMessage.classList.remove(
-                "heart-message-show"
-            );
+
+            birthdayHeart.innerHTML =
+                "";
+
 
             showNextQuestion();
 
@@ -719,7 +829,7 @@ function createBirthdayHeart() {
 
     }, formationTime + 3000);
 
-}
+                   }
 
 
 /* =========================================================

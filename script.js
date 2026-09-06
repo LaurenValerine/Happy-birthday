@@ -1,2379 +1,2183 @@
  /* =========================================================
-GLOBAL
+BIRTHDAY WEBSITE
+SCRIPT.JS
 ========================================================= */
 
-{
-box-sizing: border-box;
-margin: 0;
-padding: 0;
+/* =========================================================
+
+1. TERMINAL BACKGROUND
+========================================================= */
+
+
+
+const terminal = document.getElementById("terminal");
+
+const terminalLines = [
+"root@birthday:~$ initializing...",
+"system: birthday_mode = true",
+"loading happiness.exe...",
+"checking memories...",
+"TKR module loaded...",
+"fireworks.exe ready",
+"cake.exe ready",
+"gift.exe ready",
+"surprise protocol active...",
+"target: M RIZKY ADITYA P",
+"birthday protocol: READY"
+];
+
+if (terminal) {
+
+for (let i = 0; i < 100; i++) {  
+
+    const line = document.createElement("span");  
+
+    line.textContent =  
+        terminalLines[  
+            Math.floor(  
+                Math.random() * terminalLines.length  
+            )  
+        ];  
+
+    terminal.appendChild(line);  
 }
 
-
-html {
-scroll-behavior: smooth;
-}
-
-body {
-background: #050505;
-color: #fff;
-font-family: Arial, Helvetica, sans-serif;
-overflow-x: hidden;
-}
-
-button {
-font-family: inherit;
-}
-
-::selection {
-background: #ff7900;
-color: #050505;
 }
 
 /* =========================================================
-COUNTDOWN
+2. COUNTDOWN 10 → 0
 ========================================================= */
 
-#countdown {
-position: fixed;
-inset: 0;
-z-index: 1000;
+const countdown =
+document.getElementById("countdown");
 
-display: flex;  
-justify-content: center;  
-align-items: center;  
+const countNumber =
+document.getElementById("number");
 
-background: #030303;  
+let countdownNumber = 10;
 
-overflow: hidden;  
+const countdownTimer = setInterval(() => {
 
-transition:  
-    opacity .7s ease,  
-    visibility .7s ease;
+countdownNumber--;  
 
-}
-
-#countdown.countdown-hide {
-opacity: 0;
-visibility: hidden;
-}
-
-.terminal {
-position: absolute;
-inset: 0;
-
-padding: 15px;  
-
-font-family: monospace;  
-font-size: 11px;  
-line-height: 1.5;  
-
-color: #ff6500;  
-
-opacity: .22;  
-
-overflow: hidden;
-
-}
-
-.terminal span {
-display: block;
-}
-
-.count-content {
-position: relative;
-z-index: 2;
-
-text-align: center;  
-
-animation:  
-    countAppear 1s ease;
-
-}
-
-@keyframes countAppear {
-
-from {  
-    opacity: 0;  
-    transform: scale(.7);  
+if (countNumber) {  
+    countNumber.textContent =  
+        countdownNumber;  
 }  
 
-to {  
-    opacity: 1;  
-    transform: scale(1);  
+if (countdownNumber <= 0) {  
+
+    clearInterval(countdownTimer);  
+
+    if (countdown) {  
+        countdown.classList.add(  
+            "countdown-hide"  
+        );  
+    }  
+
+    setTimeout(() => {  
+        showReveal();  
+    }, 700);  
 }
 
-}
-
-.count-label {
-color: #ff9a42;
-
-letter-spacing: 4px;  
-
-font-size: 13px;
-
-}
-
-.count-number {
-margin: 15px 0;
-
-font-size: clamp(100px, 25vw, 180px);  
-font-weight: 900;  
-
-color: #ff7900;  
-
-text-shadow:  
-    0 0 10px #ff7900,  
-    0 0 30px #ff4500,  
-    0 0 80px #ff2200;  
-
-animation:  
-    countPulse .8s infinite alternate;
-
-}
-
-@keyframes countPulse {
-
-to {  
-    transform: scale(1.08);  
-}
-
-}
-
-.count-status {
-color: #aaa;
-font-family: monospace;
-font-size: 12px;
-}
+}, 1000);
 
 /* =========================================================
-CAKE REVEAL
+3. CAKE REVEAL
 ========================================================= */
 
-#reveal {
-position: fixed;
-inset: 0;
-z-index: 900;
+function showReveal() {
 
-display: none;  
+const reveal =  
+    document.getElementById("reveal");  
 
-justify-content: center;  
-align-items: center;  
+if (!reveal) return;  
 
-text-align: center;  
+reveal.style.display = "flex";  
 
-background:  
-    radial-gradient(  
-        circle,  
-        #461800 0%,  
-        #080300 70%  
+reveal.classList.remove(  
+    "reveal-hide"  
+);  
+
+void reveal.offsetWidth;  
+
+reveal.classList.add(  
+    "reveal-show"  
+);  
+
+
+setTimeout(() => {  
+
+    reveal.classList.remove(  
+        "reveal-show"  
     );  
 
-overflow: hidden;
-
-}
-
-#reveal.reveal-show {
-animation:
-revealIn .8s ease forwards;
-}
-
-#reveal.reveal-hide {
-animation:
-revealOut .7s ease forwards;
-}
-
-@keyframes revealIn {
-
-from {  
-    opacity: 0;  
-    transform: scale(1.05);  
-}  
-
-to {  
-    opacity: 1;  
-    transform: scale(1);  
-}
-
-}
-
-@keyframes revealOut {
-
-to {  
-    opacity: 0;  
-    transform: scale(.95);  
-}
-
-}
-
-.reveal-content {
-position: relative;
-z-index: 5;
-}
-
-.birthday-cake-image {
-display: block;
-
-width: min(280px, 65vw);  
-max-height: 300px;  
-
-object-fit: contain;  
-
-margin: auto;  
-
-filter:  
-    drop-shadow(0 0 12px #ff7900)  
-    drop-shadow(0 0 35px #ff4500);  
-
-animation:  
-    cakeAppear 1.3s ease,  
-    cakeFloat 3s ease-in-out infinite 1.3s;
-
-}
-
-@keyframes cakeAppear {
-
-from {  
-    opacity: 0;  
-    transform:  
-        translateY(80px)  
-        scale(.5)  
-        rotate(-8deg);  
-}  
-
-to {  
-    opacity: 1;  
-    transform:  
-        translateY(0)  
-        scale(1)  
-        rotate(0);  
-}
-
-}
-
-@keyframes cakeFloat {
-
-50% {  
-    transform:  
-        translateY(-10px)  
-        rotate(1deg);  
-}
-
-}
-
-.happy {
-margin-top: 20px;
-
-font-size:  
-    clamp(45px, 10vw, 90px);  
-
-font-weight: 900;  
-
-color: #ff7900;  
-
-text-shadow:  
-    0 0 15px #ff7900,  
-    0 0 40px #ff4500;  
-
-animation:  
-    birthdayText 1s ease .35s both;
-
-}
-
-@keyframes birthdayText {
-
-from {  
-    opacity: 0;  
-    transform: translateY(30px);  
-    letter-spacing: -5px;  
-}  
-
-to {  
-    opacity: 1;  
-    transform: translateY(0);  
-    letter-spacing: normal;  
-}
-
-}
-
-.adit {
-margin-top: 5px;
-
-font-size: 25px;  
-letter-spacing: 8px;  
-
-color: #ffd0a3;  
-
-animation:  
-    fadeUp 1s ease .7s both;
-
-}
-
-/* =========================================================
-FIREWORKS CAKE
-========================================================= */
-
-.firework {
-position: absolute;
-
-width: 5px;  
-height: 5px;  
-
-border-radius: 50%;  
-
-background: #ff7900;  
-
-box-shadow:  
-    0 0 10px #ff7900,  
-    0 0 25px #ff4500;  
-
-animation:  
-    boom 1.8s infinite;
-
-}
-
-.firework::before,
-.firework::after {
-content: "";
-
-position: absolute;  
-
-width: 4px;  
-height: 100px;  
-
-background:  
-    linear-gradient(  
-        transparent,  
-        #ff7900,  
-        transparent  
+    reveal.classList.add(  
+        "reveal-hide"  
     );  
 
-left: 0;  
-top: -48px;
 
-}
+    setTimeout(() => {  
 
-.firework::after {
-transform: rotate(90deg);
-}
+        reveal.style.display = "none";  
 
-.f1 {
-left: 15%;
-top: 25%;
-}
+        showGift();  
 
-.f2 {
-right: 15%;
-top: 20%;
-animation-delay: .5s;
-}
+    }, 700);  
 
-.f3 {
-left: 25%;
-bottom: 20%;
-animation-delay: 1s;
-}
-
-.f4 {
-right: 25%;
-bottom: 25%;
-animation-delay: 1.4s;
-}
-
-@keyframes boom {
-
-0%,  
-100% {  
-    transform: scale(.2);  
-    opacity: 0;  
-}  
-
-40% {  
-    transform: scale(1);  
-    opacity: 1;  
-}  
-
-70% {  
-    transform: scale(1.5);  
-    opacity: .7;  
-}
+}, 5000);
 
 }
 
 /* =========================================================
-GIFT
+4. GIFT
 ========================================================= */
 
-#gift {
-position: fixed;
-inset: 0;
-z-index: 800;
+const gift =
+document.getElementById("gift");
 
-display: none;  
+const giftButton =
+document.getElementById("giftButton");
 
-justify-content: center;  
-align-items: center;  
+let giftOpened = false;
 
-text-align: center;  
+if (giftButton) {
 
-background:  
-    radial-gradient(  
-        circle,  
-        #351300,  
-        #050505 70%  
-    );  
-
-overflow: hidden;
-
-}
-
-#gift.gift-show {
-animation:
-giftPageIn .8s ease;
-}
-
-@keyframes giftPageIn {
-
-from {  
-    opacity: 0;  
-}  
-
-to {  
-    opacity: 1;  
-}
-
-}
-
-.gift-content {
-display: flex;
-
-flex-direction: column;  
-
-align-items: center;
-
-}
-
-.gift-image-box {
-position: relative;
-
-cursor: pointer;  
-
-animation:  
-    giftFloat 2.2s ease-in-out infinite;  
-
-transition:  
-    transform .25s ease,  
-    filter .25s ease;
-
-}
-
-.gift-image-box::before {
-content: "";
-
-position: absolute;  
-
-width: 170px;  
-height: 170px;  
-
-left: 50%;  
-top: 50%;  
-
-transform:  
-    translate(-50%, -50%);  
-
-border-radius: 50%;  
-
-background: #ff6500;  
-
-filter: blur(70px);  
-
-opacity: .28;  
-
-z-index: -1;
-
-}
-
-.gift-image-box:hover {
-transform: scale(1.06);
-}
-
-.gift-image {
-width: min(260px, 70vw);
-max-height: 300px;
-
-object-fit: contain;  
-
-filter:  
-    drop-shadow(0 0 12px #ff7900)  
-    drop-shadow(0 0 35px #ff4500);  
-
-user-select: none;
-
-}
-
-@keyframes giftFloat {
-
-0%,  
-100% {  
-    transform: translateY(0);  
-}  
-
-50% {  
-    transform: translateY(-14px);  
-}
-
-}
-
-.gift-shake .gift-image-box {
-animation:
-giftShake .65s ease;
-}
-
-@keyframes giftShake {
-
-0%,  
-100% {  
-    transform: rotate(0) scale(1);  
-}  
-
-15% {  
-    transform: rotate(-7deg) scale(1.03);  
-}  
-
-30% {  
-    transform: rotate(7deg) scale(1.06);  
-}  
-
-45% {  
-    transform: rotate(-6deg) scale(1.08);  
-}  
-
-60% {  
-    transform: rotate(6deg) scale(1.1);  
-}  
-
-75% {  
-    transform: rotate(-3deg) scale(1.08);  
-}
-
-}
-
-.gift-text {
-margin-top: 35px;
-
-color: #ffd0a3;  
-
-font-size: 16px;  
-line-height: 1.8;  
-
-animation:  
-    blink 1.5s infinite;
-
-}
-
-.gift-text span {
-color: #ff7900;
-font-weight: bold;
-}
-
-@keyframes blink {
-
-50% {  
-    opacity: .4;  
-}
-
-}
-
-/* =========================================================
-ERROR PRANK
-========================================================= */
-
-#tkrExplosion {
-position: fixed;
-inset: 0;
-z-index: 700;
-
-display: none;  
-
-justify-content: center;  
-align-items: center;  
-
-background: #000;  
-
-overflow: hidden;  
-
-transition:  
-    background .4s ease;
-
-}
-
-#tkrExplosion.prank-active {
-animation:
-prankAppear .5s ease;
-}
-
-@keyframes prankAppear {
-
-from {  
-    opacity: 0;  
-}  
-
-to {  
-    opacity: 1;  
-}
-
-}
-
-.prank-background {
-position: absolute;
-inset: 0;
-
-background:  
-    repeating-linear-gradient(  
-        0deg,  
-        transparent 0px,  
-        transparent 4px,  
-        rgba(255, 121, 0, .035) 5px  
-    );  
-
-pointer-events: none;
-
-}
-
-.error-screen {
-position: relative;
-
-z-index: 10;  
-
-text-align: center;
-
-}
-
-.error-glitch {
-position: relative;
-
-color: #fff;  
-
-font-family: monospace;  
-
-font-size:  
-    clamp(65px, 18vw, 160px);  
-
-font-weight: 900;  
-
-letter-spacing: 10px;  
-
-cursor: pointer;  
-
-user-select: none;  
-
-text-shadow:  
-    4px 0 #ff6500,  
-    -4px 0 #fff;  
-
-animation:  
-    errorGlitch .16s infinite;
-
-}
-
-@keyframes errorGlitch {
-
-0% {  
-    transform: translate(0);  
-}  
-
-25% {  
-    transform: translate(-3px, 2px);  
-}  
-
-50% {  
-    transform: translate(3px, -2px);  
-}  
-
-75% {  
-    transform: translate(-2px, -1px);  
-}  
-
-100% {  
-    transform: translate(0);  
-}
-
-}
-
-.error-warning {
-color: #ff9a42;
-
-animation:  
-    errorShake .1s infinite;
-
-}
-
-.error-danger {
-color: #ff4500;
-
-text-shadow:  
-    0 0 10px #ff4500,  
-    0 0 30px #ff2200;  
-
-animation:  
-    errorShake .06s infinite;
-
-}
-
-@keyframes errorShake {
-
-0% {  
-    transform: translate(-5px, 0);  
-}  
-
-50% {  
-    transform: translate(5px, 0);  
-}  
-
-100% {  
-    transform: translate(-5px, 0);  
-}
-
-}
-
-.error-explode {
-animation:
-errorExplode .8s ease forwards !important;
-}
-
-@keyframes errorExplode {
-
-0% {  
-    transform: scale(1);  
-    opacity: 1;  
-}  
-
-45% {  
-    transform: scale(1.25);  
-    opacity: 1;  
-}  
-
-100% {  
-    transform: scale(5);  
-    opacity: 0;  
-    filter: blur(15px);  
-}
-
-}
-
-#errorGuide {
-margin-top: 25px;
-
-color: #aaa;  
-
-font-family: monospace;  
-font-size: 13px;  
-
-transition: .3s;
-
-}
-
-.error-counter {
-margin-top: 12px;
-
-color: #ff6500;  
-
-font-family: monospace;  
-font-size: 12px;
-
-}
-
-.danger-level-1 {
-animation:
-screenFlash .5s;
-}
-
-.danger-level-2 {
-animation:
-screenFlash .25s infinite;
-}
-
-.danger-level-3 {
-background: #070000 !important;
-}
-
-@keyframes screenFlash {
-
-50% {  
-    background: #240000;  
-}
-
-}
-
-.glitch-particle {
-position: absolute;
-
-width: 5px;  
-height: 5px;  
-
-background: #ff7900;  
-
-box-shadow:  
-    0 0 10px #ff4500;  
-
-animation:  
-    glitchParticle 1s ease-out forwards;
-
-}
-
-@keyframes glitchParticle {
-
-from {  
-    transform:  
-        translate(0, 0)  
-        scale(1);  
-
-    opacity: 1;  
-}  
-
-to {  
-    transform:  
-        translate(var(--x), var(--y))  
-        scale(0);  
-
-    opacity: 0;  
-}
-
-}
-
-.prank-blackout {
-animation:
-blackout .8s forwards;
-}
-
-@keyframes blackout {
-
-to {  
-    opacity: 0;  
-}
-
-}
-
-/* =========================================================
-HAPPY BIRTHDAY HEART
-========================================================= */
-
-#birthdayLove {
-position: fixed;
-inset: 0;
-z-index: 650;
-
-display: none;  
-
-justify-content: center;  
-align-items: center;  
-
-background: #020202;  
-
-overflow: hidden;  
-
-opacity: 0;
-
-}
-
-#birthdayLove.birthday-love-show {
-animation:
-birthdayLoveIn .8s ease forwards;
-}
-
-#birthdayLove.birthday-love-fade {
-animation:
-birthdayLoveOut .7s ease forwards;
-}
-
-@keyframes birthdayLoveIn {
-
-to {  
-    opacity: 1;  
-}
-
-}
-
-@keyframes birthdayLoveOut {
-
-to {  
-    opacity: 0;  
-    transform: scale(1.04);  
-}
-
-}
-
-.birthday-heart {
-position: absolute;
-
-width: min(90vw, 700px);  
-height: min(80vh, 600px);  
-
-left: 50%;  
-top: 50%;  
-
-transform:  
-    translate(-50%, -50%);
-
-}
-
-.heart-word {
-position: absolute;
-
-transform:  
-    translate(-50%, -50%)  
-    scale(.2);  
-
-color: #ff7900;  
-
-font-size: clamp(7px, 1.1vw, 12px);  
-
-font-weight: 900;  
-
-white-space: nowrap;  
-
-text-shadow:  
-    0 0 5px #ff7900,  
-    0 0 15px #ff4500;  
-
-opacity: 0;  
-
-animation:  
-    heartWordAppear .55s ease forwards;
-
-}
-
-@keyframes heartWordAppear {
-
-50% {  
-    opacity: 1;  
-
-    transform:  
-        translate(-50%, -50%)  
-        scale(1.2);  
-}  
-
-100% {  
-    opacity: 1;  
-
-    transform:  
-        translate(-50%, -50%)  
-        scale(1);  
-}
-
-}
-
-.heart-message {
-position: absolute;
-
-bottom: 12%;  
-
-opacity: 0;  
-
-color: #ffd0a3;  
-
-font-size: 13px;  
-
-letter-spacing: 4px;  
-
-text-transform: uppercase;  
-
-text-shadow:  
-    0 0 10px #ff7900;  
-
-transition:  
-    opacity .8s ease,  
-    transform .8s ease;  
-
-transform: translateY(20px);
-
-}
-
-.heart-message-show {
-opacity: 1;
-
-transform: translateY(0);
-
-}
-
-/* =========================================================
-NEXT QUESTION
-========================================================= */
-
-#nextPage {
-position: fixed;
-inset: 0;
-z-index: 600;
-
-display: none;  
-
-justify-content: center;  
-align-items: center;  
-
-padding: 25px;  
-
-background:  
-    radial-gradient(  
-        circle,  
-        #351300,  
-        #050505 72%  
-    );  
-
-opacity: 0;
-
-}
-
-#nextPage.next-page-show {
-animation:
-nextPageIn .7s ease forwards;
-}
-
-#nextPage.next-page-hide {
-animation:
-nextPageOut .7s ease forwards;
-}
-
-@keyframes nextPageIn {
-
-to {  
-    opacity: 1;  
-}
-
-}
-
-@keyframes nextPageOut {
-
-to {  
-    opacity: 0;  
-    transform: scale(.95);  
-}
-
-}
-
-.next-box {
-width: min(500px, 100%);
-
-padding: 40px 25px;  
-
-text-align: center;  
-
-border:  
-    1px solid #ff6500;  
-
-border-radius: 25px;  
-
-background:  
-    rgba(15, 7, 2, .9);  
-
-box-shadow:  
-    0 0 30px #ff650022,  
-    inset 0 0 30px #ff650011;  
-
-animation:  
-    boxFloat 3s ease-in-out infinite;
-
-}
-
-@keyframes boxFloat {
-
-50% {  
-    transform: translateY(-7px);  
-}
-
-}
-
-.question-icon {
-font-size: 45px;
-
-margin-bottom: 15px;  
-
-animation:  
-    gearSpin 4s linear infinite;
-
-}
-
-@keyframes gearSpin {
-
-to {  
-    transform: rotate(360deg);  
-}
-
-}
-
-.next-box h2 {
-color: #ff7900;
-
-font-size: clamp(25px, 6vw, 38px);  
-
-line-height: 1.3;
-
-}
-
-#noMessage {
-min-height: 25px;
-
-margin-top: 18px;  
-
-color: #aaa;  
-
-transition: .3s;
-
-}
-
-.message-pop {
-animation:
-messagePop .45s ease;
-}
-
-@keyframes messagePop {
-
-50% {  
-    transform: scale(1.12);  
-    color: #ff7900;  
-}
-
-}
-
-.answer-buttons {
-display: flex;
-
-justify-content: center;  
-align-items: center;  
-
-gap: 15px;  
-
-margin-top: 30px;  
-
-min-height: 70px;
-
-}
-
-.answer-buttons button {
-border: none;
-
-border-radius: 30px;  
-
-padding: 13px 32px;  
-
-font-size: 15px;  
-
-font-weight: bold;  
-
-cursor: pointer;  
-
-transition:  
-    transform .3s ease,  
-    box-shadow .3s ease;
-
-}
-
-#yesButton {
-background: #ff7900;
-
-color: #050505;  
-
-box-shadow:  
-    0 0 15px #ff6500;  
-
-transform-origin: center;
-
-}
-
-#yesButton:hover {
-box-shadow:
-0 0 30px #ff7900;
-}
-
-#noButton {
-background: transparent;
-
-color: #ffd0a3;  
-
-border: 1px solid #663000;  
-
-transition:  
-    transform .2s ease,  
-    border-color .2s ease;
-
-}
-
-#noButton:hover {
-border-color: #ff6500;
-}
-
-/* =========================================================
-FINAL COUNTDOWN
-========================================================= */
-
-#finalCountdown {
-position: fixed;
-inset: 0;
-
-z-index: 1500;  
-
-display: flex;  
-
-justify-content: center;  
-align-items: center;  
-
-text-align: center;  
-
-background: #030303;  
-
-transition:  
-    opacity .6s ease;
-
-}
-
-#finalCountdown.final-countdown-hide {
-opacity: 0;
-}
-
-.final-countdown-content p {
-color: #ff7900;
-
-font-family: monospace;  
-
-letter-spacing: 5px;
-
-}
-
-#finalCountNumber {
-margin: 20px;
-
-font-size: clamp(100px, 25vw, 170px);  
-
-font-weight: 900;  
-
-color: #ff7900;  
-
-text-shadow:  
-    0 0 15px #ff7900,  
-    0 0 50px #ff4500;  
-
-animation:  
-    finalCountPulse .8s infinite alternate;
-
-}
-
-@keyframes finalCountPulse {
-
-to {  
-    transform: scale(1.1);  
-}
-
-}
-
-.final-countdown-content span {
-color: #888;
-
-font-family: monospace;
-
-}
-
-/* =========================================================
-MAIN WEBSITE
-========================================================= */
-
-#main {
-display: none;
-
-opacity: 0;
-
-}
-
-#main.main-show {
-animation:
-mainAppear 1s ease forwards;
-}
-
-@keyframes mainAppear {
-
-to {  
-    opacity: 1;  
-}
-
-}
-
-/* =========================================================
-HERO
-========================================================= */
-
-.hero {
-min-height: 100vh;
-
-display: flex;  
-
-justify-content: center;  
-align-items: center;  
-
-text-align: center;  
-
-padding: 40px 25px;  
-
-background:  
-    radial-gradient(  
-        circle at center,  
-        #401700,  
-        #050505 70%  
-    );  
-
-overflow: hidden;
-
-}
-
-.hero-content {
-width: min(850px, 100%);
-}
-
-.birthday-character {
-margin-bottom: 20px;
-
-animation:  
-    characterAppear 1.3s ease;
-
-}
-
-.character-image {
-width: min(230px, 55vw);
-max-height: 280px;
-
-object-fit: contain;  
-
-filter:  
-    drop-shadow(0 0 12px #ff7900)  
-    drop-shadow(0 0 30px #ff4500);  
-
-animation:  
-    characterFloat 3s ease-in-out infinite;
-
-}
-
-@keyframes characterAppear {
-
-from {  
-    opacity: 0;  
-
-    transform:  
-        translateY(-80px)  
-        scale(.5)  
-        rotate(-5deg);  
-}  
-
-to {  
-    opacity: 1;  
-
-    transform:  
-        translateY(0)  
-        scale(1)  
-        rotate(0);  
-}
-
-}
-
-@keyframes characterFloat {
-
-50% {  
-    transform:  
-        translateY(-9px)  
-        rotate(1deg);  
-}
-
-}
-
-.hero-small,
-.section-label {
-color: #ff9a42;
-
-font-family: monospace;  
-
-font-size: 11px;  
-
-letter-spacing: 4px;  
-
-margin-bottom: 12px;
-
-}
-
-.hero h1 {
-font-size:
-clamp(48px, 12vw, 100px);
-
-color: #ff7900;  
-
-text-shadow:  
-    0 0 15px #ff7900,  
-    0 0 40px #ff4500;  
-
-animation:  
-    heroTitle 1s ease .3s both;
-
-}
-
-@keyframes heroTitle {
-
-from {  
-    opacity: 0;  
-    transform: scale(.8);  
-}  
-
-to {  
-    opacity: 1;  
-    transform: scale(1);  
-}
-
-}
-
-.hero h2 {
-margin-top: 5px;
-
-font-size:  
-    clamp(24px, 6vw, 35px);  
-
-letter-spacing: 8px;  
-
-color: #ffd0a3;  
-
-animation:  
-    fadeUp 1s ease .5s both;
-
-}
-
-.typing-wrapper {
-margin-top: 30px;
-}
-
-.typing {
-margin: auto;
-
-max-width: 650px;  
-
-min-height: 100px;  
-
-color: #ddd;  
-
-line-height: 1.8;  
-
-white-space: pre-line;
-
-}
-
-.cursor {
-display: inline-block;
-
-width: 2px;  
-height: 18px;  
-
-background: #ff7900;  
-
-animation:  
-    cursorBlink .7s infinite;
-
-}
-
-@keyframes cursorBlink {
-
-50% {  
-    opacity: 0;  
-}
-
-}
-
-/* =========================================================
-SECTIONS
-========================================================= */
-
-.section {
-min-height: 100vh;
-
-padding: 100px 25px;  
-
-display: flex;  
-
-justify-content: center;  
-align-items: center;  
-
-text-align: center;  
-
-background: #070707;  
-
-opacity: 0;  
-
-transform: translateY(50px);  
-
-transition:  
-    opacity .9s ease,  
-    transform .9s ease;
-
-}
-
-.section-visible {
-opacity: 1;
-
-transform: translateY(0);
-
-}
-
-.section:nth-child(even) {
-background:
-radial-gradient(
-circle,
-#241000,
-#050505 70%
+giftButton.addEventListener(  
+    "click",  
+    openGift  
 );
-}
-
-.container {
-width: min(850px, 100%);
-}
-
-.title {
-color: #ff7900;
-
-font-size:  
-    clamp(32px, 7vw, 45px);  
-
-margin-bottom: 25px;  
-
-text-shadow:  
-    0 0 20px #ff6500;
 
 }
 
-.section-description {
-margin-top: 25px;
+function showGift() {
 
-color: #aaa;  
+if (!gift) return;  
 
-line-height: 1.7;
+gift.style.display = "flex";  
 
-}
+gift.classList.remove(  
+    "gift-shake"  
+);  
 
-/* =========================================================
-PHOTO
-========================================================= */
+void gift.offsetWidth;  
 
-.photo {
-width: min(350px, 90%);
-
-margin: auto;  
-
-padding: 12px;  
-
-background: #eee;  
-
-transform: rotate(-2deg);  
-
-box-shadow:  
-    0 10px 40px #000;  
-
-transition:  
-    transform .4s ease,  
-    box-shadow .4s ease;
+gift.classList.add(  
+    "gift-show"  
+);
 
 }
 
-.photo:hover {
-transform:
-rotate(0)
-scale(1.03);
+function openGift() {
 
-box-shadow:  
-    0 15px 50px #000;
+if (giftOpened) return;  
 
-}
+giftOpened = true;  
 
-.photo img {
-width: 100%;
+if (!gift) return;  
 
-display: block;
+gift.classList.add(  
+    "gift-shake"  
+);  
+
+
+setTimeout(() => {  
+
+    gift.style.display = "none";  
+
+    startErrorPrank();  
+
+}, 650);
 
 }
 
 /* =========================================================
-TKR
+5. ERROR PRANK
 ========================================================= */
 
-.tkr-card {
-padding: 35px;
+const prank =
+document.getElementById("tkrExplosion");
 
-border:  
-    1px solid #ff7200;  
+const errorWord =
+document.getElementById("errorWord");
 
-border-radius: 25px;  
+const errorGuide =
+document.getElementById("errorGuide");
 
-background: #ff650008;  
+const errorCounter =
+document.getElementById("errorCounter");
 
-box-shadow:  
-    0 0 30px #ff650022;  
+let errorClicks = 0;
+let prankFinished = false;
 
-transition:  
-    transform .4s ease,  
-    box-shadow .4s ease;
+if (prank) {
+prank.style.display = "none";
+}
+
+if (errorWord) {
+
+errorWord.addEventListener(  
+    "click",  
+    clickError  
+);
 
 }
 
-.tkr-card:hover {
-transform: translateY(-8px);
+function startErrorPrank() {
 
-box-shadow:  
-    0 0 45px #ff650044;
+if (!prank) return;  
 
-}
+errorClicks = 0;  
+prankFinished = false;  
 
-.tkr-card h3 {
-margin-bottom: 15px;
+prank.style.display = "flex";  
 
-color: #ffd0a3;  
+prank.classList.remove(  
+    "prank-blackout",  
+    "danger-level-1",  
+    "danger-level-2",  
+    "danger-level-3"  
+);  
 
-font-size: 25px;
 
-}
+if (errorWord) {  
 
-.tkr-card p {
-color: #bbb;
-
-line-height: 1.8;
-
-}
-
-.gear {
-font-size: 70px;
-
-margin-bottom: 15px;  
-
-animation:  
-    gear 5s linear infinite;
-
-}
-
-@keyframes gear {
-
-to {  
-    transform: rotate(360deg);  
-}
-
-}
-
-.tools-row {
-margin-top: 25px;
-
-font-size: 28px;  
-
-letter-spacing: 5px;  
-
-opacity: .8;
-
-}
-
-/* =========================================================
-SPOTIFY
-========================================================= */
-
-.spotify-subtitle {
-color: #aaa;
-
-margin-bottom: 25px;  
-
-line-height: 1.6;
-
-}
-
-.spotify-player {
-width: min(650px, 100%);
-
-margin: auto;  
-
-padding: 8px;  
-
-border:  
-    1px solid #663000;  
-
-border-radius: 18px;  
-
-background: #120700;  
-
-box-shadow:  
-    0 0 20px #ff650022,  
-    0 0 40px #ff450011;  
-
-transition:  
-    transform .4s ease,  
-    box-shadow .4s ease;
-
-}
-
-.spotify-player:hover {
-transform: translateY(-5px);
-
-box-shadow:  
-    0 0 30px #ff650044;
-
-}
-
-.spotify-player iframe {
-display: block;
-
-width: 100%;  
-
-border: none;  
-
-border-radius: 12px;
-
-}
-
-.song-lyrics {
-width: min(650px, 100%);
-
-margin: 30px auto 0;  
-
-padding: 22px;  
-
-border:  
-    1px solid #663000;  
-
-border-radius: 18px;  
-
-background: #0d0500;
-
-}
-
-.song-lyrics h3 {
-color: #ff7900;
-
-margin-bottom: 12px;
-
-}
-
-.song-lyrics p {
-color: #ccc;
-
-line-height: 1.7;
-
-}
-
-.song-lyrics small {
-display: block;
-
-margin-top: 12px;  
-
-color: #777;
-
-}
-
-/* =========================================================
-LETTER
-========================================================= */
-
-.letter {
-padding: 35px;
-
-border-radius: 20px;  
-
-border:  
-    1px solid #663000;  
-
-background: #120700;  
-
-color: #ddd;  
-
-line-height: 1.9;  
-
-text-align: left;  
-
-box-shadow:  
-    0 0 25px #ff650011;  
-
-transition:  
-    transform .4s ease,  
-    box-shadow .4s ease;
-
-}
-
-.letter:hover {
-transform: translateY(-5px);
-
-box-shadow:  
-    0 0 35px #ff650033;
-
-}
-
-/* =========================================================
-NOTIFICATION
-========================================================= */
-
-.notification {
-position: fixed;
-
-right: 20px;  
-top: 25px;  
-
-z-index: 200;  
-
-width:  
-    min(340px, calc(100% - 40px));  
-
-padding: 15px;  
-
-border-radius: 18px;  
-
-background:  
-    rgba(35, 35, 35, .95);  
-
-box-shadow:  
-    0 8px 30px #000;  
-
-display: none;  
-
-align-items: center;  
-
-gap: 15px;  
-
-animation:  
-    notificationIn .5s ease;
-
-}
-
-.notification-hide {
-animation:
-notificationOut .5s ease forwards;
-}
-
-.notification-icon {
-font-size: 35px;
-}
-
-.notification-text {
-text-align: left;
-}
-
-.notification-title {
-font-size: 12px;
-
-color: #aaa;
-
-}
-
-.notification-message {
-margin-top: 4px;
-
-font-weight: bold;
-
-}
-
-@keyframes notificationIn {
-
-from {  
-    transform: translateY(-100px);  
-    opacity: 0;  
-}  
-
-to {  
-    transform: translateY(0);  
-    opacity: 1;  
-}
-
-}
-
-@keyframes notificationOut {
-
-to {  
-    transform: translateY(-100px);  
-    opacity: 0;  
-}
-
-}
-
-/* =========================================================
-END
-========================================================= */
-
-.end {
-min-height: 100vh;
-
-display: flex;  
-
-justify-content: center;  
-align-items: center;  
-
-text-align: center;  
-
-padding: 30px;  
-
-background:  
-    radial-gradient(  
-        circle,  
-        #421600,  
-        #050505 70%  
-    );
-
-}
-
-.end-content {
-animation:
-endFloat 3s ease-in-out infinite;
-}
-
-@keyframes endFloat {
-
-50% {  
-    transform: translateY(-8px);  
-}
-
-}
-
-.end h2 {
-color: #ff7900;
-
-font-size:  
-    clamp(35px, 8vw, 55px);  
-
-text-shadow:  
-    0 0 25px #ff4500;
-
-}
-
-.end p:not(.section-label) {
-margin-top: 20px;
-
-color: #ffd0a3;
-
-}
-
-.next-button {
-display: inline-block;
-
-margin-top: 35px;  
-
-padding: 14px 45px;  
-
-border:  
-    1px solid #ff7900;  
-
-border-radius: 30px;  
-
-color: #ff7900;  
-
-background:  
-    rgba(255, 101, 0, .08);  
-
-font-weight: bold;  
-
-letter-spacing: 4px;  
-
-cursor: pointer;  
-
-box-shadow:  
-    0 0 10px #ff6500,  
-    0 0 25px #ff450055;  
-
-transition:  
-    .3s;
-
-}
-
-.next-button:hover {
-background: #ff7900;
-
-color: #050505;  
-
-box-shadow:  
-    0 0 20px #ff7900,  
-    0 0 50px #ff4500;  
-
-transform: scale(1.05);
-
-}
-
-.final-button-active {
-animation:
-finalButton .6s ease forwards;
-}
-
-@keyframes finalButton {
-
-50% {  
-    transform: scale(1.15);  
-}  
-
-100% {  
-    transform: scale(0);  
-    opacity: 0;  
-}
-
-}
-
-/* =========================================================
-FINAL 3D LOVE
-========================================================= */
-
-#finalLovePage {
-position: fixed;
-
-inset: 0;  
-
-z-index: 2000;  
-
-display: none;  
-
-justify-content: center;  
-align-items: center;  
-
-background:  
-    radial-gradient(  
-        circle at center,  
-        #260d00,  
-        #010101 75%  
+    errorWord.classList.remove(  
+        "error-warning",  
+        "error-danger",  
+        "error-explode"  
     );  
 
-overflow: hidden;  
+}  
 
-opacity: 0;
 
-}
+if (errorCounter) {  
+    errorCounter.textContent =  
+        "0 / 3";  
 
-#finalLovePage.final-page-show {
-animation:
-finalPageIn 1s ease forwards;
-}
+    errorCounter.style.display =  
+        "block";  
+}  
 
-@keyframes finalPageIn {
 
-to {  
-    opacity: 1;  
-}
+if (errorGuide) {  
 
-}
+    errorGuide.textContent =  
+        "Klik ERROR 3 kali.";  
 
-.love3d-container {
-position: absolute;
+}  
 
-inset: 0;  
 
-display: flex;  
+setTimeout(() => {  
 
-justify-content: center;  
-align-items: center;
+    prank.classList.add(  
+        "prank-active"  
+    );  
 
-}
-
-.love3d-container canvas {
-display: block;
-
-width: 100%;  
-height: 100%;
-
-}
-
-.final-love-text {
-position: absolute;
-
-bottom: 10%;  
-
-left: 0;  
-right: 0;  
-
-z-index: 10;  
-
-text-align: center;  
-
-pointer-events: none;
-
-}
-
-.for-you {
-color: #ff7900;
-
-font-size:  
-    clamp(35px, 9vw, 65px);  
-
-font-weight: 900;  
-
-letter-spacing: 10px;  
-
-text-shadow:  
-    0 0 10px #ff7900,  
-    0 0 30px #ff4500;
-
-}
-
-.love-hint {
-margin-top: 12px;
-
-color: #ffd0a3;  
-
-font-size: 12px;  
-
-letter-spacing: 3px;  
-
-opacity: .8;
+}, 50);
 
 }
 
 /* =========================================================
-HEART LIGHT
+ERROR CLICK
 ========================================================= */
 
-.heart-light-start {
-filter:
-brightness(1.2);
-}
+function clickError() {
 
-.heart-explosion-light {
-position: absolute;
+if (prankFinished) return;  
 
-left: 50%;  
-top: 50%;  
+errorClicks++;  
 
-width: 30px;  
-height: 30px;  
 
-transform:  
-    translate(-50%, -50%)  
-    scale(.2);  
+if (errorCounter) {  
 
-border-radius: 50%;  
+    errorCounter.textContent =  
+        `${Math.min(errorClicks, 3)} / 3`;  
 
-background: #fff;  
-
-box-shadow:  
-    0 0 20px #fff,  
-    0 0 50px #ffdfaa,  
-    0 0 100px #ff7900,  
-    0 0 180px #ff4500;  
-
-animation:  
-    lightGrow 1.3s ease forwards;  
-
-pointer-events: none;
-
-}
-
-.light-max {
-animation:
-lightMax .45s ease forwards;
-}
-
-@keyframes lightGrow {
-
-50% {  
-    transform:  
-        translate(-50%, -50%)  
-        scale(15);  
 }  
 
-100% {  
-    transform:  
-        translate(-50%, -50%)  
-        scale(35);  
 
-    opacity: .9;  
-}
+/* -------------------------  
+   CLICK 1  
+------------------------- */  
 
-}
+if (errorClicks === 1) {  
 
-@keyframes lightMax {
+    if (errorWord) {  
 
-to {  
-    transform:  
-        translate(-50%, -50%)  
-        scale(70);  
+        errorWord.classList.add(  
+            "error-warning"  
+        );  
 
-    opacity: 1;  
-}
+    }  
 
-}
+    if (errorGuide) {  
 
-.final-flash {
-animation:
-finalFlash .8s ease;
-}
+        errorGuide.textContent =  
+            "WARNING... system instability detected.";  
 
-@keyframes finalFlash {
+    }  
 
-0% {  
-    filter: brightness(1);  
+    if (prank) {  
+
+        prank.classList.add(  
+            "danger-level-1"  
+        );  
+
+    }  
+
+    createGlitchParticles(20);  
+
 }  
 
-50% {  
-    filter: brightness(8);  
+
+/* -------------------------  
+   CLICK 2  
+------------------------- */  
+
+else if (errorClicks === 2) {  
+
+    if (errorWord) {  
+
+        errorWord.classList.remove(  
+            "error-warning"  
+        );  
+
+        errorWord.classList.add(  
+            "error-danger"  
+        );  
+
+    }  
+
+    if (errorGuide) {  
+
+        errorGuide.textContent =  
+            "CRITICAL ERROR... one more click.";  
+
+    }  
+
+    if (prank) {  
+
+        prank.classList.remove(  
+            "danger-level-1"  
+        );  
+
+        prank.classList.add(  
+            "danger-level-2"  
+        );  
+
+    }  
+
+    createGlitchParticles(40);  
+
 }  
 
-100% {  
-    filter: brightness(1);  
+
+/* -------------------------  
+   CLICK 3  
+------------------------- */  
+
+else {  
+
+    prankFinished = true;  
+
+    if (errorGuide) {  
+
+        errorGuide.textContent =  
+            "SYSTEM FAILURE.";  
+
+    }  
+
+    if (errorCounter) {  
+
+        errorCounter.style.display =  
+            "none";  
+
+    }  
+
+    if (errorWord) {  
+
+        errorWord.classList.add(  
+            "error-explode"  
+        );  
+
+    }  
+
+    if (prank) {  
+
+        prank.classList.add(  
+            "danger-level-3"  
+        );  
+
+    }  
+
+    createGlitchParticles(90);  
+
+
+    setTimeout(() => {  
+
+        createBirthdayHeart();  
+
+    }, 850);  
+
 }
 
 }
 
 /* =========================================================
-FIREWORKS
+6. GLITCH PARTICLES
 ========================================================= */
 
-.fireworks-container {
-position: absolute;
+function createGlitchParticles(amount) {
 
-inset: 0;  
+if (!prank) return;  
 
-z-index: 20;  
+for (let i = 0; i < amount; i++) {  
 
-pointer-events: none;
+    const particle =  
+        document.createElement("span");  
 
-}
+    particle.className =  
+        "glitch-particle";  
 
-.firework-burst {
-position: absolute;
 
-width: 10px;  
-height: 10px;  
+    particle.style.left =  
+        `${50 + (Math.random() * 40 - 20)}%`;  
 
-transform:  
-    translate(-50%, -50%);
+    particle.style.top =  
+        `${50 + (Math.random() * 40 - 20)}%`;  
 
-}
 
-.firework-particle {
-position: absolute;
+    particle.style.setProperty(  
+        "--x",  
+        `${Math.random() * 600 - 300}px`  
+    );  
 
-left: 0;  
-top: 0;  
+    particle.style.setProperty(  
+        "--y",  
+        `${Math.random() * 500 - 250}px`  
+    );  
 
-width: 5px;  
-height: 5px;  
 
-border-radius: 50%;  
+    particle.style.animationDelay =  
+        `${Math.random() * 0.25}s`;  
 
-background: #ff7900;  
 
-box-shadow:  
-    0 0 8px #ff7900,  
-    0 0 18px #ff4500;  
+    prank.appendChild(  
+        particle  
+    );  
 
-animation:  
-    particleExplode 1.3s ease-out forwards;
 
-}
+    setTimeout(() => {  
 
-@keyframes particleExplode {
+        particle.remove();  
 
-0% {  
-    opacity: 1;  
+    }, 1300);  
 
-    transform:  
-        translate(0, 0)  
-        scale(1.2);  
-}  
-
-70% {  
-    opacity: 1;  
-}  
-
-100% {  
-    opacity: 0;  
-
-    transform:  
-        translate(var(--x), var(--y))  
-        scale(.15);  
 }
 
 }
 
 /* =========================================================
-UTILITY ANIMATION
+7. HAPPY BIRTHDAY HEART
 ========================================================= */
 
-@keyframes fadeUp {
+function createBirthdayHeart() {
 
-from {  
-    opacity: 0;  
-    transform: translateY(25px);  
+const birthdayLove =  
+    document.getElementById(  
+        "birthdayLove"  
+    );  
+
+const birthdayHeart =  
+    document.getElementById(  
+        "birthdayHeart"  
+    );  
+
+const heartMessage =  
+    document.getElementById(  
+        "heartMessage"  
+    );  
+
+
+if (  
+    !birthdayLove ||  
+    !birthdayHeart ||  
+    !heartMessage  
+) {  
+    return;  
 }  
 
-to {  
-    opacity: 1;  
-    transform: translateY(0);  
+
+/* BLACKOUT PRANK */  
+
+if (prank) {  
+
+    prank.classList.add(  
+        "prank-blackout"  
+    );  
+
+}  
+
+
+setTimeout(() => {  
+
+    if (prank) {  
+        prank.style.display =  
+            "none";  
+    }  
+
+}, 800);  
+
+
+/* SHOW HEART */  
+
+birthdayLove.style.display =  
+    "flex";  
+
+birthdayLove.classList.remove(  
+    "birthday-love-fade"  
+);  
+
+void birthdayLove.offsetWidth;  
+
+birthdayLove.classList.add(  
+    "birthday-love-show"  
+);  
+
+
+/* CLEAR OLD WORDS */  
+
+birthdayHeart.innerHTML = "";  
+
+
+/*  
+   Membuat pola hati matematis.  
+*/  
+
+const points = [];  
+
+
+const scaleX = 2.35;  
+const scaleY = 2.05;  
+
+
+for (  
+    let y = -1;  
+    y <= 1;  
+    y += 0.115  
+) {  
+
+    for (  
+        let x = -1.25;  
+        x <= 1.25;  
+        x += 0.115  
+    ) {  
+
+        const nx = x * 1.15;  
+        const ny = y * 1.15;  
+
+
+        const equation =  
+            Math.pow(  
+                nx * nx +  
+                ny * ny -  
+                1,  
+                3  
+            )  
+            -  
+            nx * nx *  
+            Math.pow(  
+                ny,  
+                3  
+            );  
+
+
+        if (equation <= 0) {  
+
+            points.push({  
+                x,  
+                y  
+            });  
+
+        }  
+
+    }  
+
+}  
+
+
+/*  
+   Buat tulisan.  
+*/  
+
+points.forEach(  
+    (point, index) => {  
+
+        const word =  
+            document.createElement(  
+                "span"  
+            );  
+
+        word.className =  
+            "heart-word";  
+
+        word.textContent =  
+            "HAPPY BIRTHDAY";  
+
+
+        const left =  
+            50 +  
+            point.x *  
+            scaleX *  
+            25;  
+
+
+        const top =  
+            50 -  
+            point.y *  
+            scaleY *  
+            24;  
+
+
+        word.style.left =  
+            `${left}%`;  
+
+        word.style.top =  
+            `${top}%`;  
+
+
+        word.style.animationDelay =  
+            `${index * 0.012}s`;  
+
+
+        birthdayHeart.appendChild(  
+            word  
+        );  
+
+    }  
+);  
+
+
+/*  
+   Waktu pembentukan heart.  
+*/  
+
+const formationTime =  
+    Math.min(  
+        points.length * 12 + 800,  
+        4200  
+    );  
+
+
+/*  
+   Pesan tengah muncul  
+   setelah heart terbentuk.  
+*/  
+
+setTimeout(() => {  
+
+    heartMessage.classList.add(  
+        "heart-message-show"  
+    );  
+
+}, formationTime);  
+
+
+/*  
+   Heart bertahan 3 detik.  
+*/  
+
+setTimeout(() => {  
+
+    birthdayLove.classList.add(  
+        "birthday-love-fade"  
+    );  
+
+
+    setTimeout(() => {  
+
+        birthdayLove.style.display =  
+            "none";  
+
+        heartMessage.classList.remove(  
+            "heart-message-show"  
+        );  
+
+        showNextQuestion();  
+
+    }, 700);  
+
+}, formationTime + 3000);
+
+}
+
+/* =========================================================
+8. NEXT QUESTION
+========================================================= */
+
+const nextPage =
+document.getElementById("nextPage");
+
+const yesButton =
+document.getElementById("yesButton");
+
+const noButton =
+document.getElementById("noButton");
+
+const noMessage =
+document.getElementById("noMessage");
+
+let noClicks = 0;
+
+const noMessages = [
+
+"yahh jahat 😭",  
+
+"yakin gamau tauu?",  
+
+"masa hadiahnya ditolak...",  
+
+"satu kali lagi ajaa 😭",  
+
+"serius gamau?",  
+
+"aku sudah menyiapkan ini loh...",  
+
+"kesempatan terakhir mungkin 👀",  
+
+"YA-nya kok malah diabaikan 😭"
+
+];
+
+if (yesButton) {
+
+yesButton.addEventListener(  
+    "click",  
+    chooseYes  
+);
+
+}
+
+if (noButton) {
+
+noButton.addEventListener(  
+    "click",  
+    chooseNo  
+);
+
+}
+
+function showNextQuestion() {
+
+if (!nextPage) return;  
+
+nextPage.style.display =  
+    "flex";  
+
+nextPage.classList.remove(  
+    "next-page-hide"  
+);  
+
+void nextPage.offsetWidth;  
+
+nextPage.classList.add(  
+    "next-page-show"  
+);
+
+}
+
+/* =========================================================
+TIDAK
+========================================================= */
+
+function chooseNo() {
+
+noClicks++;  
+
+
+if (noMessage) {  
+
+    noMessage.textContent =  
+        noMessages[  
+            (noClicks - 1) %  
+            noMessages.length  
+        ];  
+
+
+    noMessage.classList.remove(  
+        "message-pop"  
+    );  
+
+    void noMessage.offsetWidth;  
+
+    noMessage.classList.add(  
+        "message-pop"  
+    );  
+
+}  
+
+
+/*  
+   Tombol YA membesar.  
+*/  
+
+if (yesButton) {  
+
+    const scale =  
+        Math.min(  
+            1 + noClicks * 0.16,  
+            2.5  
+        );  
+
+
+    yesButton.style.transform =  
+        `scale(${scale})`;  
+
+
+    yesButton.style.zIndex =  
+        "10";  
+
 }
 
 }
 
 /* =========================================================
-MOBILE
+YA
 ========================================================= */
 
-@media (max-width: 600px) {
+function chooseYes() {
 
-.terminal {  
-    font-size: 9px;  
-}  
+if (!nextPage) return;  
 
-.adit {  
-    font-size: 17px;  
-    letter-spacing: 4px;  
-}  
+nextPage.classList.add(  
+    "next-page-hide"  
+);  
 
-.birthday-cake-image {  
-    width: min(240px, 70vw);  
-}  
 
-.gift-image {  
-    width: min(230px, 70vw);  
-}  
+setTimeout(() => {  
 
-.character-image {  
-    width: min(190px, 55vw);  
-}  
+    nextPage.style.display =  
+        "none";  
 
-.section {  
-    padding:  
-        80px 20px;  
-}  
+    startFinalCountdown();  
 
-.tkr-card,  
-.letter {  
-    padding:  
-        25px 20px;  
-}  
-
-.hero h2 {  
-    letter-spacing: 4px;  
-}  
-
-.typing {  
-    font-size: 14px;  
-}  
-
-.next-box {  
-    padding:  
-        35px 20px;  
-}  
-
-.answer-buttons {  
-    gap: 10px;  
-}  
-
-.answer-buttons button {  
-    padding:  
-        12px 25px;  
-}  
-
-.heart-word {  
-    font-size: 7px;  
-}  
-
-.for-you {  
-    letter-spacing: 5px;  
-}  
-
-.love-hint {  
-    font-size: 10px;  
-}  
-
-.notification {  
-    right: 10px;  
-    top: 15px;  
-
-    width:  
-        calc(100% - 20px);  
-}  
+}, 700);
 
 }
 
-Style css
+/* =========================================================
+9. FINAL COUNTDOWN
+========================================================= */
+
+function startFinalCountdown() {
+
+const overlay =  
+    document.createElement(  
+        "section"  
+    );  
+
+overlay.id =  
+    "finalCountdown";  
+
+
+overlay.innerHTML = `  
+
+    <div class="final-countdown-content">  
+
+        <p>  
+            ACCESS GRANTED  
+        </p>  
+
+        <div id="finalCountNumber">  
+            3  
+        </div>  
+
+        <span>  
+            Loading birthday page...  
+        </span>  
+
+    </div>  
+
+`;  
+
+
+document.body.appendChild(  
+    overlay  
+);  
+
+
+let count = 3;  
+
+
+const timer =  
+    setInterval(() => {  
+
+        count--;  
+
+
+        const number =  
+            document.getElementById(  
+                "finalCountNumber"  
+            );  
+
+
+        if (count <= 0) {  
+
+            clearInterval(  
+                timer  
+            );  
+
+
+            overlay.classList.add(  
+                "final-countdown-hide"  
+            );  
+
+
+            setTimeout(() => {  
+
+                overlay.remove();  
+
+                showMainWebsite();  
+
+            }, 600);  
+
+
+        } else {  
+
+            if (number) {  
+
+                number.textContent =  
+                    count;  
+
+            }  
+
+        }  
+
+    }, 1000);
+
+}
+
+/* =========================================================
+10. MAIN WEBSITE
+========================================================= */
+
+function showMainWebsite() {
+
+const main =  
+    document.getElementById(  
+        "main"  
+    );  
+
+
+if (!main) return;  
+
+
+main.style.display =  
+    "block";  
+
+
+window.scrollTo({  
+    top: 0,  
+    behavior: "instant"  
+});  
+
+
+setTimeout(() => {  
+
+    main.classList.add(  
+        "main-show"  
+    );  
+
+    startTyping();  
+
+}, 100);
+
+}
+
+/* =========================================================
+11. TYPING MESSAGE
+========================================================= */
+
+const message = `
+Today is your special day. Wishing you happiness, good health, and all your dreams come true.
+
+Sebelum lanjutt ada pantun dulu om.
+
+Pergi ke pasar membeli pita,
+Singgah sebentar membeli udang,
+Selamat bertambah tua om tercinta,
+Minta kuota dong sayangg...
+
+Nyambung ga sihh...
+halahh bodo amat lahhh 😭
+`;
+
+let typingIndex = 0;
+let typingStarted = false;
+
+function startTyping() {
+
+if (typingStarted) return;  
+
+typingStarted = true;  
+
+
+const text =  
+    document.getElementById(  
+        "typingText"  
+    );  
+
+
+if (!text) return;  
+
+
+text.textContent = "";  
+
+
+const typing =  
+    setInterval(() => {  
+
+        if (  
+            typingIndex >=  
+            message.length  
+        ) {  
+
+            clearInterval(  
+                typing  
+            );  
+
+            return;  
+
+        }  
+
+
+        text.textContent +=  
+            message[  
+                typingIndex  
+            ];  
+
+
+        typingIndex++;  
+
+    }, 35);
+
+}
+
+/* =========================================================
+12. SECTION REVEAL
+========================================================= */
+
+const sections =
+document.querySelectorAll(
+".section"
+);
+
+if (
+"IntersectionObserver"
+in window
+) {
+
+const observer =  
+    new IntersectionObserver(  
+        entries => {  
+
+            entries.forEach(  
+                entry => {  
+
+                    if (  
+                        entry.isIntersecting  
+                    ) {  
+
+                        entry.target.classList.add(  
+                            "section-visible"  
+                        );  
+
+                    }  
+
+                }  
+            );  
+
+        },  
+        {  
+            threshold: 0.15  
+        }  
+    );  
+
+
+sections.forEach(  
+    section => {  
+
+        observer.observe(  
+            section  
+        );  
+
+    }  
+);
+
+}
+
+/* =========================================================
+13. SCROLL NOTIFICATION
+========================================================= */
+
+let notificationShown =
+false;
+
+window.addEventListener(
+"scroll",
+() => {
+
+if (notificationShown) return;  
+
+
+    const notification =  
+        document.getElementById(  
+            "notification"  
+        );  
+
+
+    /*  
+       Kalau elemen notification  
+       memang tidak ada di HTML,  
+       abaikan saja.  
+    */  
+
+    if (!notification) return;  
+
+
+    const scroll =  
+        window.scrollY;  
+
+
+    const height =  
+        document.documentElement  
+            .scrollHeight  
+        -  
+        window.innerHeight;  
+
+
+    if (height <= 0) return;  
+
+
+    const percentage =  
+        scroll / height;  
+
+
+    if (percentage >= 0.35) {  
+
+        notificationShown =  
+            true;  
+
+
+        notification.style.display =  
+            "flex";  
+
+
+        setTimeout(() => {  
+
+            notification.classList.add(  
+                "notification-hide"  
+            );  
+
+
+            setTimeout(() => {  
+
+                notification.style.display =  
+                    "none";  
+
+            }, 500);  
+
+        }, 4000);  
+
+    }  
+
+}
+
+);
+
+/* =========================================================
+14. FINAL GIFT
+========================================================= */
+
+const finalGiftButton =
+document.getElementById(
+"finalGiftButton"
+);
+
+let finalGiftOpened =
+false;
+
+if (finalGiftButton) {
+
+finalGiftButton.addEventListener(  
+    "click",  
+    openFinalGift  
+);
+
+}
+
+function openFinalGift() {
+
+if (finalGiftOpened) return;  
+
+finalGiftOpened = true;  
+
+
+if (finalGiftButton) {  
+
+    finalGiftButton.classList.add(  
+        "final-button-active"  
+    );  
+
+}  
+
+
+setTimeout(() => {  
+
+    const main =  
+        document.getElementById(  
+            "main"  
+        );  
+
+    const finalPage =  
+        document.getElementById(  
+            "finalLovePage"  
+        );  
+
+
+    if (main) {  
+
+        main.style.display =  
+            "none";  
+
+    }  
+
+
+    if (finalPage) {  
+
+        finalPage.style.display =  
+            "flex";  
+
+
+        setTimeout(() => {  
+
+            finalPage.classList.add(  
+                "final-page-show"  
+            );  
+
+
+            init3DHeart();  
+
+        }, 100);  
+
+    }  
+
+}, 600);
+
+}
+
+/* =========================================================
+15. THREE.JS VARIABLES
+========================================================= */
+
+let scene = null;
+let camera = null;
+let renderer = null;
+
+let heartGroup = null;
+let leftHeart = null;
+let rightHeart = null;
+
+let heartClicked = false;
+let threeInitialized = false;
+
+/* =========================================================
+16. INITIALIZE 3D HEART
+========================================================= */
+
+function init3DHeart() {
+
+const container =  
+    document.getElementById(  
+        "love3dContainer"  
+    );  
+
+
+if (!container) return;  
+
+
+if (  
+    typeof THREE ===  
+    "undefined"  
+) {  
+
+    console.error(  
+        "Three.js tidak ditemukan."  
+    );  
+
+    return;  
+
+}  
+
+
+/*  
+   Jangan membuat canvas  
+   berkali-kali.  
+*/  
+
+if (threeInitialized) return;  
+
+threeInitialized = true;  
+
+
+scene =  
+    new THREE.Scene();  
+
+
+camera =  
+    new THREE.PerspectiveCamera(  
+        45,  
+        window.innerWidth /  
+        window.innerHeight,  
+        0.1,  
+        1000  
+    );  
+
+
+camera.position.z =  
+    8;  
+
+
+renderer =  
+    new THREE.WebGLRenderer({  
+        antialias: true,  
+        alpha: true  
+    });  
+
+
+renderer.setPixelRatio(  
+    Math.min(  
+        window.devicePixelRatio,  
+        2  
+    )  
+);  
+
+
+renderer.setSize(  
+    window.innerWidth,  
+    window.innerHeight  
+);  
+
+
+container.appendChild(  
+    renderer.domElement  
+);  
+
+
+create3DHeart();  
+
+
+renderer.domElement.addEventListener(  
+    "click",  
+    handleHeartClick  
+);  
+
+
+window.addEventListener(  
+    "resize",  
+    resize3D  
+);  
+
+
+animate3DHeart();
+
+}
+
+/* =========================================================
+17. CREATE 3D HEART
+========================================================= */
+
+function create3DHeart() {
+
+leftHeart =  
+    new THREE.Group();  
+
+
+rightHeart =  
+    new THREE.Group();  
+
+
+heartGroup =  
+    new THREE.Group();  
+
+
+heartGroup.add(  
+    leftHeart  
+);  
+
+heartGroup.add(  
+    rightHeart  
+);  
+
+
+scene.add(  
+    heartGroup  
+);  
+
+
+/*  
+   Membuat titik hati.  
+*/  
+
+const leftPoints = [];  
+const rightPoints = [];  
+
+
+/*  
+   Beberapa lapisan kedalaman  
+   supaya terlihat 3D.  
+*/  
+
+for (  
+    let layer = 0;  
+    layer < 7;  
+    layer++  
+) {  
+
+    const z =  
+        -1.2 +  
+        layer * 0.4;  
+
+
+    for (  
+        let i = 0;  
+        i < 260;  
+        i++  
+    ) {  
+
+        const t =  
+            Math.random() *  
+            Math.PI *  
+            2;  
+
+
+        const radius =  
+            Math.sqrt(  
+                Math.random()  
+            );  
+
+
+        const x =  
+            16 *  
+            Math.pow(  
+                Math.sin(t),  
+                3  
+            ) *  
+            radius;  
+
+
+        const y =  
+            (  
+                13 *  
+                Math.cos(t)  
+                -  
+                5 *  
+                Math.cos(2 * t)  
+                -  
+                2 *  
+                Math.cos(3 * t)  
+                -  
+                Math.cos(4 * t)  
+            ) *  
+            radius;  
+
+
+        const point =  
+            new THREE.Vector3(  
+                x / 8,  
+                y / 8,  
+                z +  
+                (  
+                    Math.random() -  
+                    0.5  
+                ) * 0.25  
+            );  
+
+
+        if (point.x <= 0) {  
+
+            leftPoints.push(  
+                point  
+            );  
+
+        } else {  
+
+            rightPoints.push(  
+                point  
+            );  
+
+        }  
+
+    }  
+
+}  
+
+
+createHeartPointCloud(  
+    leftPoints,  
+    leftHeart  
+);  
+
+
+createHeartPointCloud(  
+    rightPoints,  
+    rightHeart  
+);  
+
+
+/*  
+   Ukuran keseluruhan.  
+*/  
+
+heartGroup.scale.set(  
+    1.35,  
+    1.35,  
+    1.35  
+);
+
+}
+
+/* =========================================================
+18. HEART POINT CLOUD
+========================================================= */
+
+function createHeartPointCloud(
+points,
+group
+) {
+
+const geometry =  
+    new THREE.BufferGeometry();  
+
+
+geometry.setFromPoints(  
+    points  
+);  
+
+
+const material =  
+    new THREE.PointsMaterial({  
+        color: 0xff6a00,  
+        size: 0.045,  
+        transparent: true,  
+        opacity: 0.95  
+    });  
+
+
+const pointCloud =  
+    new THREE.Points(  
+        geometry,  
+        material  
+    );  
+
+
+group.add(  
+    pointCloud  
+);  
+
+
+/*  
+   Wireframe lines.  
+*/  
+
+const linePositions = [];  
+
+
+for (  
+    let i = 0;  
+    i < points.length - 2;  
+    i += 4  
+) {  
+
+    const a =  
+        points[i];  
+
+    const b =  
+        points[i + 1];  
+
+
+    if (!a || !b) continue;  
+
+
+    const distance =  
+        a.distanceTo(b);  
+
+
+    if (distance < 1.5) {  
+
+        linePositions.push(  
+
+            a.x,  
+            a.y,  
+            a.z,  
+
+            b.x,  
+            b.y,  
+            b.z  
+
+        );  
+
+    }  
+
+}  
+
+
+if (  
+    linePositions.length >  
+    0  
+) {  
+
+    const lineGeometry =  
+        new THREE.BufferGeometry();  
+
+
+    lineGeometry.setAttribute(  
+        "position",  
+        new THREE.Float32BufferAttribute(  
+            linePositions,  
+            3  
+        )  
+    );  
+
+
+    const lineMaterial =  
+        new THREE.LineBasicMaterial({  
+            color: 0xff6500,  
+            transparent: true,  
+            opacity: 0.32  
+        });  
+
+
+    const lines =  
+        new THREE.LineSegments(  
+            lineGeometry,  
+            lineMaterial  
+        );  
+
+
+    group.add(  
+        lines  
+    );  
+
+}
+
+}
+
+/* =========================================================
+19. 3D HEART ANIMATION
+========================================================= */
+
+function animate3DHeart() {
+
+if (  
+    !renderer ||  
+    !scene ||  
+    !camera  
+) {  
+    return;  
+}  
+
+
+requestAnimationFrame(  
+    animate3DHeart  
+);  
+
+
+if (  
+    !heartClicked &&  
+    heartGroup  
+) {  
+
+    heartGroup.rotation.y +=  
+        0.008;  
+
+
+    heartGroup.rotation.x =  
+        Math.sin(  
+            Date.now() *  
+            0.0007  
+        ) * 0.12;  
+
+}  
+
+
+renderer.render(  
+    scene,  
+    camera  
+);
+
+}
+
+/* =========================================================
+20. HEART CLICK
+========================================================= */
+
+function handleHeartClick() {
+
+if (heartClicked) return;  
+
+heartClicked = true;  
+
+splitHeart();
+
+}
+
+/* =========================================================
+21. SPLIT HEART
+========================================================= */
+
+function splitHeart() {
+
+if (  
+    !leftHeart ||  
+    !rightHeart  
+) {  
+    return;  
+}  
+
+
+const container =  
+    document.getElementById(  
+        "love3dContainer"  
+    );  
+
+
+if (container) {  
+
+    container.classList.add(  
+        "heart-light-start"  
+    );  
+
+}  
+
+
+const start =  
+    performance.now();  
+
+
+const duration =  
+    1200;  
+
+
+function animateSplit(now) {  
+
+    const progress =  
+        Math.min(  
+            (now - start) /  
+            duration,  
+            1  
+        );  
+
+
+    /*  
+       Smooth easing.  
+    */  
+
+    const ease =  
+        progress *  
+        progress *  
+        (  
+            3 -  
+            2 * progress  
+        );  
+
+
+    /*  
+       Bagian kiri bergerak  
+       ke kiri.  
+    */  
+
+    leftHeart.position.x =  
+        -ease * 1.4;  
+
+
+    leftHeart.rotation.z =  
+        -ease * 0.12;  
+
+
+    /*  
+       Bagian kanan bergerak  
+       ke kanan.  
+    */  
+
+    rightHeart.position.x =  
+        ease * 1.4;  
+
+
+    rightHeart.rotation.z =  
+        ease * 0.12;  
+
+
+    if (progress < 1) {  
+
+        requestAnimationFrame(  
+            animateSplit  
+        );  
+
+    } else {  
+
+        createExplosionLight();  
+
+    }  
+
+}  
+
+
+requestAnimationFrame(  
+    animateSplit  
+);
+
+}
+
+/* =========================================================
+22. LIGHT FROM INSIDE
+========================================================= */
+
+function createExplosionLight() {
+
+const page =  
+    document.getElementById(  
+        "finalLovePage"  
+    );  
+
+
+if (!page) return;  
+
+
+const light =  
+    document.createElement(  
+        "div"  
+    );  
+
+
+light.className =  
+    "heart-explosion-light";  
+
+
+page.appendChild(  
+    light  
+);  
+
+
+/*  
+   Cahaya membesar.  
+*/  
+
+setTimeout(() => {  
+
+    light.classList.add(  
+        "light-max"  
+    );  
+
+}, 100);  
+
+
+/*  
+   Setelah cahaya cukup terang,  
+   hati menghilang dan meledak.  
+*/  
+
+setTimeout(() => {  
+
+    if (leftHeart) {  
+        leftHeart.visible =  
+            false;  
+    }  
+
+
+    if (rightHeart) {  
+        rightHeart.visible =  
+            false;  
+    }  
+
+
+    explodeHeart(  
+        light  
+    );  
+
+}, 1300);
+
+}
+
+/* =========================================================
+23. HEART EXPLOSION
+========================================================= */
+
+function explodeHeart(light) {
+
+if (light) {  
+
+    light.classList.add(  
+        "light-explode"  
+    );  
+
+}  
+
+
+const container =  
+    document.getElementById(  
+        "love3dContainer"  
+    );  
+
+
+if (container) {  
+
+    container.classList.add(  
+        "final-flash"  
+    );  
+
+}  
+
+
+createFireworks();  
+
+
+setTimeout(() => {  
+
+    if (container) {  
+
+        container.classList.remove(  
+            "final-flash"  
+        );  
+
+    }  
+
+}, 900);
+
+}
+
+/* =========================================================
+24. FIREWORKS
+========================================================= */
+
+function createFireworks() {
+
+const container =  
+    document.getElementById(  
+        "fireworksContainer"  
+    );  
+
+
+if (!container) return;  
+
+
+container.innerHTML =  
+    "";  
+
+
+/*  
+   Ledakan pertama.  
+*/  
+
+for (  
+    let i = 0;  
+    i < 18;  
+    i++  
+) {  
+
+    setTimeout(() => {  
+
+        createFirework(  
+            Math.random() * 100,  
+            15 +  
+            Math.random() * 70  
+        );  
+
+    }, i * 170);  
+
+}
+
+}
+
+/* =========================================================
+25. FIREWORK BURST
+========================================================= */
+
+function createFirework(
+x,
+y
+) {
+
+const container =  
+    document.getElementById(  
+        "fireworksContainer"  
+    );  
+
+
+if (!container) return;  
+
+
+const firework =  
+    document.createElement(  
+        "div"  
+    );  
+
+
+firework.className =  
+    "firework-burst";  
+
+
+firework.style.left =  
+    `${x}%`;  
+
+
+firework.style.top =  
+    `${y}%`;  
+
+
+const particleCount =  
+    32;  
+
+
+for (  
+    let i = 0;  
+    i < particleCount;  
+    i++  
+) {  
+
+    const particle =  
+        document.createElement(  
+            "span"  
+        );  
+
+
+    particle.className =  
+        "firework-particle";  
+
+
+    const angle =  
+        (  
+            Math.PI * 2 /  
+            particleCount  
+        ) * i;  
+
+
+    const distance =  
+        70 +  
+        Math.random() * 140;  
+
+
+    particle.style.setProperty(  
+        "--x",  
+        `${Math.cos(angle) * distance}px`  
+    );  
+
+
+    particle.style.setProperty(  
+        "--y",  
+        `${Math.sin(angle) * distance}px`  
+    );  
+
+
+    particle.style.animationDelay =  
+        `${Math.random() * 0.12}s`;  
+
+
+    firework.appendChild(  
+        particle  
+    );  
+
+}  
+
+
+container.appendChild(  
+    firework  
+);  
+
+
+setTimeout(() => {  
+
+    firework.remove();  
+
+}, 1900);
+
+}
+
+/* =========================================================
+26. RESIZE
+========================================================= */
+
+function resize3D() {
+
+if (  
+    !camera ||  
+    !renderer  
+) {  
+    return;  
+}  
+
+
+camera.aspect =  
+    window.innerWidth /  
+    window.innerHeight;  
+
+
+camera.updateProjectionMatrix();  
+
+
+renderer.setSize(  
+    window.innerWidth,  
+    window.innerHeight  
+);
+
+}
+
+/* =========================================================
+27. INITIAL STATE
+========================================================= */
+
+const main =
+document.getElementById(
+"main"
+);
+
+const finalLovePage =
+document.getElementById(
+"finalLovePage"
+);
+
+if (main) {
+
+main.style.display =  
+    "none";
+
+}
+
+if (finalLovePage) {
+
+finalLovePage.style.display =  
+    "none";
+
+}
+
+/* =========================================================
+SYSTEM LOG
+========================================================= */
+
+console.log(
+"🎂 Birthday system loaded."
+);
+
+console.log(
+"🔧 TKR module: ONLINE"
+);
+
+console.log(
+"❤️ Mathematical heart: READY"
+);
+
+console.log(
+"🎁 Surprise protocol: ACTIVE"
+);
+

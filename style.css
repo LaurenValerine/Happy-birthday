@@ -1237,6 +1237,45 @@ section h2 {
     }
              }
 
+/* =========================
+   3D HEART WIREFRAME PARTS
+========================= */
+
+.heart-wire-point {
+    position: absolute;
+
+    width: 4px;
+    height: 4px;
+
+    border-radius: 50%;
+
+    background: #ff9a42;
+
+    box-shadow:
+        0 0 5px #ff7900,
+        0 0 12px #ff4500;
+
+    transform-style: preserve-3d;
+}
+
+.heart-wire-line {
+    position: absolute;
+
+    height: 1px;
+
+    transform-origin: center;
+
+    background: #ff7900;
+
+    box-shadow:
+        0 0 4px #ff7900,
+        0 0 9px #ff4500;
+
+    opacity: .75;
+
+    transform-style: preserve-3d;
+}
+
 
 /* =========================
    FINAL FIREWORKS

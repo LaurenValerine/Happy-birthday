@@ -1,11 +1,11 @@
- /* =========================================================
-   RESET
-========================================================= */
+ /* =========================
+   GLOBAL
+========================= */
 
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 html {
@@ -14,1233 +14,1023 @@ html {
 
 body {
     background: #050505;
-    color: white;
+    color: #fff;
     font-family: Arial, sans-serif;
     overflow-x: hidden;
 }
 
+button {
+    font-family: inherit;
+}
 
-/* =========================================================
+
+/* =========================
    INITIAL COUNTDOWN
-========================================================= */
+   10 → 1
+========================= */
 
 #countdown {
     position: fixed;
     inset: 0;
-    z-index: 100;
+    z-index: 1000;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #030303;
-    overflow: hidden;
-}
-
-.terminal {
-    position: absolute;
-    inset: 0;
-    padding: 15px;
-
-    font-family: monospace;
-    font-size: 11px;
-    line-height: 1.5;
-
-    color: #ff6500;
-    opacity: .22;
-
-    overflow: hidden;
-}
-
-.terminal span {
-    display: block;
+    background: #050505;
 }
 
 .count-content {
-    position: relative;
-    z-index: 2;
     text-align: center;
 }
 
 .count-label {
-    color: #ff9a42;
+    color: #ff8c00;
     letter-spacing: 4px;
-    font-size: 13px;
-}
-
-.count-number {
+    font-size: 12px;
     margin: 15px 0;
+}
 
-    font-size: clamp(100px, 25vw, 180px);
+#number {
+    font-size: clamp(100px, 30vw, 220px);
     font-weight: 900;
-
-    color: #ff7900;
-
+    color: #ff8c00;
     text-shadow:
-        0 0 10px #ff7900,
-        0 0 30px #ff4500,
-        0 0 80px #ff2200;
-
-    animation: pulse .8s infinite alternate;
-}
-
-@keyframes pulse {
-
-    to {
-        transform: scale(1.08);
-    }
-
+        0 0 10px #ff8c00,
+        0 0 30px #ff6600,
+        0 0 70px #ff4500;
 }
 
 
-/* =========================================================
-   BIRTHDAY REVEAL
-========================================================= */
+/* =========================
+   CAKE REVEAL
+========================= */
 
 #reveal {
     position: fixed;
     inset: 0;
-    z-index: 90;
-
+    z-index: 900;
     display: none;
-
     justify-content: center;
     align-items: center;
-
-    text-align: center;
-
     background:
-        radial-gradient(
-            circle,
-            #461800,
-            #080300 70%
-        );
+        radial-gradient(circle, #261200, #050505 70%);
+    overflow: hidden;
 }
 
 .reveal-content {
     position: relative;
-    z-index: 3;
+    z-index: 5;
+    text-align: center;
 }
 
-.cake {
-    width: 180px;
-    height: 130px;
-
-    position: relative;
-
-    margin: auto;
+.cake-image {
+    width: min(70vw, 330px);
+    max-height: 45vh;
+    object-fit: contain;
+    filter:
+        drop-shadow(0 0 10px #ff8c00)
+        drop-shadow(0 0 25px rgba(255, 102, 0, .5));
+    animation: cakeAppear 1s ease;
 }
 
-.cake-body {
-    position: absolute;
-
-    bottom: 10px;
-    left: 15px;
-
-    width: 150px;
-    height: 65px;
-
-    border-radius: 10px 10px 25px 25px;
-
-    background:
-        linear-gradient(
-            #ff8a25,
-            #9c3500
-        );
-
-    box-shadow:
-        0 10px 30px #ff450055;
-}
-
-.cake-top {
-    position: absolute;
-
-    top: 45px;
-    left: 15px;
-
-    width: 150px;
-    height: 35px;
-
-    border-radius: 50%;
-
-    background: #ffd0a3;
-}
-
-.candle {
-    position: absolute;
-
-    top: 8px;
-    left: 85px;
-
-    width: 10px;
-    height: 45px;
-
-    background: #ffd0a3;
-
-    border-radius: 5px;
-
-    z-index: 2;
-}
-
-.flame {
-    position: absolute;
-
-    width: 15px;
-    height: 22px;
-
-    top: -20px;
-    left: -2px;
-
-    border-radius: 50%;
-
-    background: #ffae00;
-
-    box-shadow:
-        0 0 10px #ffae00,
-        0 0 30px #ff6500;
-
-    animation:
-        flame .5s infinite alternate;
-}
-
-@keyframes flame {
-
-    to {
-        transform: scale(1.2);
+@keyframes cakeAppear {
+    from {
+        opacity: 0;
+        transform: scale(.5);
     }
 
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 .happy {
     margin-top: 20px;
-
-    font-size:
-        clamp(
-            45px,
-            10vw,
-            90px
-        );
-
+    font-size: clamp(30px, 8vw, 65px);
     font-weight: 900;
-
-    color: #ff7900;
-
-    text-shadow:
-        0 0 15px #ff7900,
-        0 0 40px #ff4500;
+    color: #ff8c00;
+    text-shadow: 0 0 20px #ff6600;
 }
 
 .adit {
     margin-top: 5px;
-
-    font-size: 30px;
-
-    letter-spacing: 8px;
-
-    color: #ffd0a3;
+    font-size: clamp(22px, 6vw, 45px);
+    font-weight: bold;
 }
 
 
-/* =========================================================
-   FIREWORKS
-========================================================= */
+/* =========================
+   FIREWORK DECORATION
+========================= */
 
 .firework {
     position: absolute;
-
     width: 5px;
     height: 5px;
-
     border-radius: 50%;
-
-    background: #ff7900;
+    background: #ff8c00;
 
     box-shadow:
-        0 0 10px #ff7900,
-        0 0 25px #ff4500;
+        0 0 10px #ff8c00,
+        0 0 25px #ff6600;
 
-    animation:
-        boom 1.8s infinite;
+    animation: firework 2s infinite;
 }
 
-.firework::before,
-.firework::after {
-    content: "";
-
-    position: absolute;
-
-    width: 4px;
-    height: 100px;
-
-    background:
-        linear-gradient(
-            transparent,
-            #ff7900,
-            transparent
-        );
-
-    left: 0;
-    top: -48px;
-}
-
-.firework::after {
-    transform: rotate(90deg);
-}
-
-.f1 {
-    left: 15%;
-    top: 25%;
-}
-
-.f2 {
-    right: 15%;
+.firework:nth-child(1) {
     top: 20%;
+    left: 20%;
+}
 
+.firework:nth-child(2) {
+    top: 25%;
+    right: 20%;
     animation-delay: .5s;
 }
 
-.f3 {
-    left: 25%;
+.firework:nth-child(3) {
     bottom: 20%;
-
+    left: 25%;
     animation-delay: 1s;
 }
 
-.f4 {
-    right: 25%;
+.firework:nth-child(4) {
     bottom: 25%;
-
-    animation-delay: 1.4s;
+    right: 25%;
+    animation-delay: 1.5s;
 }
 
-@keyframes boom {
-
+@keyframes firework {
     0%,
     100% {
-        transform: scale(.2);
-        opacity: 0;
+        transform: scale(.5);
+        opacity: .4;
     }
 
-    40% {
-        transform: scale(1);
+    50% {
+        transform: scale(5);
         opacity: 1;
     }
-
-    70% {
-        transform: scale(1.5);
-        opacity: .7;
-    }
-
 }
 
 
-/* =========================================================
-   GIFT BOX
-========================================================= */
+/* =========================
+   GIFT
+========================= */
 
 #gift {
     position: fixed;
     inset: 0;
-    z-index: 80;
-
+    z-index: 800;
     display: none;
-
     justify-content: center;
     align-items: center;
-
-    flex-direction: column;
-
-    text-align: center;
-
-    background:
-        radial-gradient(
-            circle,
-            #351300,
-            #050505 70%
-        );
+    background: #050505;
 }
 
-.gift-box {
-    position: relative;
+.gift-content {
+    text-align: center;
+}
 
-    width: 150px;
-    height: 120px;
-
-    margin-bottom: 30px;
+.gift-image {
+    width: min(65vw, 320px);
+    max-height: 50vh;
+    object-fit: contain;
 
     cursor: pointer;
 
-    animation:
-        giftFloat 2s infinite ease-in-out;
+    filter:
+        drop-shadow(0 0 10px #ff8c00)
+        drop-shadow(0 0 25px rgba(255, 102, 0, .5));
+
+    transition: transform .3s ease;
 }
 
-@keyframes giftFloat {
-
-    50% {
-        transform: translateY(-12px);
-    }
-
-}
-
-.gift-body {
-    position: absolute;
-
-    bottom: 0;
-
-    width: 150px;
-    height: 90px;
-
-    background: #ff6500;
-
-    border-radius: 8px;
-
-    box-shadow:
-        0 0 30px #ff450055;
-}
-
-.gift-lid {
-    position: absolute;
-
-    top: 20px;
-    left: -8px;
-
-    width: 166px;
-    height: 30px;
-
-    background: #ff8a25;
-
-    border-radius: 7px;
-
-    z-index: 2;
-}
-
-.ribbon-v {
-    position: absolute;
-
-    width: 20px;
-    height: 120px;
-
-    left: 65px;
-
-    background: #ffd0a3;
-
-    z-index: 3;
-}
-
-.ribbon-h {
-    position: absolute;
-
-    width: 166px;
-    height: 18px;
-
-    left: -8px;
-    top: 75px;
-
-    background: #ffd0a3;
-
-    z-index: 3;
+.gift-image:hover {
+    transform: scale(1.06);
 }
 
 .gift-text {
-    color: #ffd0a3;
-
-    font-size: 16px;
-
-    animation:
-        blink 1.5s infinite;
+    margin-top: 20px;
+    color: #ff8c00;
+    font-size: 18px;
+    animation: pulse 1.3s infinite;
 }
 
-@keyframes blink {
-
+@keyframes pulse {
     50% {
-        opacity: .4;
+        transform: scale(1.05);
+        opacity: .7;
     }
-
 }
 
 
-/* =========================================================
-   TKR EXPLOSION
-========================================================= */
+/* =========================
+   PRANK EXPLOSION
+========================= */
 
 #tkrExplosion {
     position: fixed;
     inset: 0;
-    z-index: 70;
-
+    z-index: 750;
     display: none;
-
     justify-content: center;
     align-items: center;
 
-    background: #050505;
+    background:
+        radial-gradient(
+            circle,
+            #ff8c00 0%,
+            #ff4500 8%,
+            #120500 35%,
+            #000 75%
+        );
 
     overflow: hidden;
+}
+
+#tkrExplosion::before {
+    content: "";
+    position: absolute;
+    width: 30vw;
+    height: 30vw;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow:
+        0 0 30px #fff,
+        0 0 80px #ff8c00,
+        0 0 150px #ff4500;
+
+    animation: explosionFlash .7s ease-out forwards;
+}
+
+@keyframes explosionFlash {
+    0% {
+        transform: scale(.1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(8);
+        opacity: 0;
+    }
 }
 
 .tool {
     position: absolute;
+    z-index: 2;
+    font-size: clamp(30px, 10vw, 80px);
 
-    font-size: 45px;
-
-    opacity: 0;
+    animation:
+        toolFly 2.3s ease forwards;
 }
 
 .tool:nth-child(1) {
-    animation:
-        fly1 2s forwards;
+    top: 10%;
+    left: 10%;
 }
 
 .tool:nth-child(2) {
-    animation:
-        fly2 2s forwards;
+    top: 20%;
+    right: 10%;
 }
 
 .tool:nth-child(3) {
-    animation:
-        fly3 2s forwards;
+    bottom: 15%;
+    left: 15%;
 }
 
 .tool:nth-child(4) {
-    animation:
-        fly4 2s forwards;
+    bottom: 10%;
+    right: 15%;
 }
 
 .tool:nth-child(5) {
-    animation:
-        fly5 2s forwards;
+    top: 45%;
+    left: 5%;
 }
 
 .tool:nth-child(6) {
-    animation:
-        fly6 2s forwards;
+    top: 40%;
+    right: 5%;
 }
 
-@keyframes fly1 {
+@keyframes toolFly {
+    from {
+        transform:
+            scale(1)
+            rotate(0deg);
+        opacity: 1;
+    }
 
     to {
         transform:
-            translate(-220px, -180px)
+            scale(4)
             rotate(360deg);
-
-        opacity: 1;
+        opacity: 0;
     }
-
 }
 
-@keyframes fly2 {
+
+/* =========================
+   ERROR
+========================= */
+
+#errorPrank {
+    position: fixed;
+    inset: 0;
+    z-index: 700;
+
+    display: none;
+    justify-content: center;
+    align-items: center;
+
+    background: #000;
+
+    text-align: center;
+}
+
+.error-content {
+    position: relative;
+}
+
+#errorText {
+    font-size: clamp(60px, 18vw, 160px);
+    font-weight: 900;
+
+    color: #ff3b00;
+
+    cursor: pointer;
+    user-select: none;
+
+    text-shadow:
+        0 0 10px #ff3b00,
+        0 0 30px #ff3b00,
+        0 0 70px rgba(255, 59, 0, .5);
+
+    transition:
+        transform .2s,
+        opacity .5s;
+}
+
+#errorText:hover {
+    transform: scale(1.05);
+}
+
+#errorGuide {
+    margin-top: 20px;
+    color: #888;
+    font-size: 14px;
+}
+
+
+/* =========================
+   HAPPY BIRTHDAY HEART
+========================= */
+
+#birthdayHeart {
+    position: fixed;
+    inset: 0;
+    z-index: 650;
+
+    display: none;
+    justify-content: center;
+    align-items: center;
+
+    background: #000;
+
+    overflow: hidden;
+}
+
+#birthdayWords {
+    position: relative;
+
+    width: min(90vw, 700px);
+    height: min(80vh, 650px);
+}
+
+.birthday-word {
+    position: absolute;
+
+    color: #ff8c00;
+
+    font-size: clamp(8px, 2vw, 16px);
+    font-weight: bold;
+
+    white-space: nowrap;
+
+    opacity: 0;
+
+    transform:
+        translate(-50%, -50%)
+        scale(.2);
+
+    transition:
+        left 1s ease,
+        top 1s ease,
+        opacity .8s ease,
+        transform 1s ease;
+
+    text-shadow:
+        0 0 5px #ff8c00,
+        0 0 12px #ff6600;
+}
+
+.birthday-word.show {
+    opacity: 1;
+
+    transform:
+        translate(-50%, -50%)
+        scale(1);
+}
+
+
+/* =========================
+   QUESTION
+========================= */
+
+#nextQuestion {
+    position: fixed;
+    inset: 0;
+    z-index: 600;
+
+    display: none;
+    justify-content: center;
+    align-items: center;
+
+    background: rgba(0, 0, 0, .96);
+
+    padding: 20px;
+}
+
+.question-box {
+    width: min(90vw, 450px);
+
+    padding: 35px 25px;
+
+    text-align: center;
+
+    border: 1px solid #ff8c00;
+    border-radius: 20px;
+
+    background: #0b0b0b;
+
+    box-shadow:
+        0 0 20px rgba(255, 140, 0, .2),
+        inset 0 0 20px rgba(255, 140, 0, .03);
+
+    animation: questionAppear .5s ease;
+}
+
+@keyframes questionAppear {
+    from {
+        opacity: 0;
+        transform: scale(.8);
+    }
 
     to {
-        transform:
-            translate(220px, -150px)
-            rotate(-360deg);
-
         opacity: 1;
+        transform: scale(1);
     }
-
 }
 
-@keyframes fly3 {
-
-    to {
-        transform:
-            translate(-250px, 150px)
-            rotate(300deg);
-
-        opacity: 1;
-    }
-
+.question-box h2 {
+    color: #ff8c00;
+    margin-bottom: 15px;
 }
 
-@keyframes fly4 {
-
-    to {
-        transform:
-            translate(240px, 170px)
-            rotate(-300deg);
-
-        opacity: 1;
-    }
-
+#noMessage {
+    min-height: 25px;
+    margin-bottom: 20px;
+    color: #aaa;
 }
 
-@keyframes fly5 {
-
-    to {
-        transform:
-            translate(-120px, 230px)
-            rotate(250deg);
-
-        opacity: 1;
-    }
-
+.question-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
 }
 
-@keyframes fly6 {
+.question-buttons button {
+    border: none;
+    border-radius: 10px;
 
-    to {
-        transform:
-            translate(130px, -230px)
-            rotate(-250deg);
+    padding: 12px 25px;
 
-        opacity: 1;
-    }
+    font-weight: bold;
 
+    cursor: pointer;
+}
+
+#yesButton {
+    background: #ff8c00;
+    color: #000;
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease;
+}
+
+#yesButton:hover {
+    box-shadow:
+        0 0 15px #ff8c00,
+        0 0 30px rgba(255, 140, 0, .5);
+}
+
+#noButton {
+    background: #222;
+    color: white;
+
+    transition: .2s;
+}
+
+#noButton:hover {
+    background: #333;
 }
 
 
-/* =========================================================
+/* =========================
    FINAL COUNTDOWN
-   HAPPY BIRTHDAY RAIN
-========================================================= */
+   3 → 2 → 1
+========================= */
 
 #finalCountdown {
     position: fixed;
     inset: 0;
-
-    z-index: 150;
+    z-index: 550;
 
     display: none;
-
-    overflow: hidden;
-
-    background:
-        radial-gradient(
-            circle at center,
-            #321000 0%,
-            #0a0300 45%,
-            #020202 100%
-        );
-}
-
-
-/* HAPPY BIRTHDAY RAIN */
-
-#birthdayRain {
-    position: absolute;
-    inset: 0;
-
-    overflow: hidden;
-
-    pointer-events: none;
-}
-
-
-/* setiap tulisan */
-
-.rain-text {
-    position: absolute;
-
-    top: -40px;
-
-    white-space: nowrap;
-
-    color: #ff7900;
-
-    font-weight: 800;
-
-    letter-spacing: 2px;
-
-    opacity: .75;
-
-    text-shadow:
-        0 0 5px #ff7900,
-        0 0 15px #ff4500,
-        0 0 30px #ff2200;
-
-    animation-name: birthdayRain;
-
-    animation-timing-function: linear;
-
-    animation-iteration-count: infinite;
-
-    pointer-events: none;
-
-    user-select: none;
-}
-
-
-@keyframes birthdayRain {
-
-    from {
-        transform:
-            translateY(-60px)
-            rotate(-3deg);
-
-        opacity: 0;
-    }
-
-    10% {
-        opacity: .75;
-    }
-
-    90% {
-        opacity: .75;
-    }
-
-    to {
-        transform:
-            translateY(110vh)
-            rotate(3deg);
-
-        opacity: 0;
-    }
-
-}
-
-
-/* =========================================================
-   FINAL COUNTDOWN CONTENT
-========================================================= */
-
-.final-count-content {
-    position: absolute;
-
-    inset: 0;
-
-    z-index: 5;
-
-    display: flex;
-
     justify-content: center;
     align-items: center;
 
-    flex-direction: column;
-
-    text-align: center;
-
-    pointer-events: none;
-}
-
-.final-count-label {
-    color: #ffd0a3;
-
-    font-size: 13px;
-
-    letter-spacing: 5px;
-
-    font-weight: bold;
-
-    text-shadow:
-        0 0 10px #ff6500;
-
-    opacity: .9;
+    background: #000;
 }
 
 #finalNumber {
-    margin: 12px 0;
-
-    font-size:
-        clamp(
-            130px,
-            30vw,
-            220px
-        );
-
-    line-height: 1;
-
+    font-size: clamp(120px, 35vw, 250px);
     font-weight: 900;
 
-    color: #ff7900;
+    color: #ff8c00;
 
     text-shadow:
-        0 0 10px #ff7900,
-        0 0 30px #ff6500,
-        0 0 70px #ff4500,
-        0 0 120px #ff2200;
+        0 0 15px #ff8c00,
+        0 0 40px #ff6600,
+        0 0 100px rgba(255, 69, 0, .6);
 
-    animation:
-        finalPulse .8s infinite alternate;
+    animation: finalNumberPulse .9s ease;
 }
 
-@keyframes finalPulse {
-
+@keyframes finalNumberPulse {
     from {
-        transform: scale(.92);
-        opacity: .8;
+        transform: scale(1.5);
+        opacity: 0;
     }
 
     to {
-        transform: scale(1.08);
+        transform: scale(1);
         opacity: 1;
     }
-
 }
 
 
-/* =========================================================
-   MAIN WEBSITE
-========================================================= */
+/* =========================
+   MAIN
+========================= */
 
 #main {
     display: none;
+    min-height: 100vh;
 }
-
-
-/* =========================================================
-   HERO
-========================================================= */
 
 .hero {
     min-height: 100vh;
 
     display: flex;
-
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 
     text-align: center;
 
-    padding: 30px;
+    padding: 30px 20px;
 
     background:
         radial-gradient(
             circle at center,
-            #401700,
-            #050505 70%
+            #211000,
+            #050505 65%
         );
+}
+
+.hero-image {
+    width: min(45vw, 220px);
+    max-height: 220px;
+
+    object-fit: contain;
+
+    margin-bottom: 20px;
+
+    filter:
+        drop-shadow(0 0 10px #ff8c00)
+        drop-shadow(0 0 25px rgba(255, 140, 0, .35));
+
+    animation: heroImageAppear 1s ease;
+}
+
+@keyframes heroImageAppear {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .hero h1 {
-    font-size:
-        clamp(
-            50px,
-            12vw,
-            100px
-        );
-
-    color: #ff7900;
+    color: #ff8c00;
+    font-size: clamp(35px, 10vw, 80px);
 
     text-shadow:
-        0 0 15px #ff7900,
-        0 0 40px #ff4500;
+        0 0 10px rgba(255, 140, 0, .4);
 }
 
 .hero h2 {
-    margin-top: 5px;
-
-    font-size: 35px;
-
-    letter-spacing: 8px;
-
-    color: #ffd0a3;
+    margin-top: 10px;
+    font-size: clamp(18px, 5vw, 35px);
 }
 
-.typing {
-    margin: 30px auto 0;
+.typing-area {
+    margin-top: 25px;
 
-    max-width: 600px;
-
-    min-height: 60px;
-
-    color: #ddd;
+    max-width: 700px;
+    min-height: 100px;
 
     line-height: 1.7;
+
+    color: #ccc;
+}
+
+#typingText {
+    white-space: pre-wrap;
 }
 
 .cursor {
-    border-right: 2px solid #ff7900;
-
-    animation:
-        cursor .7s infinite;
+    color: #ff8c00;
+    animation: blink .7s infinite;
 }
 
-@keyframes cursor {
-
+@keyframes blink {
     50% {
-        border-color: transparent;
-    }
-
-}
-
-
-/* =========================================================
-   SECTIONS
-========================================================= */
-
-.section {
-    min-height: 100vh;
-
-    padding: 100px 25px;
-
-    display: flex;
-
-    justify-content: center;
-    align-items: center;
-
-    text-align: center;
-
-    background: #070707;
-}
-
-.section:nth-child(even) {
-    background:
-        radial-gradient(
-            circle,
-            #241000,
-            #050505 70%
-        );
-}
-
-.container {
-    width: min(850px, 100%);
-}
-
-.title {
-    color: #ff7900;
-
-    font-size: 40px;
-
-    margin-bottom: 25px;
-
-    text-shadow:
-        0 0 20px #ff6500;
-}
-
-
-/* =========================================================
-   PHOTO
-========================================================= */
-
-.photo {
-    width:
-        min(
-            350px,
-            90%
-        );
-
-    margin: auto;
-
-    padding: 12px;
-
-    background: #eee;
-
-    transform: rotate(-2deg);
-
-    box-shadow:
-        0 10px 40px #000;
-}
-
-.photo img {
-    width: 100%;
-
-    display: block;
-}
-
-
-/* =========================================================
-   TKR
-========================================================= */
-
-.tkr-card {
-    padding: 35px;
-
-    border:
-        1px solid #ff7200;
-
-    border-radius: 25px;
-
-    background: #ff650008;
-
-    box-shadow:
-        0 0 30px #ff650022;
-}
-
-.gear {
-    font-size: 70px;
-
-    animation:
-        gear 5s linear infinite;
-}
-
-@keyframes gear {
-
-    to {
-        transform: rotate(360deg);
-    }
-
-}
-
-
-/* =========================================================
-   LETTER
-========================================================= */
-
-.letter {
-    padding: 35px;
-
-    border-radius: 20px;
-
-    border:
-        1px solid #663000;
-
-    background: #120700;
-
-    color: #ddd;
-
-    line-height: 1.9;
-}
-
-
-/* =========================================================
-   SPOTIFY SONG
-========================================================= */
-
-.spotify-subtitle {
-    color: #aaa;
-
-    margin-bottom: 25px;
-
-    line-height: 1.6;
-}
-
-.spotify-player {
-    width:
-        min(
-            650px,
-            100%
-        );
-
-    margin: auto;
-
-    padding: 8px;
-
-    border:
-        1px solid #663000;
-
-    border-radius: 18px;
-
-    background: #120700;
-
-    box-shadow:
-        0 0 20px #ff650022,
-        0 0 40px #ff450011;
-}
-
-.spotify-player iframe {
-    display: block;
-
-    width: 100%;
-
-    border: none;
-
-    border-radius: 12px;
-}
-
-
-/* =========================================================
-   NOTIFICATION
-========================================================= */
-
-.notification {
-    position: fixed;
-
-    right: 20px;
-    top: 25px;
-
-    z-index: 200;
-
-    width:
-        min(
-            340px,
-            calc(100% - 40px)
-        );
-
-    padding: 15px;
-
-    border-radius: 18px;
-
-    background:
-        rgba(
-            35,
-            35,
-            35,
-            .95
-        );
-
-    box-shadow:
-        0 8px 30px #000;
-
-    display: none;
-
-    align-items: center;
-
-    gap: 15px;
-
-    animation:
-        notification .5s ease;
-}
-
-.notification-icon {
-    font-size: 35px;
-}
-
-.notification-text {
-    text-align: left;
-}
-
-.notification-title {
-    font-size: 12px;
-
-    color: #aaa;
-}
-
-.notification-message {
-    margin-top: 4px;
-
-    font-weight: bold;
-}
-
-@keyframes notification {
-
-    from {
-        transform: translateY(-100px);
         opacity: 0;
     }
-
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-
 }
 
 
-/* =========================================================
-   END
-========================================================= */
+/* =========================
+   SECTIONS
+========================= */
 
-.end {
+section {
     min-height: 100vh;
 
-    display: flex;
+    padding: 80px 20px;
 
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 
     text-align: center;
-
-    background:
-        radial-gradient(
-            circle,
-            #421600,
-            #050505 70%
-        );
 }
 
-.end h2 {
-    color: #ff7900;
+section h2 {
+    color: #ff8c00;
 
-    font-size: 45px;
+    margin-bottom: 30px;
 
-    text-shadow:
-        0 0 25px #ff4500;
-}
-
-.end p {
-    margin-top: 20px;
-
-    color: #ffd0a3;
+    font-size: clamp(28px, 7vw, 50px);
 }
 
 
-/* =========================================================
-   NEXT BUTTON
-========================================================= */
+/* =========================
+   MEMORY
+========================= */
 
-.next-button {
-    display: inline-block;
+.memory-image {
+    width: min(90vw, 500px);
 
-    margin-top: 35px;
+    border-radius: 15px;
 
-    padding: 14px 45px;
+    box-shadow:
+        0 0 20px rgba(255, 140, 0, .2);
+}
 
-    border:
-        1px solid #ff7900;
 
-    border-radius: 30px;
+/* =========================
+   TKR
+========================= */
 
-    color: #ff7900;
+.tkr-content,
+.letter-content,
+.spotify-content {
+    max-width: 750px;
 
-    text-decoration: none;
+    line-height: 1.8;
 
+    color: #ccc;
+}
+
+
+/* =========================
+   SPOTIFY
+========================= */
+
+.spotify-content iframe {
+    width: min(90vw, 500px);
+    height: 352px;
+
+    border: none;
+    border-radius: 15px;
+}
+
+#lyrics {
+    margin-top: 25px;
+
+    color: #ffb45c;
+
+    font-style: italic;
+
+    line-height: 1.8;
+}
+
+
+/* =========================
+   LAST GIFT
+========================= */
+
+#lastGift {
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 30px;
+}
+
+.last-gift-box {
+    padding: 25px 35px;
+
+    border: 1px solid #ff8c00;
+    border-radius: 15px;
+
+    color: #ff8c00;
+
+    cursor: pointer;
+
+    font-size: 20px;
     font-weight: bold;
 
-    letter-spacing: 4px;
-
-    background:
-        rgba(
-            255,
-            101,
-            0,
-            .08
-        );
+    background: #080808;
 
     box-shadow:
-        0 0 10px #ff6500,
-        0 0 25px #ff450055;
+        0 0 20px rgba(255, 140, 0, .2);
 
-    transition: .3s;
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease;
 }
 
-.next-button:hover {
-    background: #ff7900;
-
-    color: #050505;
+.last-gift-box:hover {
+    transform: scale(1.06);
 
     box-shadow:
-        0 0 20px #ff7900,
-        0 0 50px #ff4500;
-
-    transform: scale(1.05);
+        0 0 30px rgba(255, 140, 0, .45);
 }
 
 
-/* =========================================================
+/* =========================
+   FINAL LOVE PAGE
+========================= */
+
+#finalLovePage {
+    position: fixed;
+    inset: 0;
+
+    z-index: 500;
+
+    display: none;
+    justify-content: center;
+    align-items: center;
+
+    background: #000;
+
+    overflow: hidden;
+
+    text-align: center;
+}
+
+.final-love-content {
+    position: relative;
+    z-index: 5;
+}
+
+
+/* =========================
+   3D WIREFRAME HEART
+========================= */
+
+.wire-heart {
+    width: 170px;
+    height: 150px;
+
+    position: relative;
+
+    margin: auto;
+
+    transform:
+        rotate(-45deg)
+        perspective(500px);
+
+    cursor: pointer;
+
+    transition:
+        transform .5s ease,
+        filter .5s ease;
+}
+
+.wire-heart::before,
+.wire-heart::after {
+    content: "";
+
+    position: absolute;
+
+    width: 170px;
+    height: 170px;
+
+    border: 3px solid #ff8c00;
+
+    box-shadow:
+        0 0 8px #ff8c00,
+        0 0 20px #ff6600,
+        inset 0 0 15px rgba(255, 140, 0, .15);
+
+    transition:
+        transform .8s ease,
+        opacity .5s ease;
+}
+
+.wire-heart::before {
+    border-radius: 50%;
+
+    top: -85px;
+    left: 0;
+}
+
+.wire-heart::after {
+    border-radius: 50%;
+
+    left: 85px;
+    top: 0;
+}
+
+.wire-heart:hover {
+    filter:
+        drop-shadow(0 0 15px #ff8c00);
+}
+
+
+/* =========================
+   HEART SPLIT
+========================= */
+
+.wire-heart.splitting {
+    transform:
+        rotate(-45deg)
+        scale(1.1);
+}
+
+.wire-heart.splitting::before {
+    transform: translateX(-20px);
+}
+
+.wire-heart.splitting::after {
+    transform: translateX(20px);
+}
+
+
+/* =========================
+   HEART GLOW
+========================= */
+
+.wire-heart.glowing {
+    filter:
+        brightness(2)
+        drop-shadow(0 0 15px #fff)
+        drop-shadow(0 0 40px #ff8c00)
+        drop-shadow(0 0 80px #ff4500);
+}
+
+.wire-heart.glowing::before,
+.wire-heart.glowing::after {
+    border-color: #fff;
+
+    box-shadow:
+        0 0 15px #fff,
+        0 0 35px #ff8c00,
+        0 0 70px #ff4500;
+}
+
+
+/* =========================
+   HEART BURST
+========================= */
+
+.wire-heart.burst {
+    transform:
+        rotate(-45deg)
+        scale(5);
+
+    opacity: 0;
+}
+
+
+/* =========================
+   FOR YOU
+========================= */
+
+.for-you {
+    margin-top: 60px;
+
+    font-size: clamp(25px, 8vw, 45px);
+
+    font-weight: 900;
+
+    color: #ff8c00;
+
+    letter-spacing: 5px;
+
+    text-shadow:
+        0 0 10px #ff8c00,
+        0 0 25px #ff6600;
+}
+
+.final-love-content p {
+    margin-top: 15px;
+    color: #aaa;
+}
+
+
+/* =========================
+   FINAL FIREWORKS
+========================= */
+
+#fireworksFinal {
+    position: absolute;
+    inset: 0;
+
+    pointer-events: none;
+
+    overflow: hidden;
+}
+
+
+/* =========================
    MOBILE
-========================================================= */
+========================= */
 
 @media (max-width: 600px) {
 
-    .title {
-        font-size: 32px;
+    .hero-image {
+        width: 55vw;
     }
 
-    .tkr-card,
-    .letter {
-        padding: 25px 20px;
+    .question-buttons {
+        gap: 10px;
     }
 
-    .hero h2 {
-        font-size: 27px;
+    .question-buttons button {
+        padding: 11px 20px;
     }
 
-    .notification {
-        right: 10px;
-
-        top: 15px;
-
-        width:
-            calc(100% - 20px);
+    .wire-heart {
+        transform:
+            rotate(-45deg)
+            scale(.8);
     }
 
-    .final-count-label {
-        font-size: 10px;
-
-        letter-spacing: 3px;
-
-        padding: 0 20px;
+    .wire-heart.splitting {
+        transform:
+            rotate(-45deg)
+            scale(.9);
     }
 
-    #finalNumber {
-        font-size:
-            clamp(
-                120px,
-                35vw,
-                180px
-            );
+    .for-you {
+        margin-top: 40px;
     }
-
-    .rain-text {
-        letter-spacing: 1px;
-    }
-
-}
+ }

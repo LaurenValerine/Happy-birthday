@@ -196,7 +196,7 @@ setTimeout(() => {
 ========================================================= */
 
 const prank =
-document.getElementById("tkrExplosion");
+document.getElementById("prank");
 
 const errorWord =
 document.getElementById("errorWord");

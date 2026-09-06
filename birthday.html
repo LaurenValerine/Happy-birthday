@@ -1,266 +1,794 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAPPY BIRTHDAY MY CRUSH 🧡</title>
 
-    <title>Happy Birthday M Rizky Aditya P</title>
+    <!-- CSS tetap di file ini dulu. Nanti kita pisahkan ke style.css. -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <link rel="stylesheet" href="style.css">
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #050505;
+            color: white;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+        /* =========================
+           INITIAL COUNTDOWN
+        ========================= */
+
+        #countdown {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #050505;
+        }
+
+        .count-content {
+            text-align: center;
+        }
+
+        .count-label {
+            color: #ff8c00;
+            letter-spacing: 4px;
+            font-size: 12px;
+            margin: 15px 0;
+        }
+
+        #number {
+            font-size: clamp(100px, 30vw, 220px);
+            font-weight: 900;
+            color: #ff8c00;
+            text-shadow:
+                0 0 10px #ff8c00,
+                0 0 30px #ff6600,
+                0 0 70px #ff4500;
+        }
+
+        /* =========================
+           CAKE REVEAL
+        ========================= */
+
+        #reveal {
+            position: fixed;
+            inset: 0;
+            z-index: 900;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle, #261200, #050505 70%);
+            overflow: hidden;
+        }
+
+        .reveal-content {
+            text-align: center;
+            position: relative;
+            z-index: 5;
+        }
+
+        .cake-image {
+            width: min(70vw, 330px);
+            max-height: 45vh;
+            object-fit: contain;
+            filter: drop-shadow(0 0 20px rgba(255, 140, 0, .5));
+        }
+
+        .happy {
+            margin-top: 20px;
+            font-size: clamp(30px, 8vw, 65px);
+            font-weight: 900;
+            color: #ff8c00;
+            text-shadow: 0 0 20px #ff6600;
+        }
+
+        .adit {
+            font-size: clamp(22px, 6vw, 45px);
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .firework {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: #ff8c00;
+            box-shadow:
+                0 0 10px #ff8c00,
+                0 0 25px #ff6600;
+            animation: firework 2s infinite;
+        }
+
+        .firework:nth-child(1) {
+            top: 20%;
+            left: 20%;
+        }
+
+        .firework:nth-child(2) {
+            top: 25%;
+            right: 20%;
+            animation-delay: .5s;
+        }
+
+        .firework:nth-child(3) {
+            bottom: 20%;
+            left: 25%;
+            animation-delay: 1s;
+        }
+
+        .firework:nth-child(4) {
+            bottom: 25%;
+            right: 25%;
+            animation-delay: 1.5s;
+        }
+
+        @keyframes firework {
+            0%, 100% {
+                transform: scale(.5);
+                opacity: .4;
+            }
+            50% {
+                transform: scale(5);
+                opacity: 1;
+            }
+        }
+
+        /* =========================
+           GIFT
+        ========================= */
+
+        #gift {
+            position: fixed;
+            inset: 0;
+            z-index: 800;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            background: #050505;
+        }
+
+        .gift-content {
+            text-align: center;
+        }
+
+        .gift-image {
+            width: min(65vw, 320px);
+            max-height: 50vh;
+            object-fit: contain;
+            cursor: pointer;
+            filter: drop-shadow(0 0 25px rgba(255, 140, 0, .5));
+            transition: transform .3s ease;
+        }
+
+        .gift-image:hover {
+            transform: scale(1.05);
+        }
+
+        .gift-text {
+            margin-top: 20px;
+            color: #ff8c00;
+            font-size: 18px;
+            animation: pulse 1.3s infinite;
+        }
+
+        @keyframes pulse {
+            50% {
+                transform: scale(1.05);
+                opacity: .7;
+            }
+        }
+
+        /* =========================
+           PRANK / ERROR
+        ========================= */
+
+        #tkrExplosion {
+            position: fixed;
+            inset: 0;
+            z-index: 750;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            background: #000;
+            overflow: hidden;
+        }
+
+        .tool {
+            position: absolute;
+            font-size: clamp(30px, 10vw, 80px);
+            animation: toolFly 2.3s ease forwards;
+        }
+
+        .tool:nth-child(1) { top: 10%; left: 10%; }
+        .tool:nth-child(2) { top: 20%; right: 10%; }
+        .tool:nth-child(3) { bottom: 15%; left: 15%; }
+        .tool:nth-child(4) { bottom: 10%; right: 15%; }
+        .tool:nth-child(5) { top: 45%; left: 5%; }
+        .tool:nth-child(6) { top: 40%; right: 5%; }
+
+        @keyframes toolFly {
+            from {
+                transform: scale(1) rotate(0);
+                opacity: 1;
+            }
+            to {
+                transform: scale(4) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        #errorPrank {
+            position: fixed;
+            inset: 0;
+            z-index: 700;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            background: #000;
+            text-align: center;
+        }
+
+        #errorText {
+            font-size: clamp(60px, 18vw, 160px);
+            font-weight: 900;
+            color: #ff3b00;
+            cursor: pointer;
+            user-select: none;
+            text-shadow: 0 0 15px #ff3b00;
+            transition: .2s;
+        }
+
+        #errorText:hover {
+            transform: scale(1.04);
+        }
+
+        #errorGuide {
+            margin-top: 20px;
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        /* =========================
+           HAPPY BIRTHDAY HEART
+        ========================= */
+
+        #birthdayHeart {
+            position: fixed;
+            inset: 0;
+            z-index: 650;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            background: #000;
+            overflow: hidden;
+        }
+
+        #birthdayWords {
+            position: relative;
+            width: min(90vw, 700px);
+            height: min(80vh, 650px);
+        }
+
+        .birthday-word {
+            position: absolute;
+            color: #ff8c00;
+            font-size: clamp(8px, 2vw, 16px);
+            font-weight: bold;
+            white-space: nowrap;
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(.2);
+            transition:
+                left 1s ease,
+                top 1s ease,
+                opacity .8s ease,
+                transform 1s ease;
+            text-shadow: 0 0 8px #ff6600;
+        }
+
+        .birthday-word.show {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        /* =========================
+           QUESTION
+        ========================= */
+
+        #nextQuestion {
+            position: fixed;
+            inset: 0;
+            z-index: 600;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, .96);
+            padding: 20px;
+        }
+
+        .question-box {
+            width: min(90vw, 450px);
+            padding: 35px 25px;
+            text-align: center;
+            border: 1px solid #ff8c00;
+            border-radius: 20px;
+            background: #0b0b0b;
+            box-shadow: 0 0 30px rgba(255, 140, 0, .25);
+        }
+
+        .question-box h2 {
+            color: #ff8c00;
+            margin-bottom: 15px;
+        }
+
+        #noMessage {
+            min-height: 25px;
+            color: #aaa;
+            margin-bottom: 20px;
+        }
+
+        .question-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .question-buttons button {
+            border: none;
+            border-radius: 10px;
+            padding: 12px 25px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        #yesButton {
+            background: #ff8c00;
+            color: #000;
+            transition: transform .3s ease;
+        }
+
+        #noButton {
+            background: #222;
+            color: white;
+        }
+
+        /* =========================
+           FINAL COUNTDOWN
+        ========================= */
+
+        #finalCountdown {
+            position: fixed;
+            inset: 0;
+            z-index: 550;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            background: #000;
+        }
+
+        #finalNumber {
+            font-size: clamp(120px, 35vw, 250px);
+            font-weight: 900;
+            color: #ff8c00;
+            text-shadow:
+                0 0 15px #ff8c00,
+                0 0 40px #ff6600;
+        }
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        #main {
+            display: none;
+            min-height: 100vh;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 30px 20px;
+            background:
+                radial-gradient(circle at center, #211000, #050505 65%);
+        }
+
+        .hero-image {
+            width: min(45vw, 220px);
+            max-height: 220px;
+            object-fit: contain;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 20px rgba(255, 140, 0, .35));
+        }
+
+        .hero h1 {
+            color: #ff8c00;
+            font-size: clamp(35px, 10vw, 80px);
+        }
+
+        .hero h2 {
+            margin-top: 10px;
+            font-size: clamp(18px, 5vw, 35px);
+        }
+
+        .typing-area {
+            margin-top: 25px;
+            max-width: 700px;
+            min-height: 100px;
+            line-height: 1.7;
+            color: #ccc;
+        }
+
+        #typingText {
+            white-space: pre-wrap;
+        }
+
+        .cursor {
+            color: #ff8c00;
+            animation: blink .7s infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        section {
+            min-height: 100vh;
+            padding: 80px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        section h2 {
+            color: #ff8c00;
+            margin-bottom: 30px;
+            font-size: clamp(28px, 7vw, 50px);
+        }
+
+        .memory-image {
+            width: min(90vw, 500px);
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(255, 140, 0, .25);
+        }
+
+        .tkr-content,
+        .letter-content,
+        .spotify-content {
+            max-width: 750px;
+            line-height: 1.8;
+            color: #ccc;
+        }
+
+        .spotify-content iframe {
+            width: min(90vw, 500px);
+            height: 352px;
+            border: none;
+            border-radius: 15px;
+        }
+
+        #lyrics {
+            margin-top: 25px;
+            color: #ffb45c;
+            font-style: italic;
+        }
+
+        /* =========================
+           LAST GIFT
+        ========================= */
+
+        #lastGift {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+        }
+
+        .last-gift-box {
+            padding: 25px 35px;
+            border: 1px solid #ff8c00;
+            border-radius: 15px;
+            color: #ff8c00;
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: bold;
+            box-shadow: 0 0 25px rgba(255, 140, 0, .2);
+            transition: .3s;
+        }
+
+        .last-gift-box:hover {
+            transform: scale(1.05);
+        }
+
+        /* =========================
+           FINAL LOVE
+        ========================= */
+
+        #finalLovePage {
+            position: fixed;
+            inset: 0;
+            z-index: 500;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            background: #000;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .final-love-content {
+            position: relative;
+            z-index: 5;
+        }
+
+        .wire-heart {
+            width: 170px;
+            height: 150px;
+            position: relative;
+            margin: auto;
+            transform: rotate(-45deg);
+            cursor: pointer;
+            transition: .4s;
+        }
+
+        .wire-heart::before,
+        .wire-heart::after {
+            content: "";
+            position: absolute;
+            width: 170px;
+            height: 170px;
+            border: 3px solid #ff8c00;
+            box-shadow:
+                0 0 10px #ff8c00,
+                0 0 25px #ff6600;
+        }
+
+        .wire-heart::before {
+            border-radius: 50%;
+            top: -85px;
+            left: 0;
+        }
+
+        .wire-heart::after {
+            border-radius: 50%;
+            left: 85px;
+            top: 0;
+        }
+
+        .for-you {
+            margin-top: 60px;
+            font-size: 35px;
+            font-weight: 900;
+            color: #ff8c00;
+            letter-spacing: 5px;
+        }
+
+        .final-love-content p {
+            margin-top: 15px;
+            color: #aaa;
+        }
+
+        #fireworksFinal {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 600px) {
+            .hero-image {
+                width: 55vw;
+            }
+
+            .question-buttons {
+                gap: 10px;
+            }
+
+            .question-buttons button {
+                padding: 11px 20px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<!-- =====================================================
-     1. COUNTDOWN
-===================================================== -->
+    <!-- =========================
+         INITIAL COUNTDOWN 10 → 1
+    ========================= -->
 
-<section id="countdown">
-
-    <div class="terminal" id="terminal"></div>
-
-    <div class="count-content">
-
-        <p class="count-label">
-            SYSTEM INITIALIZING
-        </p>
-
-        <div
-            class="count-number"
-            id="number"
-        >
-            10
+    <div id="countdown">
+        <div class="count-content">
+            <div class="count-label">BIRTHDAY PROTOCOL</div>
+            <div id="number">10</div>
+            <div class="count-label">INITIALIZING...</div>
         </div>
-
-        <p class="count-status">
-            Preparing your birthday surprise...
-        </p>
-
     </div>
 
-</section>
 
+    <!-- =========================
+         CAKE
+    ========================= -->
 
-<!-- =====================================================
-     2. CAKE REVEAL
-===================================================== -->
+    <div id="reveal">
 
-<section id="reveal">
+        <div class="firework"></div>
+        <div class="firework"></div>
+        <div class="firework"></div>
+        <div class="firework"></div>
 
-    <div class="firework f1"></div>
-    <div class="firework f2"></div>
-    <div class="firework f3"></div>
-    <div class="firework f4"></div>
+        <div class="reveal-content">
 
-    <div class="reveal-content">
+            <img
+                src="1000530075-removebg-preview.png"
+                alt="Birthday Cake"
+                class="cake-image"
+            >
 
-        <img
-            src="1000530075-removebg-preview.png"
-            alt="Kue ulang tahun"
-            class="birthday-cake-image"
-        >
+            <div class="happy">HAPPY BIRTHDAY</div>
+            <div class="adit">ADIT</div>
 
-        <h1 class="happy">
-            HAPPY BIRTHDAY
-        </h1>
-
-        <p class="adit">
-            M RIZKY ADITYA P
-        </p>
-
+        </div>
     </div>
 
-</section>
 
+    <!-- =========================
+         GIFT
+    ========================= -->
 
-<!-- =====================================================
-     3. GIFT
-===================================================== -->
+    <div id="gift">
 
-<section id="gift">
-
-    <div class="gift-content">
-
-        <button
-            class="gift-image-box"
-            id="giftButton"
-            type="button"
-            aria-label="Buka kado"
-        >
+        <div class="gift-content">
 
             <img
                 src="1000530077-removebg-preview.png"
-                alt="Kado ulang tahun"
+                alt="Birthday Gift"
                 class="gift-image"
+                onclick="openGift()"
             >
 
-        </button>
-
-        <p class="gift-text">
-
-            Ada hadiah buat kamu...<br>
-
-            <span>
-                klik kadonya 🎁
-            </span>
-
-        </p>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     4. PRANK ERROR
-===================================================== -->
-
-<section id="tkrExplosion">
-
-    <div
-        class="prank-background"
-        id="prankBackground"
-    ></div>
-
-    <div class="error-screen">
-
-        <button
-            class="error-glitch"
-            id="errorWord"
-            type="button"
-        >
-            ERROR
-        </button>
-
-        <p id="errorGuide">
-            Klik ERROR 3 kali.
-        </p>
-
-        <div
-            class="error-counter"
-            id="errorCounter"
-        >
-            0 / 3
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     5. HAPPY BIRTHDAY HEART
-===================================================== -->
-
-<section id="birthdayLove">
-
-    <div
-        class="birthday-heart"
-        id="birthdayHeart"
-    ></div>
-
-</section>
-
-
-<!-- =====================================================
-     6. NEXT QUESTION
-===================================================== -->
-
-<section id="nextPage">
-
-    <div class="next-box">
-
-        <div class="question-icon">
-            ⚙️
-        </div>
-
-        <h2>
-            Siap untuk halaman berikutnya?
-        </h2>
-
-        <p id="noMessage">
-            Pilih dengan bijak...
-        </p>
-
-        <div class="answer-buttons">
-
-            <button
-                id="yesButton"
-                type="button"
-            >
-                YA
-            </button>
-
-            <button
-                id="noButton"
-                type="button"
-            >
-                TIDAK
-            </button>
+            <div class="gift-text">
+                Klik kadonya 🎁
+            </div>
 
         </div>
 
     </div>
 
-</section>
+
+    <!-- =========================
+         PRANK EXPLOSION
+    ========================= -->
+
+    <div id="tkrExplosion">
+
+        <div class="tool">🔧</div>
+        <div class="tool">⚙️</div>
+        <div class="tool">🔩</div>
+        <div class="tool">🛠️</div>
+        <div class="tool">⚙️</div>
+        <div class="tool">🔧</div>
+
+    </div>
 
 
-  <!-- =========================
-     FINAL COUNTDOWN
-========================= -->
+    <!-- =========================
+         ERROR
+    ========================= -->
 
-<div id="finalCountdown">
+    <div id="errorPrank">
 
-    <!-- HAPPY BIRTHDAY RAIN -->
-    <div id="birthdayRain"></div>
+        <div class="error-content">
 
-    <!-- COUNTDOWN NUMBER -->
-    <div class="final-count-content">
+            <div id="errorText">
+                ERROR
+            </div>
 
-        <div class="final-count-label">
-            GET READY
+            <p id="errorGuide">
+                Klik ERROR 3 kali untuk melanjutkan
+            </p>
+
         </div>
+
+    </div>
+
+
+    <!-- =========================
+         HAPPY BIRTHDAY HEART
+    ========================= -->
+
+    <div id="birthdayHeart">
+
+        <div id="birthdayWords"></div>
+
+    </div>
+
+
+    <!-- =========================
+         QUESTION
+    ========================= -->
+
+    <div id="nextQuestion">
+
+        <div class="question-box">
+
+            <h2>
+                Siap untuk halaman berikutnya?
+            </h2>
+
+            <p id="noMessage"></p>
+
+            <div class="question-buttons">
+
+                <button id="yesButton">
+                    YA
+                </button>
+
+                <button id="noButton">
+                    TIDAK
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         FINAL COUNTDOWN 3 → 1
+    ========================= -->
+
+    <div id="finalCountdown">
 
         <div id="finalNumber">
             3
         </div>
 
-        <div class="final-count-label">
-            YOUR SURPRISE IS LOADING...
-        </div>
-
     </div>
 
-</div>
-    
-   <!-- =====================================================
-     7. MAIN WEBSITE
-   ===================================================== -->
 
-<main id="main">
+    <!-- =========================
+         MAIN WEBSITE
+    ========================= -->
 
+    <div id="main">
 
-    <!-- =================================================
-         HERO
-    ================================================== -->
+        <!-- HERO -->
 
-    <section class="hero">
+        <div class="hero">
 
-        <div class="hero-content">
-
-            <div class="birthday-character">
-
-                <img
-                    src="1000530082-removebg-preview.png"
-                    alt="Boneka ulang tahun"
-                    class="character-image"
-                >
-
-            </div>
-
-            <p class="hero-small">
-                SPECIAL DAY DETECTED
-            </p>
+            <img
+                src="1000530082-removebg-preview.png"
+                alt="Birthday Decoration"
+                class="hero-image"
+            >
 
             <h1>
                 HAPPY BIRTHDAY
@@ -270,303 +798,126 @@
                 M RIZKY ADITYA P
             </h2>
 
-            <div class="typing-wrapper">
+            <div class="typing-area">
 
-                <p
-                    class="typing"
-                    id="typingText"
-                ></p>
-
-                <span class="cursor"></span>
+                <span id="typingText"></span>
+                <span class="cursor">|</span>
 
             </div>
 
         </div>
 
-    </section>
 
+        <!-- MEMORY -->
 
-    <!-- =================================================
-         A LITTLE MEMORY
-    ================================================== -->
+        <section id="memory">
 
-    <section class="section memory-section">
-
-        <div class="container">
-
-            <p class="section-label">
-                MEMORY DATABASE
-            </p>
-
-            <h2 class="title">
+            <h2>
                 A Little Memory
             </h2>
 
-            <div class="photo">
+            <img
+                src="IMG-20260824-WA0443.jpg"
+                alt="A Little Memory"
+                class="memory-image"
+            >
 
-                <img
-                    src="IMG-20260824-WA0443.jpg"
-                    alt="A little memory"
-                >
-
-            </div>
-
-            <p class="section-description">
-                Sebuah foto, sebuah momen,
-                dan satu kenangan yang tersimpan.
-            </p>
-
-        </div>
-
-    </section>
+        </section>
 
 
-    <!-- =================================================
-         TKR SECTION
-    ================================================== -->
+        <!-- TKR -->
 
-    <section class="section tkr-section">
-
-        <div class="container">
-
-            <p class="section-label">
-                AUTOMOTIVE MODULE
-            </p>
-
-            <h2 class="title">
-                TKR MODE
-            </h2>
-
-            <div class="tkr-card">
-
-                <div class="gear">
-                    ⚙️
-                </div>
-
-                <h3>
-                    Teknik Kendaraan Ringan
-                </h3>
-
-                <p>
-                    Semoga semakin jago,
-                    semakin sukses,
-                    dan semua yang kamu cita-citakan
-                    bisa tercapai.
-                </p>
-
-                <div class="tools-row">
-                    🔧 &nbsp; ⚙️ &nbsp; 🔩 &nbsp; 🛠️
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =================================================
-         SPOTIFY
-    ================================================== -->
-
-    <section class="section spotify-section">
-
-        <div class="container">
-
-            <p class="section-label">
-                SOUNDTRACK
-            </p>
-
-            <h2 class="title">
-                A Song For You
-            </h2>
-
-            <p class="spotify-subtitle">
-                Ada satu lagu yang menemani halaman ini.
-                Tinggal tekan play, karena manusia rupanya
-                belum puas membuat perasaan menjadi playlist.
-            </p>
-
-            <div class="spotify-player">
-
-                <iframe
-                    src="https://open.spotify.com/embed/track/2uy1RsdzULhpzJCiWoTlK3?utm_source=generator"
-                    width="100%"
-                    height="152"
-                    frameborder="0"
-                    allowfullscreen
-                    allow="
-                        autoplay;
-                        clipboard-write;
-                        encrypted-media;
-                        fullscreen;
-                        picture-in-picture
-                    "
-                    loading="lazy"
-                    title="Spotify music player"
-                ></iframe>
-
-            </div>
-
-            <div class="song-lyrics">
-
-                <h3>
-                    Lyrics
-                </h3>
-
-                <p id="lyricsText">
-                    Putar lagunya dan nikmati bagian favoritmu.
-                </p>
-
-                <small>
-                    *Cuplikan lirik dapat ditambahkan kemudian.
-                </small>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =================================================
-         LETTER
-    ================================================== -->
-
-    <section class="section letter-section">
-
-        <div class="container">
-
-            <p class="section-label">
-                PRIVATE MESSAGE
-            </p>
-
-            <h2 class="title">
-                A Letter For You
-            </h2>
-
-            <div class="letter">
-
-                <p>
-                    Happy birthday yaa.
-                </p>
-
-                <br>
-
-                <p>
-                    Semoga di umur yang baru ini,
-                    kamu selalu diberikan kesehatan,
-                    kebahagiaan, dan banyak hal baik.
-                </p>
-
-                <br>
-
-                <p>
-                    Semoga semua rencana dan impianmu
-                    perlahan bisa tercapai.
-                    Jangan lupa tetap semangat,
-                    walaupun kadang hidup suka
-                    memberikan error tanpa peringatan.
-                </p>
-
-                <br>
-
-                <p>
-                    Terima kasih sudah menjadi seseorang
-                    yang punya cerita sendiri dalam hidupku.
-                </p>
-
-                <br>
-
-                <p>
-                    Sekali lagi,
-                    HAPPY BIRTHDAY 🎂
-                </p>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =================================================
-         FINAL GIFT
-    ================================================== -->
-
-    <section class="end">
-
-        <div class="end-content">
-
-            <p class="section-label">
-                FINAL PROTOCOL
-            </p>
+        <section id="tkr">
 
             <h2>
-                Hadiah terakhir nihhh
+                TKR
             </h2>
 
-            <p>
-                Tapi ini yang terakhir.
-                Beneran.
-            </p>
+            <div class="tkr-content">
 
-            <button
-                class="next-button"
-                id="finalGiftButton"
-                type="button"
+                <p>
+                    Untuk seorang mekanik yang katanya jago
+                    memperbaiki kendaraan, tapi belum tentu
+                    bisa memperbaiki mood orang lain. 🧡
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- SPOTIFY -->
+
+        <section id="spotify">
+
+            <h2>
+                A Song For You 🎧
+            </h2>
+
+            <div class="spotify-content">
+
+                <iframe
+                    src="https://open.spotify.com/embed/track/2uy1RsdzULhpzJCiWoTlK3"
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                    loading="lazy">
+                </iframe>
+
+                <!-- Potongan lirik akan dimasukkan nanti -->
+                <div id="lyrics"></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- LETTER -->
+
+        <section id="letter">
+
+            <h2>
+                A Little Letter
+            </h2>
+
+            <div class="letter-content">
+
+                <p>
+                    Hari ini adalah hari spesial karena seseorang
+                    yang cukup menyebalkan sekaligus cukup berarti
+                    sedang bertambah usia.
+                </p>
+
+                <br>
+
+                <p>
+                    Semoga di umur yang baru ini semuanya menjadi
+                    lebih baik, lebih banyak hal baik datang,
+                    dan semua yang sedang diperjuangkan bisa
+                    perlahan tercapai.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- LAST GIFT -->
+
+        <section id="lastGift">
+
+            <div
+                class="last-gift-box"
+                onclick="openLastGift()"
             >
-                BUKA 🎁
-            </button>
+                hadiah terakhir nihhh
+            </div>
 
-        </div>
-
-    </section>
-
-
-</main>
-
-
-<!-- =====================================================
-     8. FINAL 3D HEART PAGE
-===================================================== -->
-
-<section id="finalLovePage">
-
-    <div
-        id="love3dContainer"
-        class="love3d-container"
-    ></div>
-
-    <div class="final-love-text">
-
-        <p class="for-you">
-            FOR YOU
-        </p>
-
-        <p class="love-hint">
-            jangan klik love nya
-        </p>
+        </section>
 
     </div>
 
-    <div
-        id="fireworksContainer"
-        class="fireworks-container"
-    ></div>
 
-</section>
+    <!-- =========================
+         FINAL LOVE PAGE
+    ========================= -->
 
-
-<!-- =====================================================
-     THREE.JS
-===================================================== -->
-
-<script
-    src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"
-></script>
-
-<script src="script.js"></script>
-
-</body>
-</html> 
+    <div id="final

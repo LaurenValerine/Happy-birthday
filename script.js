@@ -1,352 +1,576 @@
-/* =========================================================
-   BIRTHDAY WEBSITE - SCRIPT.JS
-   ========================================================= */
+/* =========================
+   BIRTHDAY WEBSITE SCRIPT
+========================= */
 
 
-/* =========================================================
-   TERMINAL BACKGROUND
-   ========================================================= */
+/* =========================
+   ELEMENTS
+========================= */
 
-const terminal = document.getElementById("terminal");
+const countdown = document.getElementById("countdown");
+const number = document.getElementById("number");
 
-const terminalLines = [
-    "root@birthday:~$ initializing...",
-    "system: birthday_mode = true",
-    "loading happiness.exe...",
-    "checking memories...",
-    "TKR module loaded...",
-    "fireworks.exe ready",
-    "cake.exe ready",
-    "gift.exe ready",
-    "surprise protocol active..."
-];
+const reveal = document.getElementById("reveal");
+const gift = document.getElementById("gift");
 
-if (terminal) {
+const tkrExplosion = document.getElementById("tkrExplosion");
+const errorPrank = document.getElementById("errorPrank");
+const errorText = document.getElementById("errorText");
+const errorGuide = document.getElementById("errorGuide");
 
-    for (let i = 0; i < 100; i++) {
+const birthdayHeart = document.getElementById("birthdayHeart");
+const birthdayWords = document.getElementById("birthdayWords");
 
-        const span = document.createElement("span");
+const nextQuestion = document.getElementById("nextQuestion");
+const yesButton = document.getElementById("yesButton");
+const noButton = document.getElementById("noButton");
+const noMessage = document.getElementById("noMessage");
 
-        span.textContent =
-            terminalLines[
-                Math.floor(
-                    Math.random() * terminalLines.length
-                )
-            ];
+const finalCountdown = document.getElementById("finalCountdown");
+const finalNumber = document.getElementById("finalNumber");
 
-        terminal.appendChild(span);
-    }
+const main = document.getElementById("main");
 
-}
+const typingText = document.getElementById("typingText");
+
+const lastGift = document.getElementById("lastGift");
+const finalLovePage = document.getElementById("finalLovePage");
+const wireHeart = document.getElementById("wireHeart");
+const fireworksFinal = document.getElementById("fireworksFinal");
 
 
-/* =========================================================
+/* =========================
    INITIAL COUNTDOWN
-   10 → 0
-   ========================================================= */
+   10 → 1
+========================= */
 
-let number = 10;
+let initialNumber = 10;
 
-const countdown =
-    document.getElementById("countdown");
+const initialCountdown = setInterval(() => {
 
-const countNumber =
-    document.getElementById("number");
+    initialNumber--;
 
-const initialTimer = setInterval(() => {
+    if (initialNumber >= 1) {
 
-    number--;
-
-    if (number <= 0) {
-
-        clearInterval(initialTimer);
-
-        if (countdown) {
-            countdown.style.display = "none";
-        }
-
-        showReveal();
+        number.textContent = initialNumber;
 
     } else {
 
-        if (countNumber) {
-            countNumber.textContent = number;
-        }
+        clearInterval(initialCountdown);
 
+        setTimeout(() => {
+            showReveal();
+        }, 500);
     }
 
 }, 1000);
 
 
-/* =========================================================
-   HAPPY BIRTHDAY REVEAL
-   ========================================================= */
+/* =========================
+   CAKE
+========================= */
 
 function showReveal() {
 
-    const reveal =
-        document.getElementById("reveal");
-
-    if (!reveal) return;
+    countdown.style.display = "none";
 
     reveal.style.display = "flex";
 
     setTimeout(() => {
 
         reveal.style.display = "none";
-
-        const gift =
-            document.getElementById("gift");
-
-        if (gift) {
-            gift.style.display = "flex";
-        }
+        gift.style.display = "flex";
 
     }, 5000);
-
 }
 
 
-/* =========================================================
-   OPEN GIFT
-   ========================================================= */
+/* =========================
+   GIFT → PRANK
+========================= */
 
 function openGift() {
 
-    const gift =
-        document.getElementById("gift");
+    gift.style.display = "none";
 
-    if (gift) {
-        gift.style.display = "none";
+    tkrExplosion.style.display = "flex";
+
+    setTimeout(() => {
+
+        tkrExplosion.style.display = "none";
+
+        errorPrank.style.display = "flex";
+
+        startErrorSequence();
+
+    }, 2300);
+}
+
+
+/* =========================
+   ERROR × 3
+========================= */
+
+let errorClicks = 0;
+
+function startErrorSequence() {
+
+    errorClicks = 0;
+
+    errorText.style.transform = "scale(1)";
+    errorText.style.opacity = "1";
+
+    errorGuide.textContent =
+        "Klik ERROR 3 kali untuk melanjutkan";
+
+}
+
+
+errorText.addEventListener("click", () => {
+
+    errorClicks++;
+
+    if (errorClicks === 1) {
+
+        errorText.style.transform = "scale(1.15)";
+
+        errorGuide.textContent =
+            "Hmm... masih ERROR.";
+
     }
 
-    const explosion =
-        document.getElementById("tkrExplosion");
+    else if (errorClicks === 2) {
 
-    if (explosion) {
+        errorText.style.transform = "scale(1.3)";
 
-        explosion.style.display = "flex";
+        errorGuide.textContent =
+            "Sekali lagi... 😈";
+
+    }
+
+    else if (errorClicks === 3) {
+
+        errorGuide.textContent = "";
+
+        errorText.style.transition = ".7s";
+
+        errorText.style.transform = "scale(8)";
+        errorText.style.opacity = "0";
 
         setTimeout(() => {
 
-            explosion.style.display = "none";
+            errorPrank.style.display = "none";
 
-            startFinalCountdown();
+            showBirthdayHeart();
 
-        }, 2300);
-
-    } else {
-
-        startFinalCountdown();
-
+        }, 700);
     }
+
+});
+
+
+/* =========================
+   HAPPY BIRTHDAY HEART
+========================= */
+
+function showBirthdayHeart() {
+
+    birthdayHeart.style.display = "flex";
+
+    birthdayWords.innerHTML = "";
+
+    createBirthdayHeart();
 
 }
 
 
-/* =========================================================
+/*
+   Membuat kata HAPPY BIRTHDAY
+   membentuk pola hati.
+
+   Koordinatnya dibuat langsung di JS.
+   Nanti kalau mau benar-benar memakai
+   hasil Python, bagian ini bisa diganti
+   dengan array koordinat dari Python.
+*/
+
+function createBirthdayHeart() {
+
+    const totalWords = 150;
+
+    const words = [];
+
+    for (let i = 0; i < totalWords; i++) {
+
+        const word = document.createElement("span");
+
+        word.className = "birthday-word";
+
+        word.textContent = "HAPPY BIRTHDAY";
+
+        birthdayWords.appendChild(word);
+
+        words.push(word);
+    }
+
+
+    const width = birthdayWords.clientWidth;
+    const height = birthdayWords.clientHeight;
+
+    for (let i = 0; i < words.length; i++) {
+
+        const t =
+            Math.PI * 2 * i / words.length;
+
+        /*
+          Rumus parametrik bentuk hati
+        */
+
+        const x =
+            16 * Math.pow(Math.sin(t), 3);
+
+        const y =
+            -(
+                13 * Math.cos(t)
+                - 5 * Math.cos(2 * t)
+                - 2 * Math.cos(3 * t)
+                - Math.cos(4 * t)
+            );
+
+        const left =
+            width / 2 + x * Math.min(width, height) / 36;
+
+        const top =
+            height / 2 + y * Math.min(width, height) / 36;
+
+
+        setTimeout(() => {
+
+            words[i].style.left = left + "px";
+            words[i].style.top = top + "px";
+
+            words[i].classList.add("show");
+
+        }, i * 18);
+    }
+
+
+    /*
+       Setelah semua kata selesai membentuk hati,
+       tahan selama 3 detik.
+    */
+
+    const formationTime =
+        totalWords * 18 + 1200;
+
+    setTimeout(() => {
+
+        setTimeout(() => {
+
+            birthdayHeart.style.display = "none";
+
+            showQuestion();
+
+        }, 3000);
+
+    }, formationTime);
+}
+
+
+/* =========================
+   QUESTION
+========================= */
+
+let noClicks = 0;
+
+const noMessages = [
+    "yahh jahat 😭",
+    "yakin gamau tauu?",
+    "serius nih mau nolak?",
+    "kok TIDAK terus sih 😭",
+    "padahal tinggal klik YA...",
+    "masih mau TIDAK juga?",
+    "aku kasih kesempatan terakhir 😭"
+];
+
+
+function showQuestion() {
+
+    nextQuestion.style.display = "flex";
+
+    noClicks = 0;
+
+    yesButton.style.transform = "scale(1)";
+
+    noMessage.textContent = "";
+
+}
+
+
+noButton.addEventListener("click", () => {
+
+    noClicks++;
+
+    const index =
+        Math.min(noClicks - 1, noMessages.length - 1);
+
+    noMessage.textContent =
+        noMessages[index];
+
+    /*
+       Setiap TIDAK membuat YA
+       semakin besar.
+    */
+
+    const scale =
+        1 + noClicks * 0.18;
+
+    yesButton.style.transform =
+        `scale(${scale})`;
+
+});
+
+
+/* =========================
+   YA → FINAL COUNTDOWN
+========================= */
+
+yesButton.addEventListener("click", () => {
+
+    nextQuestion.style.display = "none";
+
+    startFinalCountdown();
+
+});
+
+
+/* =========================
    FINAL COUNTDOWN
-   HAPPY BIRTHDAY RAIN
    3 → 2 → 1
-   ========================================================= */
-
-function createBirthdayRain() {
-
-    const rain =
-        document.getElementById("birthdayRain");
-
-    if (!rain) return;
-
-    rain.innerHTML = "";
-
-    const totalText = 90;
-
-    for (let i = 0; i < totalText; i++) {
-
-        const text =
-            document.createElement("div");
-
-        text.className = "rain-text";
-
-        text.textContent =
-            "HAPPY BIRTHDAY";
-
-        text.style.left =
-            Math.random() * 100 + "%";
-
-        text.style.fontSize =
-            (10 + Math.random() * 12) + "px";
-
-        const duration =
-            2.5 + Math.random() * 3;
-
-        text.style.animationDuration =
-            duration + "s";
-
-        text.style.animationDelay =
-            -(Math.random() * duration) + "s";
-
-        rain.appendChild(text);
-
-    }
-
-}
-
+========================= */
 
 function startFinalCountdown() {
 
-    const finalCountdown =
-        document.getElementById("finalCountdown");
-
-    const finalNumber =
-        document.getElementById("finalNumber");
-
-    if (!finalCountdown || !finalNumber) {
-
-        showMainWebsite();
-
-        return;
-
-    }
-
-    finalCountdown.style.display = "block";
-
-    createBirthdayRain();
+    finalCountdown.style.display = "flex";
 
     let count = 3;
 
     finalNumber.textContent = count;
 
-    const finalTimer = setInterval(() => {
+    const timer = setInterval(() => {
 
         count--;
 
-        if (count > 0) {
+        if (count >= 1) {
 
             finalNumber.textContent = count;
 
         } else {
 
-            clearInterval(finalTimer);
+            clearInterval(timer);
 
             finalCountdown.style.display = "none";
 
-            showMainWebsite();
+            showMain();
 
         }
 
     }, 1000);
-
 }
 
 
-/* =========================================================
-   SHOW MAIN WEBSITE
-   ========================================================= */
+/* =========================
+   MAIN PAGE
+========================= */
 
-function showMainWebsite() {
-
-    const main =
-        document.getElementById("main");
-
-    if (!main) return;
+function showMain() {
 
     main.style.display = "block";
+
+    window.scrollTo({
+        top: 0,
+        behavior: "instant"
+    });
 
     startTyping();
 
 }
 
 
-/* =========================================================
-   TYPING ANIMATION
-   ========================================================= */
+/* =========================
+   TYPING
+========================= */
 
 const message =
-    "Today is your special day. Wishing you happiness, good health, and all your dreams come true. Sebelum lanjutt ada pantun dulu om. Pergi ke pasar membeli pita, Singgah sebentar membeli udang, Selamat bertambah tua om tercinta, Minta kuota dong sayangg... nyambung ga sihh... halahh bodo amat lahhh";
+`Today is your special day.
+Wishing you happiness, good health, and all your dreams come true.
+
+Sebelum lanjutt ada pantun dulu om.
+
+Pergi ke pasar membeli pita,
+Singgah sebentar membeli udang.
+Selamat bertambah tua om tercinta,
+Minta kuota dong sayangg...
+
+Nyambung ga sihh...
+Halahh bodo amat lahhh 😭`;
 
 let typingIndex = 0;
-let typingStarted = false;
 
 function startTyping() {
 
-    if (typingStarted) return;
-
-    const text =
-        document.getElementById("typingText");
-
-    if (!text) return;
-
-    typingStarted = true;
-
-    text.textContent = "";
+    typingText.textContent = "";
 
     typingIndex = 0;
 
-    const typingTimer = setInterval(() => {
-
-        if (typingIndex >= message.length) {
-
-            clearInterval(typingTimer);
-
-            return;
-
-        }
-
-        text.textContent +=
-            message[typingIndex];
-
-        typingIndex++;
-
-    }, 45);
+    typeCharacter();
 
 }
 
 
-/* =========================================================
-   SCROLL NOTIFICATION
-   ========================================================= */
+function typeCharacter() {
 
-let notificationShown = false;
+    if (typingIndex < message.length) {
 
-window.addEventListener("scroll", () => {
+        typingText.textContent +=
+            message.charAt(typingIndex);
 
-    if (notificationShown) return;
+        typingIndex++;
 
-    const scroll =
-        window.scrollY;
-
-    const height =
-        document.documentElement.scrollHeight -
-        window.innerHeight;
-
-    if (height <= 0) return;
-
-    const percentage =
-        scroll / height;
-
-    if (percentage >= 0.35) {
-
-        notificationShown = true;
-
-        const notification =
-            document.getElementById("notification");
-
-        if (!notification) return;
-
-        notification.style.display = "flex";
-
-        setTimeout(() => {
-
-            notification.style.display = "none";
-
-        }, 4500);
+        setTimeout(typeCharacter, 35);
 
     }
+
+}
+
+
+/* =========================
+   LAST GIFT
+========================= */
+
+function openLastGift() {
+
+    finalLovePage.style.display = "flex";
+
+    window.scrollTo({
+        top: 0,
+        behavior: "instant"
+    });
+
+}
+
+
+/* =========================
+   FINAL LOVE
+========================= */
+
+wireHeart.addEventListener("click", () => {
+
+    /*
+       Tahap pertama:
+       hati terbelah.
+    */
+
+    wireHeart.classList.add("splitting");
+
+    setTimeout(() => {
+
+        /*
+           Cahaya muncul.
+        */
+
+        wireHeart.classList.add("glowing");
+
+    }, 600);
+
+
+    setTimeout(() => {
+
+        /*
+           Setelah cahaya meningkat,
+           hati meledak secara visual.
+        */
+
+        wireHeart.classList.add("burst");
+
+        createFinalFireworks();
+
+    }, 1700);
 
 });
 
 
-/* =========================================================
-   END OF SCRIPT
-   ========================================================= */ 
+/* =========================
+   FIREWORKS
+========================= */
+
+function createFinalFireworks() {
+
+    fireworksFinal.innerHTML = "";
+
+    for (let i = 0; i < 35; i++) {
+
+        const particle =
+            document.createElement("span");
+
+        particle.style.position = "absolute";
+
+        particle.style.left =
+            "50%";
+
+        particle.style.top =
+            "50%";
+
+        particle.style.width =
+            "5px";
+
+        particle.style.height =
+            "5px";
+
+        particle.style.borderRadius =
+            "50%";
+
+        particle.style.background =
+            "#ff8c00";
+
+        particle.style.boxShadow =
+            "0 0 10px #ff8c00";
+
+        const angle =
+            Math.random() * Math.PI * 2;
+
+        const distance =
+            100 + Math.random() * 350;
+
+        const x =
+            Math.cos(angle) * distance;
+
+        const y =
+            Math.sin(angle) * distance;
+
+        particle.animate(
+            [
+                {
+                    transform: "translate(-50%, -50%) scale(1)",
+                    opacity: 1
+                },
+                {
+                    transform:
+                        `translate(${x}px, ${y}px) scale(0)`,
+                    opacity: 0
+                }
+            ],
+            {
+                duration:
+                    1000 + Math.random() * 1200,
+
+                easing: "cubic-bezier(.1,.7,.2,1)",
+
+                fill: "forwards"
+            }
+        );
+
+        fireworksFinal.appendChild(particle);
+    }
+
+                   } 

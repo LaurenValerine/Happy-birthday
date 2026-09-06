@@ -946,29 +946,198 @@ button {
     opacity: 0;
 
     color: #ffd0a3;
+/* =========================
+   HAPPY BIRTHDAY HEART
+   ========================= */
 
-    font-size: 13px;
+#birthdayLove {
+    position: fixed;
+    inset: 0;
+    z-index: 650;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background: #020202;
+    overflow: hidden;
+    opacity: 0;
+}
 
-    letter-spacing: 4px;
+#birthdayLove.birthday-love-show {
+    display: flex;
+    animation: birthdayLoveIn .8s ease forwards;
+}
 
-    text-transform: uppercase;
+.birthday-heart {
+    position: absolute;
+    left: 50%;
+    top: 47%;
+
+    transform: translate(-50%, -50%);
+
+    width: min(96vw, 850px);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 2px;
+}
+
+/* Setiap baris HAPPY BIRTHDAY */
+.heart-line {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 5px;
+
+    width: 100%;
+    min-height: 12px;
+
+    overflow: visible;
+}
+
+/* Tulisan HAPPY BIRTHDAY */
+.heart-word {
+    position: static;
+
+    display: inline-block;
+
+    color: #ff7900;
+
+    font-size: clamp(6px, 1vw, 11px);
+    font-weight: 900;
+
+    white-space: nowrap;
+
+    letter-spacing: .3px;
 
     text-shadow:
-        0 0 10px #ff7900;
+        0 0 5px #ff7900,
+        0 0 10px #ff5700,
+        0 0 20px rgba(255, 100, 0, .8);
+
+    opacity: 0;
+
+    transform: scale(.2);
+
+    animation:
+        heartWordAppear .45s ease forwards;
+}
+
+
+/* Muncul satu-satu */
+@keyframes heartWordAppear {
+    0% {
+        opacity: 0;
+        transform: scale(.2);
+        filter: blur(5px);
+    }
+
+    60% {
+        opacity: 1;
+        transform: scale(1.15);
+        filter: blur(0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+        filter: blur(0);
+    }
+}
+
+
+/* Kemunculan halaman */
+@keyframes birthdayLoveIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+/* Pesan setelah hati terbentuk */
+.heart-message {
+    position: absolute;
+
+    left: 50%;
+    bottom: 8%;
+
+    transform: translateX(-50%) translateY(20px);
+
+    width: 90%;
+
+    text-align: center;
+
+    color: white;
+
+    font-size: clamp(16px, 3vw, 25px);
+    font-weight: 700;
+
+    opacity: 0;
+
+    text-shadow:
+        0 0 8px #ff7900,
+        0 0 20px #ff4500;
 
     transition:
         opacity .8s ease,
         transform .8s ease;
-
-    transform: translateY(20px);
 }
 
 .heart-message-show {
     opacity: 1;
 
-    transform: translateY(0);
+    transform:
+        translateX(-50%)
+        translateY(0);
 }
 
+
+/* Efek menghilang */
+.birthday-love-fade {
+    animation: birthdayLoveOut .7s ease forwards;
+}
+
+@keyframes birthdayLoveOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+
+/* HP */
+@media (max-width: 600px) {
+
+    .birthday-heart {
+        width: 98vw;
+        top: 45%;
+        gap: 1px;
+    }
+
+    .heart-line {
+        gap: 3px;
+        min-height: 9px;
+    }
+
+    .heart-word {
+        font-size: 5px;
+        letter-spacing: 0;
+    }
+
+    .heart-message {
+        bottom: 10%;
+        font-size: 16px;
+    }
+}
 
 /* =========================================================
    NEXT QUESTION

@@ -821,169 +821,421 @@ section h2 {
 #finalLovePage {
     position: fixed;
     inset: 0;
-
-    z-index: 500;
-
+    z-index: 3000;
     display: none;
     justify-content: center;
     align-items: center;
-
-    background: #000;
-
+    flex-direction: column;
+    background:
+        radial-gradient(
+            circle at center,
+            #351300 0%,
+            #100600 35%,
+            #000 75%
+        );
     overflow: hidden;
-
-    text-align: center;
 }
 
-.final-love-content {
-    position: relative;
+/* =========================
+   FOR YOU
+========================= */
+
+.final-title {
+    position: absolute;
+    top: 9%;
     z-index: 5;
-}
 
+    color: #fff;
+    font-size: clamp(35px, 9vw, 65px);
+    font-weight: 900;
+    letter-spacing: 8px;
+
+    text-shadow:
+        0 0 10px white,
+        0 0 25px #ff7900,
+        0 0 55px #ff4500;
+}
 
 /* =========================
    3D WIREFRAME HEART
 ========================= */
 
 .wire-heart {
-    width: 170px;
-    height: 150px;
-
     position: relative;
 
-    margin: auto;
-
-    transform:
-        rotate(-45deg)
-        perspective(500px);
+    width: min(330px, 78vw);
+    height: min(330px, 78vw);
 
     cursor: pointer;
 
+    transform-style: preserve-3d;
+    transform:
+        perspective(900px)
+        rotateX(12deg)
+        rotateY(-18deg)
+        rotateZ(-4deg);
+
     transition:
-        transform .5s ease,
-        filter .5s ease;
+        transform 1s ease,
+        opacity .6s ease;
+
+    filter:
+        drop-shadow(0 0 6px #ff7900)
+        drop-shadow(0 0 18px #ff6500)
+        drop-shadow(0 0 45px #ff4500);
+
+    animation:
+        wireHeartFloat 4s ease-in-out infinite;
+}
+
+/*
+   Titik-titik pembentuk permukaan 3D
+*/
+
+.wire-heart::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle at 50% 25%,
+            transparent 0 12%,
+            #ff7900 13% 13.5%,
+            transparent 14%
+        );
+
+    opacity: .9;
+}
+
+/*
+   Grid wireframe
+*/
+
+.wire-heart::after {
+    content: "";
+    position: absolute;
+    inset: 5%;
+
+    clip-path: polygon(
+        50% 92%,
+        8% 48%,
+        10% 30%,
+        20% 16%,
+        35% 10%,
+        50% 22%,
+        65% 10%,
+        80% 16%,
+        90% 30%,
+        92% 48%
+    );
+
+    background:
+        repeating-linear-gradient(
+            0deg,
+            transparent 0 14px,
+            #ff7900 15px 16px,
+            transparent 17px 28px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            transparent 0 14px,
+            #ff6500 15px 16px,
+            transparent 17px 28px
+        );
+
+    opacity: .8;
+
+    filter:
+        drop-shadow(0 0 5px #ff7900)
+        drop-shadow(0 0 12px #ff4500);
+
+    transform:
+        translateZ(25px)
+        rotateX(8deg);
+}
+
+/* =========================
+   3D DEPTH LAYERS
+========================= */
+
+.wire-heart {
+    --depth: 0px;
 }
 
 .wire-heart::before,
 .wire-heart::after {
-    content: "";
+    pointer-events: none;
+}
 
+/*
+   Cahaya dari dalam hati
+*/
+
+#heartLight {
     position: absolute;
 
-    width: 170px;
-    height: 170px;
+    width: 18px;
+    height: 18px;
 
-    border: 3px solid #ff8c00;
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%, -50%)
+        scale(.1);
+
+    border-radius: 50%;
+
+    background: white;
 
     box-shadow:
-        0 0 8px #ff8c00,
-        0 0 20px #ff6600,
-        inset 0 0 15px rgba(255, 140, 0, .15);
+        0 0 15px white,
+        0 0 35px #fff,
+        0 0 70px #ff7900,
+        0 0 130px #ff4500,
+        0 0 220px #ff2200;
 
-    transition:
-        transform .8s ease,
-        opacity .5s ease;
+    opacity: 0;
+
+    pointer-events: none;
 }
 
-.wire-heart::before {
-    border-radius: 50%;
-
-    top: -85px;
-    left: 0;
+#heartLight.active {
+    animation:
+        heartLightExpand 1.3s ease forwards;
 }
 
-.wire-heart::after {
-    border-radius: 50%;
+@keyframes heartLightExpand {
 
-    left: 85px;
-    top: 0;
+    0% {
+        opacity: 0;
+        transform:
+            translate(-50%, -50%)
+            scale(.1);
+    }
+
+    25% {
+        opacity: 1;
+        transform:
+            translate(-50%, -50%)
+            scale(1);
+    }
+
+    60% {
+        opacity: 1;
+        transform:
+            translate(-50%, -50%)
+            scale(5);
+    }
+
+    100% {
+        opacity: 1;
+        transform:
+            translate(-50%, -50%)
+            scale(14);
+    }
 }
 
-.wire-heart:hover {
-    filter:
-        drop-shadow(0 0 15px #ff8c00);
-}
+/* =========================
+   HEART FLOAT
+========================= */
 
+@keyframes wireHeartFloat {
+
+    0% {
+        transform:
+            perspective(900px)
+            rotateX(12deg)
+            rotateY(-18deg)
+            rotateZ(-4deg)
+            translateY(0);
+    }
+
+    50% {
+        transform:
+            perspective(900px)
+            rotateX(16deg)
+            rotateY(18deg)
+            rotateZ(-4deg)
+            translateY(-15px);
+    }
+
+    100% {
+        transform:
+            perspective(900px)
+            rotateX(12deg)
+            rotateY(-18deg)
+            rotateZ(-4deg)
+            translateY(0);
+    }
+}
 
 /* =========================
    HEART SPLIT
 ========================= */
 
 .wire-heart.splitting {
-    transform:
-        rotate(-45deg)
-        scale(1.1);
+    animation:
+        heartSplit3D 1.1s ease forwards;
 }
 
-.wire-heart.splitting::before {
-    transform: translateX(-20px);
-}
+@keyframes heartSplit3D {
 
-.wire-heart.splitting::after {
-    transform: translateX(20px);
-}
+    0% {
+        transform:
+            perspective(900px)
+            rotateX(12deg)
+            rotateY(-18deg)
+            rotateZ(-4deg)
+            scale(1);
+    }
 
+    45% {
+        transform:
+            perspective(900px)
+            rotateX(18deg)
+            rotateY(0deg)
+            rotateZ(-4deg)
+            scale(1.08);
+    }
+
+    100% {
+        transform:
+            perspective(900px)
+            rotateX(18deg)
+            rotateY(0deg)
+            rotateZ(-4deg)
+            scale(1.12);
+
+        filter:
+            drop-shadow(-35px 0 15px #ff7900)
+            drop-shadow(35px 0 15px #ff7900)
+            drop-shadow(0 0 50px white);
+    }
+}
 
 /* =========================
    HEART GLOW
 ========================= */
 
 .wire-heart.glowing {
-    filter:
-        brightness(2)
-        drop-shadow(0 0 15px #fff)
-        drop-shadow(0 0 40px #ff8c00)
-        drop-shadow(0 0 80px #ff4500);
+    animation:
+        heartGlow3D .18s infinite alternate;
 }
 
-.wire-heart.glowing::before,
-.wire-heart.glowing::after {
-    border-color: #fff;
+@keyframes heartGlow3D {
 
-    box-shadow:
-        0 0 15px #fff,
-        0 0 35px #ff8c00,
-        0 0 70px #ff4500;
+    from {
+        filter:
+            drop-shadow(-20px 0 10px #ff7900)
+            drop-shadow(20px 0 10px #ff7900)
+            drop-shadow(0 0 30px #ff4500);
+    }
+
+    to {
+        filter:
+            drop-shadow(-25px 0 25px white)
+            drop-shadow(25px 0 25px #ff7900)
+            drop-shadow(0 0 80px white);
+    }
 }
-
 
 /* =========================
    HEART BURST
 ========================= */
 
 .wire-heart.burst {
-    transform:
-        rotate(-45deg)
-        scale(5);
-
-    opacity: 0;
+    animation:
+        heartBurst3D .55s ease forwards;
 }
 
+@keyframes heartBurst3D {
+
+    0% {
+        transform:
+            perspective(900px)
+            rotateX(18deg)
+            rotateY(0deg)
+            rotateZ(-4deg)
+            scale(1.12);
+
+        opacity: 1;
+    }
+
+    45% {
+        transform:
+            perspective(900px)
+            rotateX(35deg)
+            rotateY(180deg)
+            rotateZ(15deg)
+            scale(2.2);
+
+        opacity: .8;
+    }
+
+    100% {
+        transform:
+            perspective(900px)
+            rotateX(80deg)
+            rotateY(360deg)
+            rotateZ(40deg)
+            scale(5);
+
+        opacity: 0;
+    }
+}
 
 /* =========================
-   FOR YOU
+   HINT
 ========================= */
 
-.for-you {
-    margin-top: 60px;
+.final-hint {
+    position: absolute;
+    bottom: 9%;
+    z-index: 5;
 
-    font-size: clamp(25px, 8vw, 45px);
-
-    font-weight: 900;
-
-    color: #ff8c00;
-
-    letter-spacing: 5px;
+    color: #aaa;
+    font-size: 14px;
+    letter-spacing: 2px;
 
     text-shadow:
-        0 0 10px #ff8c00,
-        0 0 25px #ff6600;
+        0 0 8px #000;
+
+    animation:
+        hintPulse 2s infinite;
 }
 
-.final-love-content p {
-    margin-top: 15px;
-    color: #aaa;
+@keyframes hintPulse {
+
+    50% {
+        opacity: .45;
+    }
 }
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    .wire-heart {
+        width: 290px;
+        height: 290px;
+    }
+
+    .final-title {
+        top: 10%;
+        font-size: 38px;
+    }
+
+    .final-hint {
+        bottom: 7%;
+        font-size: 11px;
+    }
+             }
 
 
 /* =========================

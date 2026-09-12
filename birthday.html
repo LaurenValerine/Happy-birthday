@@ -1,722 +1,46 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>HAPPY BIRTHDAY MY CRUSH 🧡</title>
-
-<style>
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
-body{
-    min-height:100vh;
-    overflow-x:hidden;
-    background:#050505;
-    color:#fff;
-    font-family:Arial,Helvetica,sans-serif;
-}
-
-/* =========================
-   COUNTDOWN
-========================= */
-
-#countdown{
-    position:fixed;
-    inset:0;
-    z-index:9990;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-    background:#000;
-}
-
-.terminal{
-    color:#ff7900;
-    font-family:monospace;
-    font-size:clamp(12px,3vw,18px);
-    margin-bottom:25px;
-    text-align:center;
-}
-
-#countdownNumber{
-    font-size:clamp(80px,25vw,180px);
-    font-weight:900;
-    color:#fff;
-    text-shadow:
-        0 0 10px #fff,
-        0 0 30px #ff7900,
-        0 0 70px #ff6500;
-    animation:countPulse .9s ease-in-out infinite;
-}
-
-@keyframes countPulse{
-    0%,100%{transform:scale(1);opacity:.75}
-    50%{transform:scale(1.12);opacity:1}
-}
-
-/* =========================
-   GENERAL
-========================= */
-
-.screen{
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-    padding:30px 20px;
-    text-align:center;
-}
-
-.btn{
-    border:2px solid #ff7900;
-    background:#090909;
-    color:#fff;
-    padding:12px 25px;
-    border-radius:10px;
-    cursor:pointer;
-    font-weight:800;
-    box-shadow:0 0 15px rgba(255,121,0,.35);
-    transition:.25s;
-}
-
-.btn:hover{
-    transform:scale(1.06);
-    background:#ff7900;
-    color:#000;
-}
-
-/* =========================
-   CAKE
-========================= */
-
-#reveal{
-    display:none;
-    background:
-        radial-gradient(circle,#251000 0%,#080808 45%,#000 100%);
-}
-
-.reveal-title{
-    font-size:clamp(22px,6vw,42px);
-    margin-bottom:25px;
-    text-shadow:0 0 15px #ff7900;
-}
-
-.cake{
-    width:min(300px,75vw);
-    max-height:45vh;
-    object-fit:contain;
-    filter:drop-shadow(0 0 25px rgba(255,121,0,.5));
-    animation:cakeFloat 2.2s ease-in-out infinite;
-}
-
-@keyframes cakeFloat{
-    0%,100%{transform:translateY(0)}
-    50%{transform:translateY(-10px)}
-}
-
-/* =========================
-   GIFT
-========================= */
-
-#giftSection{
-    display:none;
-    background:#050505;
-}
-
-.gift{
-    width:min(260px,70vw);
-    max-height:45vh;
-    object-fit:contain;
-    cursor:pointer;
-    filter:drop-shadow(0 0 20px rgba(255,121,0,.5));
-    animation:giftPulse 1.5s ease-in-out infinite;
-}
-
-@keyframes giftPulse{
-    0%,100%{transform:scale(1)}
-    50%{transform:scale(1.06)}
-}
-
-.gift-text{
-    margin-top:20px;
-    color:#ff7900;
-    font-weight:800;
-}
-
-/* =========================
-   TKR PRANK
-========================= */
-
-#tkrExplosion{
-    position:fixed;
-    inset:0;
-    z-index:9980;
-    display:none;
-    background:#070707;
-    overflow:hidden;
-}
-
-.prank-flash{
-    position:absolute;
-    inset:0;
-    background:
-        radial-gradient(circle at center,#fff 0%,#ffb347 8%,#ff7900 22%,#120700 55%,#000 100%);
-    animation:prankFlash 1.4s ease-out forwards;
-}
-
-.tools{
-    position:absolute;
-    inset:0;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:18px;
-    font-size:clamp(35px,12vw,90px);
-    opacity:0;
-    animation:toolsIn 1s .25s forwards;
-}
-
-@keyframes prankFlash{
-    0%{opacity:0;transform:scale(.2)}
-    25%{opacity:1;transform:scale(1)}
-    55%{opacity:.9}
-    100%{opacity:0}
-}
-
-@keyframes toolsIn{
-    0%{opacity:0;transform:scale(.2) rotate(-20deg)}
-    100%{opacity:1;transform:scale(1) rotate(0)}
-}
-
-/* =========================
-   ERROR
-========================= */
-
-#errorPrank{
-    position:fixed;
-    inset:0;
-    z-index:9970;
-    display:none;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-    background:#000;
-    cursor:pointer;
-}
-
-#errorText{
-    font-family:monospace;
-    font-size:clamp(45px,14vw,110px);
-    font-weight:900;
-    color:#fff;
-    text-shadow:0 0 15px #fff,0 0 35px #ff0000;
-    user-select:none;
-}
-
-#errorGuide{
-    margin-top:20px;
-    color:#ff7900;
-    font-family:monospace;
-}
-
-/* =========================
-   HAPPY BIRTHDAY HEART
-========================= */
-
-#birthdayHeart{
-    position:fixed;
-    inset:0;
-    z-index:9960;
-    display:none;
-    background:#000;
-    justify-content:center;
-    align-items:center;
-    overflow:hidden;
-}
-
-#birthdayWords{
-    position:relative;
-    width:min(620px,90vw);
-    height:min(520px,75vh);
-}
-
-.happyWord{
-    position:absolute;
-    color:#ff7900;
-    font-size:clamp(9px,2.3vw,17px);
-    font-weight:900;
-    white-space:nowrap;
-    text-shadow:0 0 7px #ff7900,0 0 18px #ff6500;
-    animation:wordAppear .7s ease forwards;
-    opacity:0;
-}
-
-@keyframes wordAppear{
-    from{opacity:0;transform:translate(-50%,-50%) scale(.2)}
-    to{opacity:1;transform:translate(-50%,-50%) scale(1)}
-}
-
-/* =========================
-   QUESTION
-========================= */
-
-#nextQuestion{
-    position:fixed;
-    inset:0;
-    z-index:9950;
-    display:none;
-    justify-content:center;
-    align-items:center;
-    background:rgba(0,0,0,.97);
-}
-
-.question-box{
-    width:min(390px,88vw);
-    padding:30px 22px;
-    border:1px solid #ff7900;
-    border-radius:18px;
-    background:#0b0b0b;
-    box-shadow:0 0 35px rgba(255,121,0,.3);
-    text-align:center;
-}
-
-.question-box h2{
-    font-size:clamp(21px,6vw,30px);
-    margin-bottom:25px;
-}
-
-.question-buttons{
-    display:flex;
-    justify-content:center;
-    gap:15px;
-    flex-wrap:wrap;
-}
-
-#yesButton{
-    background:#ff7900;
-    color:#000;
-    min-width:100px;
-}
-
-#noButton{
-    min-width:100px;
-}
-
-#noMessage{
-    min-height:24px;
-    margin-top:18px;
-    color:#ff7900;
-    font-weight:800;
-}
-
-/* =========================
-   FINAL COUNTDOWN
-========================= */
-
-#finalCountdown{
-    position:fixed;
-    inset:0;
-    z-index:9940;
-    display:none;
-    justify-content:center;
-    align-items:center;
-    background:#000;
-}
-
-#finalNumber{
-    font-size:clamp(100px,30vw,200px);
-    font-weight:900;
-    text-shadow:0 0 15px #fff,0 0 45px #ff7900;
-}
-
-/* =========================
-   MAIN PAGE
-========================= */
-
-#mainPage{
-    display:none;
-    background:
-        radial-gradient(circle at 50% 0%,#261100 0%,#090909 30%,#000 75%);
-}
-
-.section{
-    width:min(900px,92vw);
-    margin:auto;
-    padding:90px 0;
-    text-align:center;
-}
-
-.hero-doll{
-    width:min(250px,65vw);
-    max-height:35vh;
-    object-fit:contain;
-    filter:drop-shadow(0 0 25px rgba(255,121,0,.35));
-    margin-bottom:30px;
-}
-
-.main-title{
-    font-size:clamp(34px,10vw,80px);
-    font-weight:900;
-    letter-spacing:4px;
-    text-shadow:0 0 10px #fff,0 0 35px #ff7900;
-}
-
-.main-name{
-    margin-top:10px;
-    color:#ff7900;
-    font-size:clamp(20px,5vw,38px);
-    letter-spacing:3px;
-}
-
-#typingText{
-    max-width:720px;
-    min-height:130px;
-    margin:35px auto 0;
-    line-height:1.8;
-    color:#ddd;
-    font-size:clamp(14px,3.8vw,18px);
-    white-space:pre-line;
-}
-
-.card{
-    background:rgba(255,255,255,.035);
-    border:1px solid rgba(255,121,0,.45);
-    border-radius:18px;
-    padding:30px 22px;
-    margin:30px auto;
-    box-shadow:0 0 25px rgba(255,121,0,.08);
-}
-
-.card h2{
-    color:#ff7900;
-    margin-bottom:15px;
-}
-
-.memory-img{
-    width:min(700px,100%);
-    border-radius:15px;
-    display:block;
-    margin:20px auto 0;
-    border:1px solid #ff7900;
-}
-
-.spotify-wrap iframe{
-    width:100%;
-    max-width:600px;
-    height:352px;
-    border:0;
-    border-radius:14px;
-}
-
-.lyric-note{
-    margin:20px auto 0;
-    max-width:600px;
-    color:#ddd;
-    font-style:italic;
-    line-height:1.7;
-}
-
-.last-gift{
-    display:inline-block;
-    margin-top:15px;
-    padding:18px 25px;
-    border:2px solid #ff7900;
-    border-radius:12px;
-    color:#fff;
-    cursor:pointer;
-    font-weight:900;
-    box-shadow:0 0 20px rgba(255,121,0,.25);
-    transition:.25s;
-}
-
-.last-gift:hover{
-    background:#ff7900;
-    color:#000;
-    transform:scale(1.04);
-}
-
-.end-space{
-    min-height:30vh;
-}
-
-/* =========================
-   NOTIFICATION
-========================= */
-
-#scrollNotification{
-    position:fixed;
-    right:18px;
-    bottom:18px;
-    z-index:9000;
-    display:none;
-    max-width:290px;
-    padding:14px 17px;
-    border:1px solid #ff7900;
-    border-radius:12px;
-    background:#090909;
-    box-shadow:0 0 20px rgba(255,121,0,.3);
-    font-size:13px;
-}
-
-/* =========================
-   FINAL LOVE PAGE
-========================= */
-
-#finalLovePage{
-    position:fixed;
-    inset:0;
-    z-index:9999;
-    display:none;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    overflow:hidden;
-    background:
-        radial-gradient(circle at center,#241000 0%,#080808 45%,#000 100%);
-    color:white;
-}
-
-.final-title{
-    position:relative;
-    z-index:20;
-    margin-bottom:35px;
-    font-size:clamp(30px,8vw,70px);
-    font-weight:900;
-    letter-spacing:8px;
-    text-shadow:
-        0 0 8px white,
-        0 0 20px #ff7900,
-        0 0 45px #ff6500;
-}
-
-.love-container{
-    position:relative;
-    width:min(280px,65vw);
-    aspect-ratio:1/1;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    cursor:pointer;
-    z-index:15;
-    filter:
-        drop-shadow(0 0 10px rgba(255,121,0,.7))
-        drop-shadow(0 0 30px rgba(255,101,0,.45));
-    transition:.3s;
-}
-
-.love-container:hover{
-    transform:scale(1.04);
-}
-
-.love-image{
-    position:absolute;
-    width:100%;
-    height:100%;
-    object-fit:contain;
-    user-select:none;
-    -webkit-user-drag:none;
-    transition:
-        transform 1s cubic-bezier(.2,.8,.2,1),
-        clip-path 1s cubic-bezier(.2,.8,.2,1),
-        filter .5s ease;
-}
-
-#crackLight{
-    position:absolute;
-    top:-15%;
-    left:50%;
-    width:12px;
-    height:130%;
-    transform:translateX(-50%) scaleY(0);
-    transform-origin:center;
-    opacity:0;
-    pointer-events:none;
-    background:#fff;
-    box-shadow:
-        0 0 5px #fff,
-        0 0 15px #fff,
-        0 0 30px #fff,
-        0 0 60px #ffb347,
-        0 0 100px #ff7900,
-        0 0 160px #ff6500;
-    filter:blur(2px);
-    z-index:10;
-}
-
-.love-container.cracking .love-image{
-    filter:
-        brightness(1.5)
-        drop-shadow(0 0 15px #fff)
-        drop-shadow(0 0 35px #ff7900);
-}
-
-.love-container.cracking #crackLight{
-    opacity:1;
-    animation:
-        crackOpen .65s ease-out forwards,
-        crackGlow 1s ease-in-out .2s infinite alternate;
-}
-
-#finalLovePage.light-flood::before{
-    content:"";
-    position:absolute;
-    inset:-50%;
-    z-index:50;
-    pointer-events:none;
-    background:
-        radial-gradient(
-            circle at center,
-            #fff 0%,
-            #fff 8%,
-            #fff7e6 18%,
-            #ffb347 32%,
-            #ff7900 50%,
-            rgba(255,101,0,.8) 65%,
-            transparent 80%
-        );
-    opacity:0;
-    animation:lightFlood 1.2s ease-in forwards;
-}
-
-.final-hint{
-    position:relative;
-    z-index:20;
-    margin-top:35px;
-    font-size:14px;
-    letter-spacing:2px;
-    color:#ddd;
-    opacity:.85;
-    text-shadow:0 0 8px #ff7900;
-}
-
-#fireworksFinal{
-    position:absolute;
-    inset:0;
-    z-index:100;
-    pointer-events:none;
-    overflow:hidden;
-}
-
-.final-particle{
-    position:absolute;
-    width:5px;
-    height:5px;
-    border-radius:50%;
-    background:#fff;
-    box-shadow:
-        0 0 6px #fff,
-        0 0 15px #ff7900,
-        0 0 25px #ff6500;
-    animation:finalFireworkParticle 1.2s ease-out forwards;
-}
-
-@keyframes crackOpen{
-    0%{transform:translateX(-50%) scaleY(0)}
-    100%{transform:translateX(-50%) scaleY(1)}
-}
-
-@keyframes crackGlow{
-    from{
-        opacity:.75;
-        box-shadow:
-            0 0 5px #fff,
-            0 0 15px #fff,
-            0 0 35px #ffb347,
-            0 0 70px #ff7900;
-    }
-    to{
-        opacity:1;
-        box-shadow:
-            0 0 10px #fff,
-            0 0 30px #fff,
-            0 0 60px #fff,
-            0 0 100px #ffb347,
-            0 0 180px #ff6500;
-    }
-}
-
-@keyframes lightFlood{
-    0%{opacity:0;transform:scale(.3)}
-    45%{opacity:1;transform:scale(.8)}
-    75%{opacity:1;transform:scale(1.4)}
-    100%{opacity:1;transform:scale(2.5)}
-}
-
-@keyframes finalFireworkParticle{
-    0%{
-        transform:translate(0,0) scale(1.5);
-        opacity:1;
-    }
-    70%{opacity:1}
-    100%{
-        transform:translate(var(--tx),var(--ty)) scale(.1);
-        opacity:0;
-    }
-}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- COUNTDOWN -->
 <div id="countdown">
     <div class="terminal">SYSTEM BOOT // BIRTHDAY_PROTOCOL.EXE</div>
     <div id="countdownNumber">10</div>
 </div>
 
-<!-- CAKE -->
 <section id="reveal" class="screen">
     <div class="reveal-title">A little surprise for you...</div>
-
-    <img
-        src="1000530075-removebg-preview.png"
-        class="cake"
-        alt="Birthday Cake">
+    <img src="1000530075-removebg-preview.png" class="cake" alt="Birthday Cake">
 </section>
 
-<!-- GIFT -->
 <section id="giftSection" class="screen">
-    <img
-        src="1000530077-removebg-preview.png"
-        class="gift"
-        id="gift"
-        alt="Birthday Gift"
-        onclick="openGift()">
-
+    <img src="1000530077-removebg-preview.png"
+         class="gift"
+         alt="Birthday Gift"
+         onclick="openGift()">
     <div class="gift-text">Klik hadiahnya 🎁</div>
 </section>
 
-<!-- TKR PRANK -->
 <div id="tkrExplosion">
     <div class="prank-flash"></div>
-
-    <div class="tools">
-        🔧 ⚙️ 🔩
-    </div>
+    <div class="tools">🔧 ⚙️ 🔩</div>
 </div>
 
-<!-- ERROR -->
 <div id="errorPrank">
     <div id="errorText">ERROR</div>
     <div id="errorGuide">klik ERROR sebanyak 3 kali</div>
 </div>
 
-<!-- HAPPY BIRTHDAY HEART -->
 <div id="birthdayHeart">
     <div id="birthdayWords"></div>
 </div>
 
-<!-- QUESTION -->
 <div id="nextQuestion">
     <div class="question-box">
         <h2>Siap untuk halaman berikutnya?</h2>
@@ -730,29 +54,22 @@ body{
     </div>
 </div>
 
-<!-- FINAL COUNTDOWN -->
 <div id="finalCountdown">
     <div id="finalNumber">3</div>
 </div>
 
-<!-- MAIN PAGE -->
 <main id="mainPage">
 
     <section class="section">
-
-        <img
-            src="1000530082-removebg-preview.png"
-            class="hero-doll"
-            alt="Birthday Character">
+        <img src="1000530082-removebg-preview.png"
+             class="hero-doll"
+             alt="Birthday Character">
 
         <h1 class="main-title">HAPPY BIRTHDAY</h1>
 
-        <div class="main-name">
-            M. RIZKY ADITYA P
-        </div>
+        <div class="main-name">M. RIZKY ADITYA P</div>
 
         <div id="typingText"></div>
-
     </section>
 
     <section class="section">
@@ -764,10 +81,9 @@ body{
                 the ones we remember.
             </p>
 
-            <img
-                src="IMG-20260824-WA0443.jpg"
-                class="memory-img"
-                alt="A Little Memory">
+            <img src="IMG-20260824-WA0443.jpg"
+                 class="memory-img"
+                 alt="A Little Memory">
         </div>
     </section>
 
@@ -787,4 +103,66 @@ body{
             <h2>One Song For You</h2>
 
             <iframe
-                src="https://open.spotify.com/embed/track/2uy1RsdzUL 
+                src="https://open.spotify.com/embed/track/2uy1RsdzULhpzJCiWoTlK3?utm_source=generator"
+                allow="autoplay;clipboard-write;encrypted-media;fullscreen;picture-in-picture"
+                loading="lazy">
+            </iframe>
+
+            <div class="lyric-note">
+                “I wanna be yours...”
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="card">
+            <h2>One Little Letter</h2>
+
+            <p>
+                Semoga di umur yang baru, makin banyak hal baik
+                yang datang, mimpi-mimpi yang perlahan menjadi nyata,
+                dan makin banyak alasan untuk tersenyum.
+            </p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="card">
+            <h2>Last Gift</h2>
+
+            <div class="last-gift" onclick="openLastGift()">
+                hadiah terakhir nihhh
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<div id="scrollNotification">
+    ✦ keep scrolling... masih ada sedikit lagi
+</div>
+
+<div id="finalLovePage">
+
+    <div id="fireworksFinal"></div>
+
+    <div class="final-title">
+        FOR YOU
+    </div>
+
+    <!-- LOVE 3D DIBUAT LANGSUNG DENGAN JAVASCRIPT -->
+    <div class="love-container" id="loveContainer">
+        <div id="wireHeart"></div>
+        <div id="heartLight"></div>
+    </div>
+
+    <div class="final-hint">
+        jangan klik love nya
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

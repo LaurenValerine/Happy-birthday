@@ -2330,200 +2330,36 @@ function openLastGift() {
 }
 
 
-/* =====================================================
-   FINAL HEART
-===================================================== */
+ <!-- =========================
+     FINAL LOVE PAGE
+========================= -->
 
-const wireHeart =
-    document.getElementById(
-        "wireHeart"
-    );
+<div id="finalLovePage">
 
-const heartLight =
-    document.getElementById(
-        "heartLight"
-    );
+    <div id="fireworksFinal"></div>
 
-let heartClicked =
-    false;
+    <div class="final-title">
+        FOR YOU
+    </div>
 
-wireHeart.addEventListener(
-    "click",
-    () => {
+    <div class="love-container" id="loveContainer">
 
-        if (heartClicked)
-            return;
+        <img
+            src="Love.jpg"
+            id="loveImage"
+            class="love-image"
+            alt="Love"
+        >
 
-        heartClicked =
-            true;
+        <div id="crackLight"></div>
 
-        /*
-           Tahap 1:
-           heart mulai terbelah.
-        */
+    </div>
 
-        wireHeart.classList.add(
-            "splitting"
-        );
+    <div class="final-hint">
+        jangan klik love nya
+    </div>
 
-        /*
-           Tahap 2:
-           cahaya muncul dari tengah.
-        */
-
-        setTimeout(() => {
-
-            heartLight.classList.add(
-                "active"
-            );
-
-            wireHeart.classList.add(
-                "glowing"
-            );
-
-        }, 600);
-
-        /*
-           Tahap 3:
-           heart burst.
-        */
-
-        setTimeout(() => {
-
-            wireHeart.classList.remove(
-                "glowing"
-            );
-
-            wireHeart.classList.add(
-                "burst"
-            );
-
-            createFinalFireworks();
-
-        }, 1800);
-
-    }
-);
-
-
-/* =====================================================
-   FINAL FIREWORKS
-===================================================== */
-
-function createFinalFireworks() {
-
-    const container =
-        document.getElementById(
-            "fireworksFinal"
-        );
-
-    container.innerHTML =
-        "";
-
-    const centerX =
-        window.innerWidth / 2;
-
-    const centerY =
-        window.innerHeight / 2;
-
-    for (
-        let burst = 0;
-        burst < 7;
-        burst++
-    ) {
-
-        setTimeout(() => {
-
-            const originX =
-                centerX +
-                (Math.random() - .5) *
-                window.innerWidth *
-                .65;
-
-            const originY =
-                centerY +
-                (Math.random() - .5) *
-                window.innerHeight *
-                .55;
-
-            for (
-                let i = 0;
-                i < 32;
-                i++
-            ) {
-
-                const particle =
-                    document.createElement(
-                        "span"
-                    );
-
-                particle.className =
-                    "final-particle";
-
-                particle.style.left =
-                    originX + "px";
-
-                particle.style.top =
-                    originY + "px";
-
-                const angle =
-                    Math.random() *
-                    Math.PI * 2;
-
-                const distance =
-                    80 +
-                    Math.random() *
-                    250;
-
-                const x =
-                    Math.cos(angle) *
-                    distance;
-
-                const y =
-                    Math.sin(angle) *
-                    distance;
-
-                const duration =
-                    900 +
-                    Math.random() *
-                    1000;
-
-                particle.animate(
-                    [
-                        {
-                            transform:
-                                "translate(-50%,-50%) scale(1)",
-                            opacity: 1
-                        },
-                        {
-                            transform:
-                                `translate(${x}px,${y}px) scale(0)`,
-                            opacity: 0
-                        }
-                    ],
-                    {
-                        duration:
-                            duration,
-
-                        easing:
-                            "cubic-bezier(.1,.7,.2,1)",
-
-                        fill:
-                            "forwards"
-                    }
-                );
-
-                container.appendChild(
-                    particle
-                );
-
-            }
-
-        }, burst * 350);
-
-    }
-
-}
+</div>    
 
 </script>
 </body>

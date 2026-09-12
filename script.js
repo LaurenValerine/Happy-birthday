@@ -1,7 +1,6 @@
-/* =========================
+ /* =========================
    BIRTHDAY WEBSITE SCRIPT
 ========================= */
-
 
 /* =========================
    ELEMENTS
@@ -30,12 +29,14 @@ const finalCountdown = document.getElementById("finalCountdown");
 const finalNumber = document.getElementById("finalNumber");
 
 const main = document.getElementById("main");
-
 const typingText = document.getElementById("typingText");
 
-const lastGift = document.getElementById("lastGift");
 const finalLovePage = document.getElementById("finalLovePage");
 const fireworksFinal = document.getElementById("fireworksFinal");
+
+const loveContainer = document.getElementById("loveContainer");
+const loveImage = document.getElementById("loveImage");
+const crackLight = document.getElementById("crackLight");
 
 
 /* =========================
@@ -44,6 +45,8 @@ const fireworksFinal = document.getElementById("fireworksFinal");
 ========================= */
 
 let initialNumber = 10;
+
+number.textContent = initialNumber;
 
 const initialCountdown = setInterval(() => {
 
@@ -57,21 +60,20 @@ const initialCountdown = setInterval(() => {
 
         clearInterval(initialCountdown);
 
-        setTimeout(() => {
-            showReveal();
-        }, 500);
+        countdown.style.display = "none";
+
+        showReveal();
+
     }
 
 }, 1000);
 
 
 /* =========================
-   CAKE
+   CAKE REVEAL
 ========================= */
 
 function showReveal() {
-
-    countdown.style.display = "none";
 
     reveal.style.display = "flex";
 
@@ -81,11 +83,12 @@ function showReveal() {
         gift.style.display = "flex";
 
     }, 5000);
+
 }
 
 
 /* =========================
-   GIFT → PRANK
+   GIFT → TKR PRANK
 ========================= */
 
 function openGift() {
@@ -103,6 +106,7 @@ function openGift() {
         startErrorSequence();
 
     }, 2300);
+
 }
 
 
@@ -118,6 +122,7 @@ function startErrorSequence() {
 
     errorText.style.transform = "scale(1)";
     errorText.style.opacity = "1";
+    errorText.style.pointerEvents = "auto";
 
     errorGuide.textContent =
         "Klik ERROR 3 kali untuk melanjutkan";
@@ -151,7 +156,7 @@ errorText.addEventListener("click", () => {
 
         errorGuide.textContent = "";
 
-        errorText.style.transition = ".7s";
+        errorText.style.pointerEvents = "none";
 
         errorText.style.transform = "scale(8)";
         errorText.style.opacity = "0";
@@ -163,6 +168,7 @@ errorText.addEventListener("click", () => {
             showBirthdayHeart();
 
         }, 700);
+
     }
 
 });
@@ -183,20 +189,9 @@ function showBirthdayHeart() {
 }
 
 
-/*
-   Membuat kata HAPPY BIRTHDAY
-   membentuk pola hati.
-
-   Koordinatnya dibuat langsung di JS.
-   Nanti kalau mau benar-benar memakai
-   hasil Python, bagian ini bisa diganti
-   dengan array koordinat dari Python.
-*/
-
 function createBirthdayHeart() {
 
     const totalWords = 150;
-
     const words = [];
 
     for (let i = 0; i < totalWords; i++) {
@@ -204,12 +199,12 @@ function createBirthdayHeart() {
         const word = document.createElement("span");
 
         word.className = "birthday-word";
-
         word.textContent = "HAPPY BIRTHDAY";
 
         birthdayWords.appendChild(word);
 
         words.push(word);
+
     }
 
 
@@ -220,10 +215,6 @@ function createBirthdayHeart() {
 
         const t =
             Math.PI * 2 * i / words.length;
-
-        /*
-          Rumus parametrik bentuk hati
-        */
 
         const x =
             16 * Math.pow(Math.sin(t), 3);
@@ -237,11 +228,12 @@ function createBirthdayHeart() {
             );
 
         const left =
-            width / 2 + x * Math.min(width, height) / 36;
+            width / 2 +
+            x * Math.min(width, height) / 36;
 
         const top =
-            height / 2 + y * Math.min(width, height) / 36;
-
+            height / 2 +
+            y * Math.min(width, height) / 36;
 
         setTimeout(() => {
 
@@ -251,16 +243,13 @@ function createBirthdayHeart() {
             words[i].classList.add("show");
 
         }, i * 18);
+
     }
 
 
-    /*
-       Setelah semua kata selesai membentuk hati,
-       tahan selama 3 detik.
-    */
-
     const formationTime =
         totalWords * 18 + 1200;
+
 
     setTimeout(() => {
 
@@ -273,6 +262,7 @@ function createBirthdayHeart() {
         }, 3000);
 
     }, formationTime);
+
 }
 
 
@@ -311,15 +301,13 @@ noButton.addEventListener("click", () => {
     noClicks++;
 
     const index =
-        Math.min(noClicks - 1, noMessages.length - 1);
+        Math.min(
+            noClicks - 1,
+            noMessages.length - 1
+        );
 
     noMessage.textContent =
         noMessages[index];
-
-    /*
-       Setiap TIDAK membuat YA
-       semakin besar.
-    */
 
     const scale =
         1 + noClicks * 0.18;
@@ -375,6 +363,7 @@ function startFinalCountdown() {
         }
 
     }, 1000);
+
 }
 
 
@@ -414,6 +403,7 @@ Minta kuota dong sayangg...
 Nyambung ga sihh...
 Halahh bodo amat lahhh 😭`;
 
+
 let typingIndex = 0;
 
 function startTyping() {
@@ -436,7 +426,10 @@ function typeCharacter() {
 
         typingIndex++;
 
-        setTimeout(typeCharacter, 35);
+        setTimeout(
+            typeCharacter,
+            35
+        );
 
     }
 
@@ -463,100 +456,102 @@ function openLastGift() {
    FINAL LOVE IMAGE
 ===================================================== */
 
-const loveContainer =
-    document.getElementById("loveContainer");
-
-const loveImage =
-    document.getElementById("loveImage");
-
-const crackLight =
-    document.getElementById("crackLight");
-
 let loveClicked = false;
 
 
-/* =========================
-   LOVE CLICK
-========================= */
+if (
+    loveContainer &&
+    loveImage &&
+    crackLight
+) {
 
-loveContainer.addEventListener("click", () => {
+    loveContainer.addEventListener(
+        "click",
+        () => {
 
-    if (loveClicked) return;
+            if (loveClicked) return;
 
-    loveClicked = true;
+            loveClicked = true;
 
-    /* STEP 1
-       Mulai retak + cahaya dari tengah
-    */
+            /* =========================
+               STEP 1
+               CRACK + LIGHT
+            ========================= */
 
-    loveContainer.classList.add("cracking");
-
-
-    /* STEP 2
-       Gambar mulai terbelah
-    */
-
-    setTimeout(() => {
-
-        loveImage.style.clipPath =
-            "polygon(0 0, 49% 0, 47% 25%, 49% 50%, 46% 75%, 49% 100%, 0 100%)";
-
-        loveImage.style.transform =
-            "translateX(-35px) rotate(-4deg)";
-
-    }, 500);
+            loveContainer.classList.add(
+                "cracking"
+            );
 
 
-    setTimeout(() => {
+            /* =========================
+               STEP 2
+               IMAGE SPLIT
+            ========================= */
 
-        loveImage.style.clipPath =
-            "polygon(51% 0, 100% 0, 100% 100%, 51% 100%, 53% 75%, 51% 50%, 53% 25%)";
+            setTimeout(() => {
 
-        loveImage.style.transform =
-            "translateX(35px) rotate(4deg)";
+                loveImage.style.clipPath =
+                    "polygon(0 0, 49% 0, 47% 25%, 49% 50%, 46% 75%, 49% 100%, 0 100%)";
 
-    }, 650);
+                loveImage.style.transform =
+                    "translateX(-35px) rotate(-4deg)";
 
-
-    /* STEP 3
-       Cahaya makin kuat
-    */
-
-    setTimeout(() => {
-
-        crackLight.style.width = "25px";
-
-    }, 900);
+            }, 500);
 
 
-    /* STEP 4
-       Cahaya memenuhi layar
-    */
+            setTimeout(() => {
 
-    setTimeout(() => {
+                loveImage.style.clipPath =
+                    "polygon(51% 0, 100% 0, 100% 100%, 51% 100%, 53% 75%, 51% 50%, 53% 25%)";
 
-        finalLovePage.classList.add(
-            "light-flood"
-        );
+                loveImage.style.transform =
+                    "translateX(35px) rotate(4deg)";
 
-    }, 1400);
+            }, 650);
 
 
-    /* STEP 5
-       FIREWORKS
-    */
+            /* =========================
+               STEP 3
+               CRACK LIGHT STRONGER
+            ========================= */
 
-    setTimeout(() => {
+            setTimeout(() => {
 
-        createFinalFireworks();
+                crackLight.style.width = "25px";
 
-    }, 2300);
+            }, 900);
 
-});
 
- 
- 
- 
+            /* =========================
+               STEP 4
+               LIGHT FLOOD
+            ========================= */
+
+            setTimeout(() => {
+
+                finalLovePage.classList.add(
+                    "light-flood"
+                );
+
+            }, 1400);
+
+
+            /* =========================
+               STEP 5
+               FIREWORKS
+            ========================= */
+
+            setTimeout(() => {
+
+                createFinalFireworks();
+
+            }, 2300);
+
+        }
+    );
+
+}
+
 
 /* =========================
    FIREWORKS
@@ -571,64 +566,44 @@ function createFinalFireworks() {
         const particle =
             document.createElement("span");
 
-        particle.style.position = "absolute";
+        particle.className =
+            "final-particle";
 
-        particle.style.left =
-            "50%";
-
-        particle.style.top =
-            "50%";
-
-        particle.style.width =
-            "5px";
-
-        particle.style.height =
-            "5px";
-
-        particle.style.borderRadius =
-            "50%";
-
-        particle.style.background =
-            "#ff8c00";
-
-        particle.style.boxShadow =
-            "0 0 10px #ff8c00";
+        particle.style.left = "50%";
+        particle.style.top = "50%";
 
         const angle =
-            Math.random() * Math.PI * 2;
+            Math.random() *
+            Math.PI *
+            2;
 
         const distance =
-            100 + Math.random() * 350;
+            100 +
+            Math.random() *
+            350;
 
         const x =
-            Math.cos(angle) * distance;
+            Math.cos(angle) *
+            distance;
 
         const y =
-            Math.sin(angle) * distance;
+            Math.sin(angle) *
+            distance;
 
-        particle.animate(
-            [
-                {
-                    transform: "translate(-50%, -50%) scale(1)",
-                    opacity: 1
-                },
-                {
-                    transform:
-                        `translate(${x}px, ${y}px) scale(0)`,
-                    opacity: 0
-                }
-            ],
-            {
-                duration:
-                    1000 + Math.random() * 1200,
-
-                easing: "cubic-bezier(.1,.7,.2,1)",
-
-                fill: "forwards"
-            }
+        particle.style.setProperty(
+            "--tx",
+            `${x}px`
         );
 
-        fireworksFinal.appendChild(particle);
+        particle.style.setProperty(
+            "--ty",
+            `${y}px`
+        );
+
+        fireworksFinal.appendChild(
+            particle
+        );
+
     }
 
-                   } 
+}

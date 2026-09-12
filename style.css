@@ -814,497 +814,344 @@ section h2 {
 }
 
 
-/* =========================
+ /* =========================================
    FINAL LOVE PAGE
-========================= */
+========================================= */
 
 #finalLovePage {
     position: fixed;
     inset: 0;
-    z-index: 3000;
+    z-index: 9999;
 
     display: none;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-
-    background:
-        radial-gradient(
-            circle at 50% 48%,
-            #351300 0%,
-            #180900 25%,
-            #080300 55%,
-            #000 80%
-        );
 
     overflow: hidden;
 
-    perspective: 1200px;
+    background:
+        radial-gradient(
+            circle at center,
+            #241000 0%,
+            #080808 45%,
+            #000 100%
+        );
+
+    color: white;
 }
 
-
-/* =========================
-   FOR YOU
-========================= */
+/* ===============================
+   TITLE
+================================ */
 
 .final-title {
-    position: absolute;
-    top: 9%;
-    z-index: 50;
+    position: relative;
+    z-index: 20;
 
-    color: #fff;
+    margin-bottom: 35px;
 
-    font-size: clamp(35px, 9vw, 65px);
+    font-size: clamp(30px, 8vw, 70px);
     font-weight: 900;
-
     letter-spacing: 8px;
 
+    color: white;
+
     text-shadow:
-        0 0 10px #fff,
-        0 0 25px #ff9a3c,
-        0 0 55px #ff6500,
-        0 0 90px #ff4500;
+        0 0 8px white,
+        0 0 20px #ff7900,
+        0 0 45px #ff6500;
 }
 
+/* ===============================
+   LOVE CONTAINER
+================================ */
 
-/* =========================
-   3D WIREFRAME HEART
-========================= */
-
-.wire-heart {
+.love-container {
     position: relative;
 
-    width: min(330px, 78vw);
-    height: min(300px, 70vw);
+    width: min(280px, 65vw);
+    aspect-ratio: 1 / 1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     cursor: pointer;
 
-    transform-style: preserve-3d;
-
-    transform:
-        perspective(1000px)
-        rotateX(8deg)
-        rotateY(-12deg);
-
-    animation: wireHeartFloat 4s ease-in-out infinite;
+    z-index: 15;
 
     filter:
-        drop-shadow(0 0 5px #ffb45c)
-        drop-shadow(0 0 15px #ff7900)
-        drop-shadow(0 0 35px #ff4500);
+        drop-shadow(0 0 10px rgba(255, 121, 0, .7))
+        drop-shadow(0 0 30px rgba(255, 101, 0, .45));
+
+    transition:
+        transform .3s ease,
+        filter .3s ease;
 }
 
+.love-container:hover {
+    transform: scale(1.04);
 
-/* MATIKAN TOTAL LOVE LAMA */
-.wire-heart::before,
-.wire-heart::after {
-    content: none !important;
-    display: none !important;
+    filter:
+        drop-shadow(0 0 15px white)
+        drop-shadow(0 0 35px #ff7900)
+        drop-shadow(0 0 60px #ff6500);
 }
 
+/* ===============================
+   LOVE IMAGE
+================================ */
 
-/* =========================
-   TITIK 3D
-========================= */
-
-.heart-wire-point {
+.love-image {
     position: absolute;
 
-    width: 4px;
-    height: 4px;
+    width: 100%;
+    height: 100%;
 
-    margin-left: -2px;
-    margin-top: -2px;
+    object-fit: contain;
 
-    border-radius: 50%;
+    user-select: none;
+    -webkit-user-drag: none;
 
-    background: #ffb45c;
-
-    box-shadow:
-        0 0 4px #fff,
-        0 0 8px #ff9a3c,
-        0 0 18px #ff6500;
-
-    transform-style: preserve-3d;
-
-    pointer-events: none;
+    transition:
+        transform 1s cubic-bezier(.2,.8,.2,1),
+        clip-path 1s cubic-bezier(.2,.8,.2,1),
+        filter .5s ease;
 }
 
+/* ===============================
+   CRACK LIGHT
+================================ */
 
-/* =========================
-   GARIS 3D
-========================= */
-
-.heart-wire-line {
+#crackLight {
     position: absolute;
 
-    height: 1.5px;
-
-    transform-origin: 0 50%;
-
-    background: #ff8c00;
-
-    box-shadow:
-        0 0 4px #ff8c00,
-        0 0 9px #ff6500,
-        0 0 16px #ff4500;
-
-    opacity: .8;
-
-    transform-style: preserve-3d;
-
-    pointer-events: none;
-}
-
-
-/* bagian belakang dibuat lebih tipis */
-
-.heart-wire-line.back {
-    opacity: .22;
-}
-
-
-/* =========================
-   HEART FLOAT
-========================= */
-
-@keyframes wireHeartFloat {
-
-    0% {
-        transform:
-            perspective(1000px)
-            rotateX(8deg)
-            rotateY(-12deg)
-            translateY(0);
-    }
-
-    50% {
-        transform:
-            perspective(1000px)
-            rotateX(-5deg)
-            rotateY(14deg)
-            translateY(-12px);
-    }
-
-    100% {
-        transform:
-            perspective(1000px)
-            rotateX(8deg)
-            rotateY(-12deg)
-            translateY(0);
-    }
-}
-
-
-/* =========================
-   HEART SPLIT
-========================= */
-
-.wire-heart.splitting {
-    animation: heartSplit3D 1.2s ease forwards;
-}
-
-@keyframes heartSplit3D {
-
-    0% {
-        transform:
-            perspective(1000px)
-            rotateX(8deg)
-            rotateY(-12deg)
-            scale(1);
-    }
-
-    35% {
-        transform:
-            perspective(1000px)
-            rotateX(4deg)
-            rotateY(0deg)
-            scale(1.08);
-    }
-
-    70% {
-        transform:
-            perspective(1000px)
-            rotateX(0deg)
-            rotateY(0deg)
-            scale(1.13);
-    }
-
-    100% {
-        transform:
-            perspective(1000px)
-            rotateX(0deg)
-            rotateY(0deg)
-            scale(1.16);
-
-        filter:
-            drop-shadow(0 0 15px #fff)
-            drop-shadow(0 0 40px #ff9a3c)
-            drop-shadow(0 0 90px #ff4500);
-    }
-}
-
-
-/* =========================
-   HEART GLOW
-========================= */
-
-.wire-heart.glowing {
-    animation: heartGlow .15s infinite alternate;
-}
-
-@keyframes heartGlow {
-
-    from {
-        filter:
-            drop-shadow(0 0 10px #ff7900)
-            drop-shadow(0 0 30px #ff4500);
-    }
-
-    to {
-        filter:
-            drop-shadow(0 0 20px #fff)
-            drop-shadow(0 0 55px #ff9a3c)
-            drop-shadow(0 0 110px #ff4500);
-    }
-}
-
-
-/* =========================
-   CAHAYA DARI TENGAH LOVE
-========================= */
-
-#heartLight {
-    position: absolute;
-
+    top: -15%;
     left: 50%;
-    top: 50%;
 
     width: 12px;
-    height: 12px;
+    height: 130%;
 
     transform:
-        translate(-50%, -50%)
-        scale(.1);
+        translateX(-50%)
+        scaleY(0);
 
-    border-radius: 50%;
-
-    background: #fff;
+    transform-origin: center;
 
     opacity: 0;
 
     pointer-events: none;
 
-    z-index: 30;
+    background: white;
 
     box-shadow:
-        0 0 10px #fff,
-        0 0 25px #fff,
-        0 0 55px #ffb45c,
+        0 0 5px white,
+        0 0 15px white,
+        0 0 30px #fff,
+        0 0 60px #ffb347,
         0 0 100px #ff7900,
-        0 0 180px #ff4500;
+        0 0 160px #ff6500;
+
+    filter: blur(2px);
+
+    z-index: 10;
 }
 
-#heartLight.active {
-    animation: heartLightExpand 1.3s ease forwards;
+/* ===============================
+   CRACK START
+================================ */
+
+.love-container.cracking .love-image {
+    filter:
+        brightness(1.5)
+        drop-shadow(0 0 15px white)
+        drop-shadow(0 0 35px #ff7900);
 }
 
-@keyframes heartLightExpand {
+.love-container.cracking #crackLight {
+    opacity: 1;
 
-    0% {
-        opacity: 0;
-        transform:
-            translate(-50%, -50%)
-            scale(.1);
-    }
-
-    20% {
-        opacity: 1;
-        transform:
-            translate(-50%, -50%)
-            scale(1);
-    }
-
-    50% {
-        opacity: 1;
-        transform:
-            translate(-50%, -50%)
-            scale(4);
-    }
-
-    75% {
-        opacity: 1;
-        transform:
-            translate(-50%, -50%)
-            scale(9);
-    }
-
-    100% {
-        opacity: 1;
-        transform:
-            translate(-50%, -50%)
-            scale(16);
-    }
+    animation:
+        crackOpen .65s ease-out forwards,
+        crackGlow 1s ease-in-out .2s infinite alternate;
 }
 
+/* ===============================
+   LIGHT FLOOD
+================================ */
 
-/* =========================
-   HEART BURST
-========================= */
+#finalLovePage.light-flood::before {
+    content: "";
 
-.wire-heart.burst {
-    animation: heartBurst3D .7s ease forwards;
-}
-
-@keyframes heartBurst3D {
-
-    0% {
-        opacity: 1;
-
-        transform:
-            perspective(1000px)
-            rotateX(0deg)
-            rotateY(0deg)
-            scale(1.16);
-    }
-
-    35% {
-        opacity: .9;
-
-        transform:
-            perspective(1000px)
-            rotateX(35deg)
-            rotateY(90deg)
-            scale(1.7);
-    }
-
-    70% {
-        opacity: .5;
-
-        transform:
-            perspective(1000px)
-            rotateX(70deg)
-            rotateY(220deg)
-            scale(3);
-    }
-
-    100% {
-        opacity: 0;
-
-        transform:
-            perspective(1000px)
-            rotateX(100deg)
-            rotateY(360deg)
-            scale(5);
-    }
-}
-
-
-/* =========================
-   FIREWORKS
-========================= */
-
-#fireworksFinal {
     position: absolute;
+    inset: -50%;
 
-    inset: 0;
-
-    width: 100%;
-    height: 100%;
-
-    overflow: hidden;
+    z-index: 50;
 
     pointer-events: none;
 
-    z-index: 100;
+    background:
+        radial-gradient(
+            circle at center,
+            white 0%,
+            white 8%,
+            #fff7e6 18%,
+            #ffb347 32%,
+            #ff7900 50%,
+            rgba(255,101,0,.8) 65%,
+            transparent 80%
+        );
+
+    opacity: 0;
+
+    animation:
+        lightFlood 1.2s ease-in forwards;
 }
+
+/* ===============================
+   FINAL HINT
+================================ */
+
+.final-hint {
+    position: relative;
+    z-index: 20;
+
+    margin-top: 35px;
+
+    font-size: 14px;
+    letter-spacing: 2px;
+
+    color: #ddd;
+
+    opacity: .85;
+
+    text-shadow:
+        0 0 8px #ff7900;
+}
+
+/* ===============================
+   FIREWORKS
+================================ */
+
+#fireworksFinal {
+    position: absolute;
+    inset: 0;
+
+    z-index: 100;
+
+    pointer-events: none;
+
+    overflow: hidden;
+}
+
+/* individual firework particles */
 
 .final-particle {
     position: absolute;
 
-    width: 4px;
-    height: 4px;
-
-    left: 50%;
-    top: 50%;
+    width: 5px;
+    height: 5px;
 
     border-radius: 50%;
 
-    background: #ffb45c;
+    background: white;
 
     box-shadow:
-        0 0 7px #fff,
+        0 0 6px white,
         0 0 15px #ff7900,
-        0 0 30px #ff4500;
+        0 0 25px #ff6500;
 
-    pointer-events: none;
+    animation:
+        finalFireworkParticle 1.2s ease-out forwards;
 }
 
+/* ===============================
+   ANIMATIONS
+================================ */
 
-/* =========================
-   HINT
-========================= */
+@keyframes crackOpen {
 
-.final-hint {
-    position: absolute;
+    0% {
+        transform:
+            translateX(-50%)
+            scaleY(0);
+    }
 
-    bottom: 9%;
-
-    z-index: 50;
-
-    color: #aaa;
-
-    font-size: 14px;
-
-    letter-spacing: 2px;
-
-    text-shadow:
-        0 0 8px #000;
-
-    animation: hintPulse 2s infinite;
-}
-
-@keyframes hintPulse {
-
-    0%,
     100% {
+        transform:
+            translateX(-50%)
+            scaleY(1);
+    }
+}
+
+@keyframes crackGlow {
+
+    from {
+        opacity: .75;
+
+        box-shadow:
+            0 0 5px white,
+            0 0 15px white,
+            0 0 35px #ffb347,
+            0 0 70px #ff7900;
+    }
+
+    to {
+        opacity: 1;
+
+        box-shadow:
+            0 0 10px white,
+            0 0 30px white,
+            0 0 60px #fff,
+            0 0 100px #ffb347,
+            0 0 180px #ff6500;
+    }
+}
+
+@keyframes lightFlood {
+
+    0% {
+        opacity: 0;
+        transform: scale(.3);
+    }
+
+    45% {
+        opacity: 1;
+        transform: scale(.8);
+    }
+
+    75% {
+        opacity: 1;
+        transform: scale(1.4);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(2.5);
+    }
+}
+
+@keyframes finalFireworkParticle {
+
+    0% {
+        transform:
+            translate(0, 0)
+            scale(1.5);
+
         opacity: 1;
     }
 
-    50% {
-        opacity: .4;
+    70% {
+        opacity: 1;
+    }
+
+    100% {
+        transform:
+            translate(var(--tx), var(--ty))
+            scale(.1);
+
+        opacity: 0;
     }
 }
-
-
-/* =========================
-   MOBILE
-========================= */
-
-@media (max-width: 600px) {
-
-    .wire-heart {
-        width: 300px;
-        height: 280px;
-
-        transform:
-            perspective(1000px)
-            rotateX(8deg)
-            rotateY(-10deg);
-    }
-
-    .final-title {
-        top: 10%;
-
-        font-size: 38px;
-
-        letter-spacing: 6px;
-    }
-
-    .final-hint {
-        bottom: 7%;
-
-        font-size: 11px;
-    }
-             }
- 
+        

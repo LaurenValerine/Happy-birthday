@@ -1,702 +1,481 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Birthday M. Rizky Aditya P</title>
+<!DOCTYPE html>  <html lang="id">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  <title>Happy Birthday M Rizky Aditya P</title>  
 
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{background:#030303;color:#fff;font-family:Arial,sans-serif;overflow-x:hidden}
-button{font:inherit}
-.hidden{display:none!important}
+<link rel="stylesheet" href="style.css">
 
-/* COUNTDOWN */
-#countdown{
- position:fixed;inset:0;z-index:9999;background:#000;
- display:flex;align-items:center;justify-content:center;flex-direction:column;
- overflow:hidden
-}
-#terminal{
- position:absolute;inset:0;padding:20px;color:#ff7900;
- font:13px/1.8 monospace;opacity:.22;white-space:pre-wrap
-}
-.count-number{
- position:relative;z-index:2;font:900 clamp(100px,28vw,190px) monospace;
- color:#ff7900;text-shadow:0 0 12px #ff7900,0 0 45px #ff6500;
- animation:pulse 1s infinite
-}
-.count-label{position:relative;z-index:2;color:#777;font:11px monospace;letter-spacing:4px}
-@keyframes pulse{50%{transform:scale(1.08)}}
+</head>  <body>  <!-- =====================================================  
+     1. COUNTDOWN  
+===================================================== -->  <section id="countdown">  <div class="terminal" id="terminal"></div>  
 
-/* CAKE / GIFT */
-.page{
- min-height:100vh;display:flex;align-items:center;justify-content:center;
- flex-direction:column;text-align:center;overflow:hidden;
- background:radial-gradient(circle,#281200,#060606 55%,#000)
-}
-.title{font-size:clamp(25px,7vw,50px);color:#ff7900;text-shadow:0 0 20px #ff6500;font-weight:900;margin-bottom:25px}
-.object{cursor:pointer;animation:float 2.4s ease-in-out infinite}
-.object img{width:min(65vw,330px);max-height:330px;object-fit:contain;filter:drop-shadow(0 0 15px #ff7900)}
-.hint{margin-top:22px;color:#888;font:12px monospace;letter-spacing:3px}
-@keyframes float{50%{transform:translateY(-12px)}}
+<div class="count-content">  
 
-/* PRANK */
-#prank{
- position:fixed;inset:0;z-index:9000;background:#000;
- display:none;align-items:center;justify-content:center;overflow:hidden
-}
-.core{width:80px;height:80px;border-radius:50%;background:#ff7900;
- box-shadow:0 0 25px #ff7900,0 0 100px #ff6500;animation:core .35s infinite}
-.ring{position:absolute;width:80px;height:80px;border:3px solid #ff7900;border-radius:50%;animation:ring 1s infinite}
-.prank-text{position:absolute;bottom:14%;color:#ff7900;font:12px monospace;letter-spacing:3px;text-align:center}
-@keyframes core{50%{transform:scale(1.4)}}
-@keyframes ring{to{width:120vw;height:120vw;opacity:0}}
+    <p class="count-label">  
+        SYSTEM INITIALIZING  
+    </p>  
 
-/* ERROR */
-#error{
- position:fixed;inset:0;z-index:9100;background:#000;
- display:none;align-items:center;justify-content:center;flex-direction:column
-}
-#errorButton{font:900 clamp(60px,18vw,150px) monospace;color:#ff7900;
- letter-spacing:6px;text-shadow:0 0 15px #ff6500;cursor:pointer;transition:.2s}
-#errorHint{margin-top:20px;color:#444;font:11px monospace}
-#errorCount{margin-top:10px;color:#ff6500;font:11px monospace}
+    <div  
+        class="count-number"  
+        id="number"  
+    >  
+        10  
+    </div>  
 
-/* HAPPY BIRTHDAY */
-#birthday{
- position:fixed;inset:0;z-index:8000;background:#000;display:none;overflow:hidden
-}
-#rain{position:absolute;inset:0;overflow:hidden}
-.rain-word{position:absolute;color:#ff7900;font:900 12px monospace;
- white-space:nowrap;text-shadow:0 0 8px #ff6500;animation:fall linear forwards}
-@keyframes fall{
- from{transform:translateY(-60px);opacity:0}
- 10%{opacity:1}90%{opacity:1}to{transform:translateY(110vh);opacity:0}
-}
-#heartCanvas{position:absolute;inset:0;width:100%;height:100%}
-#heartCenter{
- position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
- text-align:center;font-size:clamp(24px,7vw,55px);font-weight:900;
- text-shadow:0 0 15px #ff7900;opacity:0
-}
-#heartCenter.show{animation:appear 1s forwards}
-#heartCenter small{display:block;margin-top:8px;color:#ff7900;font:11px monospace;letter-spacing:4px}
-@keyframes appear{to{opacity:1}}
+    <p class="count-status">  
+        Preparing your birthday surprise...  
+    </p>  
 
-/* QUESTION */
-#question{
- position:fixed;inset:0;z-index:8500;background:rgba(0,0,0,.9);
- display:none;align-items:center;justify-content:center;padding:20px
-}
-.question-box{
- width:min(90vw,420px);padding:30px 22px;border:1px solid #ff7900;
- background:#080808;box-shadow:0 0 35px #ff650044;text-align:center
-}
-.q-icon{width:35px;height:35px;border:1px solid #ff7900;color:#ff7900;
- display:grid;place-items:center;margin:0 auto 18px}
-.question-box h2{font-size:20px;margin-bottom:10px}
-.question-box p{color:#aaa;font-size:13px;min-height:36px}
-.buttons{display:flex;gap:12px;justify-content:center;margin-top:24px}
-.buttons button{padding:11px 22px;border:1px solid #ff7900;background:#080808;color:#fff;cursor:pointer}
-#yes{background:#ff7900;color:#000;font-weight:900;transition:.25s}
-
-/* NEXT COUNTDOWN */
-#nextCountdown{
- position:fixed;inset:0;z-index:8800;background:#000;display:none;
- align-items:center;justify-content:center;flex-direction:column
-}
-.next-label{color:#777;font:11px monospace;letter-spacing:3px}
-
-/* MAIN */
-#main{display:none}
-.hero{
- height:100vh;min-height:650px;position:relative;display:flex;
- align-items:center;justify-content:center;text-align:center;overflow:hidden;
- background:radial-gradient(circle,#281200,#050505 55%,#000)
-}
-.grid{
- position:absolute;inset:0;
- background-image:linear-gradient(#ff790010 1px,transparent 1px),
- linear-gradient(90deg,#ff790010 1px,transparent 1px);
- background-size:45px 45px
-}
-.hero-img{position:absolute;width:min(55vw,300px);max-height:55vh;object-fit:contain;
- bottom:14%;opacity:.32;filter:drop-shadow(0 0 20px #ff7900);z-index:1}
-.hero-content{position:relative;z-index:2}
-.small{font:11px monospace;letter-spacing:5px;color:#ff7900}
-.hero h1{font-size:clamp(35px,10vw,82px);line-height:.95;margin:15px 0 8px;text-shadow:0 0 20px #ff6500}
-.hero h2{font-size:clamp(18px,5vw,32px);letter-spacing:3px}
-.typing{margin-top:25px;color:#bbb;font:14px monospace}
-.cursor{color:#ff7900}
-.scroll{position:absolute;bottom:25px;color:#666;font:10px monospace;letter-spacing:3px;z-index:3}
-.scroll-line{display:block;width:1px;height:40px;background:#ff7900;margin:10px auto}
-
-/* SECTIONS */
-.section{min-height:100vh;padding:100px 8%;position:relative;background:#050505}
-.number{font:11px monospace;color:#ff7900;letter-spacing:3px}
-.label{font:11px monospace;color:#666;letter-spacing:4px;margin-top:10px}
-.section h2{font-size:clamp(32px,8vw,60px);margin:15px 0 35px}
-.section h2 span{color:#ff7900}
-.memory-card{max-width:850px;margin:auto;border:1px solid #222;background:#080808}
-.memory-img{display:block;width:100%;max-height:520px;object-fit:cover}
-.memory-text{padding:25px}
-.memory-text small{color:#ff7900;font:10px monospace}
-.memory-text p{color:#aaa;line-height:1.8;margin-top:10px}
-
-/* TKR */
-.tkr-box{max-width:850px;margin:auto;border:1px solid #ff7900;padding:35px;position:relative;overflow:hidden;background:#090909}
-.tkr-box:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(135deg,transparent 0 18px,#ff790008 19px 20px)}
-.tkr-content{position:relative}
-.warning{font-size:35px;color:#ff7900}
-.tkr-box h3{font:900 30px monospace;margin:15px 0}
-.tkr-box p{color:#aaa}
-.status{margin-top:25px}
-.row{display:flex;justify-content:space-between;font:10px monospace;color:#aaa;margin-top:12px}
-.bar{height:5px;background:#222;margin-top:6px}
-.fill{height:100%;width:100%;background:#ff7900;box-shadow:0 0 10px #ff7900}
-.fill2{height:100%;width:92%;background:#ff7900;box-shadow:0 0 10px #ff7900}
-
-/* SPOTIFY */
-.spotify-card{max-width:650px;margin:auto;border:1px solid #222;padding:20px;background:#080808}
-.spotify-head{display:flex;gap:12px;align-items:center;margin-bottom:18px}
-.dot{width:12px;height:12px;border-radius:50%;background:#ff7900;box-shadow:0 0 15px #ff7900}
-.spotify-head span{display:block;color:#666;font:9px monospace}
-.spotify-head strong{display:block;margin-top:4px}
-iframe{border-radius:10px}
-.lyric{border-left:2px solid #ff7900;padding:12px 15px;margin-top:18px;color:#aaa;font-style:italic}
-
-/* LETTER */
-.paper{max-width:700px;margin:auto;background:#e9e4d8;color:#151515;padding:28px;border:1px solid #333}
-.paper-top,.paper-bottom{display:flex;justify-content:space-between;font:9px monospace;color:#666}
-.letter{min-height:280px;padding:35px 10px;font:15px/2 Georgia,serif;white-space:pre-line}
-.paper-bottom{border-top:1px solid #bbb;padding-top:15px}
-
-/* LAST GIFT */
-.last{min-height:70vh;display:flex;align-items:center;justify-content:center;background:#030303;padding:30px}
-.last-box{border:1px solid #ff7900;padding:35px 25px;text-align:center;cursor:pointer;box-shadow:0 0 25px #ff650033}
-.last-box small,.last-box em{display:block;font:10px monospace;color:#777}
-.last-box strong{display:block;color:#ff7900;font-size:25px;margin:18px 0}
-
-/* FINAL HEART */
-#final{
- position:fixed;inset:0;z-index:9500;background:#000;display:none;
- align-items:center;justify-content:center;overflow:hidden
-}
-.final-grid{position:absolute;inset:0;opacity:.4}
-.wire-heart{
- position:relative;width:230px;height:205px;transform:rotate(-45deg);
- cursor:pointer;filter:drop-shadow(0 0 8px #ff7900);z-index:2
-}
-.wire-heart:before,.wire-heart:after{
- content:"";position:absolute;width:150px;height:150px;border:2px solid #ff7900
-}
-.wire-heart:before{left:0;top:55px;border-right:0;border-top:0}
-.wire-heart:after{left:75px;top:0;border-left:0;border-bottom:0}
-.line{position:absolute;height:2px;background:#ff7900;box-shadow:0 0 8px #ff7900;transform-origin:left}
-.l1{width:160px;left:18px;top:110px}
-.l2{width:100px;left:80px;top:110px;transform:rotate(45deg)}
-.l3{width:100px;left:18px;top:110px;transform:rotate(-45deg)}
-.l4{width:140px;left:35px;top:70px;transform:rotate(30deg)}
-.l5{width:140px;left:45px;top:70px;transform:rotate(-30deg)}
-.l6{width:160px;left:20px;top:150px;transform:rotate(-12deg)}
-.l7{width:160px;left:20px;top:150px;transform:rotate(12deg)}
-.l8{width:110px;left:75px;top:40px;transform:rotate(90deg)}
-.for-you{position:absolute;bottom:19%;font:900 25px monospace;letter-spacing:7px}
-.final-hint{position:absolute;bottom:12%;color:#777;font:11px monospace}
-.final-top{position:absolute;top:8%;color:#ff7900;font:10px monospace;letter-spacing:3px}
-#flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:3}
-#fireworks{position:absolute;inset:0;pointer-events:none;z-index:4}
-.spark{position:absolute;width:4px;height:4px;border-radius:50%;background:#ff7900;box-shadow:0 0 8px #ff7900;animation:spark 1.3s ease-out forwards}
-@keyframes spark{to{transform:translate(var(--x),var(--y));opacity:0}}
-#final.split .wire-heart{animation:shake .7s infinite alternate}
-#final.split #flash{animation:flash .9s forwards}
-#final.split .wire-heart:after{transform:translateX(35px)}
-@keyframes shake{to{transform:rotate(-45deg) scale(1.06)}}
-@keyframes flash{30%{opacity:.95}100%{opacity:0}}
-@media(max-width:600px){.section{padding:80px 6%}.tkr-box{padding:25px}.paper{padding:20px}}
-</style>
-</head>
-
-<body>
-
-<!-- COUNTDOWN 10-1 -->
-<div id="countdown">
- <div id="terminal"></div>
- <div id="countNumber" class="count-number">10</div>
- <div class="count-label">BIRTHDAY PROTOCOL</div>
 </div>
 
-<!-- CAKE -->
-<section id="cakePage" class="page hidden">
- <h1 class="title">OH, INI YANG LAGI ULTAHH?</h1>
- <div id="cakeButton" class="object">
-  <img src="1000530075-removebg-preview.png" alt="Birthday Cake">
- </div>
- <div class="hint">TAP THE CAKE</div>
+</section>  <!-- =====================================================  
+     2. CAKE REVEAL  
+===================================================== -->  <section id="reveal">  <div class="firework f1"></div>  
+<div class="firework f2"></div>  
+<div class="firework f3"></div>  
+<div class="firework f4"></div>  
+
+<div class="reveal-content">  
+
+    <img  
+        src="1000530075-removebg-preview.png"  
+        alt="Kue ulang tahun"  
+        class="birthday-cake-image"  
+    >  
+
+    <h1 class="happy">  
+        HAPPY BIRTHDAY  
+    </h1>  
+
+    <p class="adit">  
+        M RIZKY ADITYA P  
+    </p>  
+
+</div>
+
+</section>  <!-- =====================================================  
+     3. GIFT  
+===================================================== -->  <section id="gift">  <div class="gift-content">  
+
+    <button  
+        class="gift-image-box"  
+        id="giftButton"  
+        type="button"  
+        aria-label="Buka kado"  
+    >  
+
+        <img  
+            src="1000530077-removebg-preview.png"  
+            alt="Kado ulang tahun"  
+            class="gift-image"  
+        >  
+
+    </button>  
+
+    <p class="gift-text">  
+
+        Ada hadiah buat kamu...<br>  
+
+        <span>  
+            klik kadonya 🎁  
+        </span>  
+
+    </p>  
+
+</div>
+
+</section>  <!-- =====================================================  
+     4. PRANK ERROR  
+===================================================== -->  <section id="tkrExplosion">  <div  
+    class="prank-background"  
+    id="prankBackground"  
+></div>  
+
+<div class="error-screen">  
+
+    <button  
+        class="error-glitch"  
+        id="errorWord"  
+        type="button"  
+    >  
+        ERROR  
+    </button>  
+
+    <p id="errorGuide">  
+        Klik ERROR 3 kali.  
+    </p>  
+
+    <div  
+        class="error-counter"  
+        id="errorCounter"  
+    >  
+        0 / 3  
+    </div>  
+
+</div>
+
+</section>  <!-- =====================================================  
+     5. HAPPY BIRTHDAY HEART  
+===================================================== -->  <section id="birthdayLove">  <div  
+    class="birthday-heart"  
+    id="birthdayHeart"  
+></div>  
+
+<div  
+    class="heart-message"  
+    id="heartMessage"  
+>  
+    HAPPY BIRTHDAY  
+</div>
+
+</section>  <!-- =====================================================  
+     6. NEXT QUESTION  
+===================================================== -->  <section id="nextPage">  <div class="next-box">  
+
+    <div class="question-icon">  
+        ⚙️  
+    </div>  
+
+    <h2>  
+        Siap untuk halaman berikutnya?  
+    </h2>  
+
+    <p id="noMessage">  
+        Pilih dengan bijak...  
+    </p>  
+
+    <div class="answer-buttons">  
+
+        <button  
+            id="yesButton"  
+            type="button"  
+        >  
+            YA  
+        </button>  
+
+        <button  
+            id="noButton"  
+            type="button"  
+        >  
+            TIDAK  
+        </button>  
+
+    </div>  
+
+</div>
+
+</section>  <!-- =====================================================  
+     7. MAIN WEBSITE  
+===================================================== -->  <main id="main">  <!-- =================================================  
+     HERO  
+================================================== -->  
+
+<section class="hero">  
+
+    <div class="hero-content">  
+
+        <div class="birthday-character">  
+
+            <img  
+                src="1000530082-removebg-preview.png"  
+                alt="Boneka ulang tahun"  
+                class="character-image"  
+            >  
+
+        </div>  
+
+        <p class="hero-small">  
+            SPECIAL DAY DETECTED  
+        </p>  
+
+        <h1>  
+            HAPPY BIRTHDAY  
+        </h1>  
+
+        <h2>  
+            M RIZKY ADITYA P  
+        </h2>  
+
+        <div class="typing-wrapper">  
+
+            <p  
+                class="typing"  
+                id="typingText"  
+            ></p>  
+
+            <span class="cursor"></span>  
+
+        </div>  
+
+    </div>  
+
+</section>  
+
+
+<!-- =================================================  
+     A LITTLE MEMORY  
+================================================== -->  
+
+<section class="section memory-section">  
+
+    <div class="container">  
+
+        <p class="section-label">  
+            MEMORY DATABASE  
+        </p>  
+
+        <h2 class="title">  
+            A Little Memory  
+        </h2>  
+
+        <div class="photo">  
+
+            <img  
+                src="IMG-20260824-WA0443.jpg"  
+                alt="A little memory"  
+            >  
+
+        </div>  
+
+        <p class="section-description">  
+            Sebuah foto, sebuah momen,  
+            dan satu kenangan yang tersimpan.  
+        </p>  
+
+    </div>  
+
+</section>  
+
+
+<!-- =================================================  
+     TKR SECTION  
+================================================== -->  
+
+<section class="section tkr-section">  
+
+    <div class="container">  
+
+        <p class="section-label">  
+            AUTOMOTIVE MODULE  
+        </p>  
+
+        <h2 class="title">  
+            TKR MODE  
+        </h2>  
+
+        <div class="tkr-card">  
+
+            <div class="gear">  
+                ⚙️  
+            </div>  
+
+            <h3>  
+                Teknik Kendaraan Ringan  
+            </h3>  
+
+            <p>  
+                Semoga semakin jago,  
+                semakin sukses,  
+                dan semua yang kamu cita-citakan  
+                bisa tercapai.  
+            </p>  
+
+            <div class="tools-row">  
+                🔧 &nbsp; ⚙️ &nbsp; 🔩 &nbsp; 🛠️  
+            </div>  
+
+        </div>  
+
+    </div>  
+
+</section>  
+
+
+<!-- =================================================  
+     SPOTIFY  
+================================================== -->  
+
+<section class="section spotify-section">  
+
+    <div class="container">  
+
+        <p class="section-label">  
+            SOUNDTRACK  
+        </p>  
+
+        <h2 class="title">  
+            A Song For You  
+        </h2>  
+
+        <p class="spotify-subtitle">  
+            Ada satu lagu yang menemani halaman ini.  
+            Tinggal tekan play, karena manusia rupanya  
+            belum puas membuat perasaan menjadi playlist.  
+        </p>  
+
+        <div class="spotify-player">  
+
+            <iframe  
+                src="https://open.spotify.com/embed/track/2uy1RsdzULhpzJCiWoTlK3?utm_source=generator"  
+                width="100%"  
+                height="152"  
+                frameborder="0"  
+                allowfullscreen  
+                allow="  
+                    autoplay;  
+                    clipboard-write;  
+                    encrypted-media;  
+                    fullscreen;  
+                    picture-in-picture  
+                "  
+                loading="lazy"  
+                title="Spotify music player"  
+            ></iframe>  
+
+        </div>  
+
+        <div class="song-lyrics">  
+
+            <h3>  
+                Lyrics  
+            </h3>  
+
+            <p id="lyricsText">  
+                Putar lagunya dan nikmati bagian favoritmu.  
+            </p>  
+
+            <small>  
+                *Cuplikan lirik dapat ditambahkan kemudian.  
+            </small>  
+
+        </div>  
+
+    </div>  
+
+</section>  
+
+
+<!-- =================================================  
+     LETTER  
+================================================== -->  
+
+<section class="section letter-section">  
+
+    <div class="container">  
+
+        <p class="section-label">  
+            PRIVATE MESSAGE  
+        </p>  
+
+        <h2 class="title">  
+            A Letter For You  
+        </h2>  
+
+        <div class="letter">  
+
+            <p>  
+                Happy birthday yaa.  
+            </p>  
+
+            <br>  
+
+            <p>  
+                Semoga di umur yang baru ini,  
+                kamu selalu diberikan kesehatan,  
+                kebahagiaan, dan banyak hal baik.  
+            </p>  
+
+            <br>  
+
+            <p>  
+                Semoga semua rencana dan impianmu  
+                perlahan bisa tercapai.  
+                Jangan lupa tetap semangat,  
+                walaupun kadang hidup suka  
+                memberikan error tanpa peringatan.  
+            </p>  
+
+            <br>  
+
+            <p>  
+                Terima kasih sudah menjadi seseorang  
+                yang punya cerita sendiri dalam hidupku.  
+            </p>  
+
+            <br>  
+
+            <p>  
+                Sekali lagi,  
+                HAPPY BIRTHDAY 🎂  
+            </p>  
+
+        </div>  
+
+    </div>  
+
+</section>  
+
+
+<!-- =================================================  
+     FINAL GIFT  
+================================================== -->  
+
+<section class="end">  
+
+    <div class="end-content">  
+
+        <p class="section-label">  
+            FINAL PROTOCOL  
+        </p>  
+
+        <h2>  
+            Hadiah terakhir nihhh  
+        </h2>  
+
+        <p>  
+            Tapi ini yang terakhir.  
+            Beneran.  
+        </p>  
+
+        <button  
+            class="next-button"  
+            id="finalGiftButton"  
+            type="button"  
+        >  
+            BUKA 🎁  
+        </button>  
+
+    </div>  
+
 </section>
 
-<!-- GIFT -->
-<section id="giftPage" class="page hidden">
- <h1 class="title">ADA SESUATU BUAT KAMU...</h1>
- <div id="giftButton" class="object">
-  <img src="1000530077-removebg-preview.png" alt="Birthday Gift">
- </div>
- <div class="hint">KLIK KADONYA</div>
-</section>
-
-<!-- PRANK -->
-<div id="prank">
- <div class="ring"></div>
- <div class="core"></div>
- <div class="prank-text">SYSTEM OVERLOAD...<br>BIRTHDAY DATA EXPANDING...</div>
-</div>
-
-<!-- ERROR -->
-<div id="error">
- <div id="errorButton">ERROR</div>
- <div id="errorHint">CLICK TO RECOVER SYSTEM</div>
- <div id="errorCount">ATTEMPT 0 / 3</div>
-</div>
-
-<!-- HAPPY BIRTHDAY -->
-<div id="birthday">
- <div id="rain"></div>
- <canvas id="heartCanvas"></canvas>
- <div id="heartCenter">
-  HAPPY BIRTHDAY
-  <small>M. RIZKY ADITYA P</small>
- </div>
-</div>
-
-<!-- QUESTION -->
-<div id="question">
- <div class="question-box">
-  <div class="q-icon">!</div>
-  <h2>Siap untuk halaman berikutnya?</h2>
-  <p id="qmsg">Masih ada sesuatu lagi di depan sana...</p>
-  <div class="buttons">
-   <button id="no">TIDAK</button>
-   <button id="yes">YA</button>
-  </div>
- </div>
-</div>
-
-<!-- COUNTDOWN 3-2-1 -->
-<div id="nextCountdown">
- <div class="next-label">NEXT PAGE INITIALIZING</div>
- <div id="nextNumber" class="count-number">3</div>
-</div>
-
-<!-- MAIN -->
-<main id="main">
-
- <section class="hero">
-  <div class="grid"></div>
-  <img class="hero-img" src="1000530082-removebg-preview.png" alt="">
-  <div class="hero-content">
-   <div class="small">SPECIAL DAY</div>
-   <h1>HAPPY BIRTHDAY</h1>
-   <h2>M RIZKY ADITYA P</h2>
-   <div class="typing"><span id="typing"></span><span class="cursor">|</span></div>
-  </div>
-  <div class="scroll">SCROLL DOWN<div class="scroll-line"></div></div>
- </section>
-
- <section class="section">
-  <div class="number">01</div>
-  <div class="label">A LITTLE MEMORY</div>
-  <h2>Some moments <span>remain.</span></h2>
-  <div class="memory-card">
-   <img class="memory-img" src="Screenshot_20260810_204957_Gallery.jpg" alt="A Little Memory">
-   <div class="memory-text">
-    <small>MEMORY // 2026</small>
-    <p>Ada beberapa hal yang mungkin terlihat sederhana, tapi ternyata cukup untuk menjadi sebuah kenangan.</p>
-   </div>
-  </div>
- </section>
-
- <section class="section">
-  <div class="number">02</div>
-  <div class="label">TKR MODE</div>
-  <h2>Built <span>different.</span></h2>
-  <div class="tkr-box">
-   <div class="tkr-content">
-    <div class="warning">⚠</div>
-    <h3>BIRTHDAY ENGINE</h3>
-    <p>Engine status: <b style="color:#ff7900">OVERPOWERED</b></p>
-    <div class="status">
-     <div class="row"><span>ENGINE</span><span>100%</span></div>
-     <div class="bar"><div class="fill"></div></div>
-     <div class="row"><span>HAPPINESS</span><span>MAX</span></div>
-     <div class="bar"><div class="fill2"></div></div>
-     <div class="row"><span>AGE</span><span>UPGRADED</span></div>
-    </div>
-   </div>
-  </div>
- </section>
-
- <section class="section">
-  <div class="number">03</div>
-  <div class="label">ONE SONG</div>
-  <h2>Press <span>play.</span></h2>
-  <div class="spotify-card">
-   <div class="spotify-head">
-    <div class="dot"></div>
-    <div><span>NOW PLAYING</span><strong>A LITTLE SOMETHING</strong></div>
-   </div>
-   <iframe src="https://open.spotify.com/embed/track/2uy1RsdzULhpzJCiWoTlK3?utm_source=generator"
-    width="100%" height="152" frameborder="0"
-    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-    loading="lazy"></iframe>
-   <div class="lyric">Tambahkan kutipan lirik pendek yang kamu pilih di bagian ini.</div>
-  </div>
- </section>
-
- <section class="section">
-  <div class="number">04</div>
-  <div class="label">A SMALL LETTER</div>
-  <h2>Read this <span>slowly.</span></h2>
-  <div class="paper">
-   <div class="paper-top"><span>TO : M. RIZKY ADITYA P</span><span>2026</span></div>
-   <div id="letter" class="letter"></div>
-   <div class="paper-bottom"><span>END OF MESSAGE_</span></div>
-  </div>
- </section>
-
- <section class="last">
-  <div id="lastGift" class="last-box">
-   <small>SYSTEM MESSAGE</small>
-   <strong>hadiah terakhir nihhh</strong>
-   <em>CLICK HERE</em>
-  </div>
- </section>
-
-</main>
-
-<!-- FINAL -->
-<section id="final">
- <div class="final-grid grid"></div>
- <div class="final-top">FINAL TRANSMISSION /// 001</div>
-
- <div id="wireHeart" class="wire-heart">
-  <i class="line l1"></i><i class="line l2"></i>
-  <i class="line l3"></i><i class="line l4"></i>
-  <i class="line l5"></i><i class="line l6"></i>
-  <i class="line l7"></i><i class="line l8"></i>
- </div>
-
- <div class="for-you">FOR YOU</div>
- <div class="final-hint">jangan klik love nya</div>
- <div id="flash"></div>
- <div id="fireworks"></div>
-</section>
-
-<script>
-/* =========================
-   ELEMENT
-========================= */
-const $=id=>document.getElementById(id);
-
-/* =========================
-   TERMINAL
-========================= */
-const terminalLines=[
-"> booting birthday_protocol...",
-"> loading memory...",
-"> calibrating orange_engine...",
-"> checking birthday data...",
-"> target: M_RIZKY_ADITYA_P",
-"> status: READY",
-"> countdown initialized..."
-];
-
-terminalLines.forEach((text,i)=>{
- const s=document.createElement("div");
- s.textContent=text;
- s.style.position="absolute";
- s.style.top=(15+i*28)+"px";
- s.style.left=(i%2?32:7)+"%";
- $("terminal").appendChild(s);
-});
-
-/* =========================
-   COUNTDOWN 10 -> 1
-========================= */
-let count=10;
-$("countNumber").textContent=count;
-
-const firstTimer=setInterval(()=>{
- count--;
-
- if(count>=1){
-  $("countNumber").textContent=count;
- }else{
-  clearInterval(firstTimer);
-  $("countdown").style.display="none";
-  $("cakePage").classList.remove("hidden");
- }
-},1000);
-
-/* =========================
-   CAKE -> GIFT
-========================= */
-$("cakeButton").onclick=()=>{
- $("cakePage").classList.add("hidden");
- $("giftPage").classList.remove("hidden");
-};
-
-/* =========================
-   GIFT -> PRANK -> ERROR
-========================= */
-$("giftButton").onclick=()=>{
- $("giftPage").classList.add("hidden");
- $("prank").style.display="flex";
-
- setTimeout(()=>{
-  $("prank").style.display="none";
-  $("error").style.display="flex";
- },2200);
-};
-
-/* =========================
-   ERROR 3X
-========================= */
-let errorClicks=0;
-
-$("errorButton").onclick=()=>{
- errorClicks++;
- $("errorCount").textContent=`ATTEMPT ${errorClicks} / 3`;
-
- if(errorClicks===1){
-  $("errorButton").style.transform="scale(1.08)";
- }
-
- if(errorClicks===2){
-  $("errorButton").style.transform="scale(1.2)";
-  $("errorButton").style.textShadow="0 0 30px #fff,0 0 60px #ff6500";
- }
-
- if(errorClicks===3){
-  $("error").style.display="none";
-  createBirthdayHeart();
- }
-};
-
-/* =========================
-   HAPPY BIRTHDAY HEART
-========================= */
-function createBirthdayHeart(){
- $("birthday").style.display="block";
-
- const canvas=$("heartCanvas");
- const ctx=canvas.getContext("2d");
-
- function resize(){
-  canvas.width=innerWidth;
-  canvas.height=innerHeight;
- }
- resize();
-
- let points=[];
- const scale=Math.min(innerWidth,innerHeight)/38;
-
- for(let t=0;t<Math.PI*2;t+=.055){
-  const x=16*Math.pow(Math.sin(t),3);
-  const y=-(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t));
-  points.push({
-   x:innerWidth/2+x*scale,
-   y:innerHeight/2+y*scale
-  });
- }
-
- /* HUJAN TEKS */
- for(let i=0;i<100;i++){
-  const span=document.createElement("span");
-  span.className="rain-word";
-  span.textContent="HAPPY BIRTHDAY";
-  span.style.left=Math.random()*100+"%";
-  span.style.animationDuration=(3+Math.random()*4)+"s";
-  span.style.animationDelay=Math.random()*3+"s";
-  $("rain").appendChild(span);
- }
-
- let shown=0;
-
- function draw(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-
-  ctx.font="900 11px monospace";
-  ctx.fillStyle="#ff7900";
-  ctx.shadowColor="#ff6500";
-  ctx.shadowBlur=8;
-
-  for(let i=0;i<shown;i++){
-   const p=points[i];
-   ctx.fillText("HAPPY BIRTHDAY",p.x,p.y);
-  }
-
-  if(shown<points.length){
-   shown+=2;
-   requestAnimationFrame(draw);
-  }else{
-   $("heartCenter").classList.add("show");
-
-   /* tahan 3 detik */
-   setTimeout(()=>{
-    $("question").style.display="flex";
-   },3000);
-  }
- }
-
- draw();
-}
-
-/* =========================
-   QUESTION
-========================= */
-const messages=[
-"yahh jahat 😭",
-"yakin gamau tauu?",
-"serius nih?",
-"kok TIDAK terus sih 😭",
-"padahal masih ada satu lagi...",
-"coba pikir lagi deh",
-"yaelahh 😭",
-"TERAKHIR NIH, YAKIN?"
-];
-
-let noClicks=0;
-
-$("no").onclick=()=>{
- noClicks++;
- $("qmsg").textContent=messages[(noClicks-1)%messages.length];
-
- const scale=Math.min(1+noClicks*.13,2.2);
- $("yes").style.transform=`scale(${scale})`;
-};
-
-$("yes").onclick=()=>{
- $("question").style.display="none";
- startNextCountdown();
-};
-
-/* =========================
-   COUNTDOWN 3 -> 1
-========================= */
-function startNextCountdown(){
- $("nextCountdown").style.display="flex";
-
- let n=3;
- $("nextNumber").textContent=n;
-
- const timer=setInterval(()=>{
-  n--;
-
-  if(n>=1){
-   $("nextNumber").textContent=n;
-  }else{
-   clearInterval(timer);
-   $("nextCountdown").style.display="none";
-   $("main").style.display="block";
-   typing();
-  }
- },1000);
-}
-
-/* =========================
-   TYPING
-========================= */
-function typing(){
- const text="Semoga tahun ini membawa lebih banyak cerita, tawa, dan hal-hal baik.";
- let i=0;
-
- const timer=setInterval(()=>{
-  $("typing").textContent=text.slice(0,i);
-  i++;
-
-  if(i>text.length)clearInterval(timer);
- },45);
-}
-
-/* =========================
-   LETTER
-========================= */
-$("letter").textContent=
-`Selamat ulang tahun.
-
-Semoga bertambahnya usia membawa banyak hal baik.
-Semoga langkahmu selalu menemukan jalan yang tepat,
-dan semoga setiap proses yang sedang kamu jalani
-bisa menjadi sesuatu yang nantinya kamu banggakan.
-
-Tetap jadi diri sendiri,
-tetap berkembang,
-dan jangan lupa menikmati perjalananmu.
-
-Happy birthday, M. Rizky Aditya P.`;
-
-/* =========================
-   LAST GIFT
-========================= */
-$("lastGift").onclick=()=>{
- $("main").style.display="none";
- $("final").style.display="flex";
-};
-
-/* =========================
-   FINAL HEART
-========================= */
-let finalClicked=false;
-
-$("wireHeart").onclick=()=>{
- if(finalClicked)return;
- finalClicked=true;
-
- $("final").classList.add("split");
-
- setTimeout(()=>{
-  makeFireworks();
- },650);
-
- setTimeout(()=>{
-  $("wireHeart").style.opacity="0";
-  $(".for-you").style.opacity="0";
-  $(".final-hint").style.opacity="0";
- },1000);
-};
-
-/* =========================
-   FIREWORKS
-========================= */
-function makeFireworks(){
- const box=$("fireworks");
-
- for(let b=0;b<15;b++){
-  setTimeout(()=>{
-   const cx=10+Math.random()*80;
-   const cy=12+Math.random()*60;
-
-   for(let i=0;i<32;i++){
-    const s=document.createElement("i");
-    s.className="spark";
-    s.style.left=cx+"%";
-    s.style.top=cy+"%";
-
-    const angle=(Math.PI*2*i)/32;
-    const distance=60+Math.random()*180;
-
-    s.style.setProperty("--x",Math.cos(angle)*distance+"px");
-    s.style.setProperty("--y",Math.sin(angle)*distance+"px");
-
-    box.appendChild(s);
-
-    setTimeout(()=>s.remove(),1400);
-   }
-  },b*120);
- }
-}
-</script>
-</body>
-</html>
+</main>  <!-- =====================================================  
+     8. FINAL 3D HEART PAGE  
+===================================================== -->  <section id="finalLovePage">  <div  
+    id="love3dContainer"  
+    class="love3d-container"  
+></div>  
+
+<div class="final-love-text">  
+
+    <p class="for-you">  
+        FOR YOU  
+    </p>  
+
+    <p class="love-hint">  
+        jangan klik love nya  
+    </p>  
+
+</div>  
+
+<div  
+    id="fireworksContainer"  
+    class="fireworks-container"  
+></div>
+
+</section>  <!-- =====================================================  
+     THREE.JS  
+===================================================== -->  <script  
+    src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"  
+></script>  <script src="script.js"></script>  </body>  
+</html>   Tu birthday html
